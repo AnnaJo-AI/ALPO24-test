@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ALPO24 - Algorytm postępowania 24H</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #2c3e50; 
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        /* EKRAN LOGOWANIA */
+        #login-screen {
+            background-color: white;
+            padding: 40px 20px; 
+            border-radius: 12px;
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 16px rgba(0,45,90,0.08); 
+            text-align: center;
+            margin-top: 10vh;
+        }
+        #login-screen h1 {
+            color: #002d5a;
+            margin-bottom: 5px;
+        }
+        #login-screen p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+        #login-screen input[type="password"] {
+            width: 80%;
+            max-width: 300px;
+            padding: 15px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        #login-screen .btn-primary {
+            width: 80%;
+            max-width: 300px;
+        }
+        #login-error {
+            color: #d9534f;
+            margin-top: 15px;
+            font-weight: bold;
+            display: none;
+        }
+
+        /* GŁÓWNA APLIKACJA (UKRYTA NA START) */
+        #main-app {
+            display: none; /* Ukryte dopóki nie podasz hasła */
+            background-color: white;
+            padding: 0 20px 20px 20px; 
+            border-radius: 12px;
+            min-height: 80vh;
+            flex-direction: column;
+            box-shadow: 0 8px 16px rgba(0,45,90,0.08); 
+            overflow: hidden; 
+        }
+        
+        /* NAGŁÓWEK ALPO24 */
+        .header-alpo {
+            background: linear-gradient(135deg, #002d5a 0%, #001a33 100%); 
+            color: white;
+            padding: 22px 20px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            border-bottom: 4px solid #fecb00; 
+            margin: 0 -20px 25px -20px; 
+        }
+
+        .logo-box {
+            background: white;
+            color: #002d5a;
+            padding: 6px 12px;
+            font-weight: 900;
+            font-size: clamp(16px, 5vw, 22px); 
+            border-radius: 6px;
+            margin-right: 12px;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .brand-name {
+            font-size: clamp(12px, 4vw, 20px); 
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+            white-space: nowrap; 
+        }
+
+        .brand-name span {
+            font-weight: 900;
+            color: #fecb00;
+            font-size: 1.1em; 
+        }
+
+        .section-title {
+            color: #002d5a;
+            border-bottom: 2px solid #fecb00; 
+            padding-bottom: 8px;
+            margin-top: 25px;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+        
+        /* ZAKŁADKI */
+        .tabs-container {
+            display: flex;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            border: 2px solid #002d5a;
+        }
+        .tab-button {
+            flex: 1;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: transparent;
+            color: #002d5a;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .tab-button.active {
+            background-color: #002d5a;
+            color: white;
+            border-bottom: 4px solid #fecb00; 
+        }
+        .tab-content { display: none; flex-grow: 1; }
+        .tab-content.active { display: block; }
+
+        /* WYSZUKIWARKA */
+        input[type="text"] {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            -webkit-appearance: none;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #002d5a;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #002d5a; 
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-primary:active { background-color: #001a33; }
+        .btn-secondary { background-color: #6c757d; margin-top: 25px; }
+        
+        .result-item {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            font-size: 16px;
+            color: #002d5a;
+            transition: background-color 0.2s ease;
+        }
+        .result-item:hover { background-color: #f1f4f8; }
+
+        /* PODSTAWY PRAWNE (WIDOK STARTOWY) */
+        .legal-basis-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .legal-card {
+            background-color: #fdfdfd;
+            border: 1px solid #eee;
+            border-left: 4px solid #fecb00;
+            padding: 18px;
+            border-radius: 0 8px 8px 0;
+            font-size: 14px; 
+            color: #333;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+        .legal-card h4 {
+            color: #002d5a;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .legal-card p {
+            margin: 8px 0;
+            line-height: 1.6;
+            text-align: justify;
+            hyphens: auto;
+        }
+        .legal-card b { color: #002d5a; }
+
+        @media (max-width: 600px) {
+            .legal-basis-container { grid-template-columns: 1fr; }
+        }
+
+        /* WNĘTRZE ALGORYTMU (CYTATY I KROKI) */
+        .article-quote {
+            background-color: #fcfcfc;
+            border: 1px solid #eee;
+            border-left: 4px solid #fecb00; 
+            padding: 18px;
+            margin-bottom: 25px;
+            font-style: italic;
+            color: #444;
+            border-radius: 0 8px 8px 0;
+            font-size: 15px;
+            line-height: 1.6;
+            text-align: justify; 
+        }
+        
+        .step-item {
+            background-color: #ffffff;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+            font-size: 16px;
+            line-height: 1.6;
+            text-align: justify; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+            border: 1px solid #f0f0f0;
+            border-left: 4px solid #002d5a;
+        }
+        .step-item b {
+            color: #002d5a;
+            font-size: 1.1em;
+            display: block; 
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .documents-section {
+            margin-top: 35px;
+            padding: 20px;
+            background-color: #fff8e1; 
+            border: 1px solid #fecb00;
+            border-radius: 8px;
+        }
+        .documents-section h3 {
+            margin-top: 0;
+            color: #002d5a;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+        .document-item { margin: 12px 0; padding-left: 28px; position: relative; }
+        
+        .document-link { color: #002d5a; text-decoration: none; font-weight: 600; transition: color 0.2s; display: inline-block; }
+        .document-link:hover { color: #004494; text-decoration: underline; }
+        
+        #algorithm-view { display: none; }
+        
+        /* ZAKŁADKA PRZEPISY (KARTY) */
+        .przepisy-category {
+            font-size: 16px;
+            color: #666;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tiles-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .tile {
+            background-color: white;
+            color: #002d5a;
+            padding: 20px 10px;
+            border-radius: 10px;
+            border: 1px solid #eaeaea;
+            border-bottom: 4px solid #002d5a; 
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+            transition: all 0.2s ease;
+        }
+
+        .tile:active, .tile:hover {
+            transform: translateY(-3px); 
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            border-bottom-color: #fecb00; 
+        }
+
+        .tile-icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+            background-color: #f4f7f6; 
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tile-full { grid-column: 1 / -1; }
+
+        .app-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #aaa;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="login-screen">
+    <div class="logo-box" style="margin-bottom: 20px; display: inline-block;">ALPO24</div>
+    <h1>Wersja Testowa</h1>
+    <p>Podaj hasło dostępu, aby odblokować algorytmy.</p>
+    <input type="password" id="passwordInput" placeholder="Wpisz hasło..." onkeydown="if(event.key === 'Enter') sprawdzHaslo()">
+    <button class="btn-primary" onclick="sprawdzHaslo()">Odblokuj</button>
+    <div id="login-error">Nieprawidłowe hasło!</div>
+</div>
+
+<div class="container" id="main-app">
+    
+    <div class="header-alpo">
+      <div class="logo-box">ALPO24</div>
+      <div class="brand-name">Algorytm postępowania <span>24H</span></div>
+    </div>
+
+    <div class="tabs-container">
+        <button class="tab-button active" id="btn-algorytmy" onclick="switchTab('algorytmy')">Algorytmy</button>
+        <button class="tab-button" id="btn-przepisy" onclick="switchTab('przepisy')">Przepisy</button>
+    </div>
+
+    <div id="tab-algorytmy" class="tab-content active">
+        <div id="search-view">
+            
+            <div class="legal-basis-container">
+                <div class="legal-card">
+                    <h4><span style="font-size: 16px; margin-right: 5px;">🚨</span> Wszczęcie i zawiadomienie</h4>
+                    <p><b>Art. 303. k.p.k.</b><br>Jeżeli zachodzi uzasadnione podejrzenie popełnienia przestępstwa, wydaje się z urzędu lub na skutek zawiadomienia o przestępstwie postanowienie o wszczęciu śledztwa, w którym określa się czyn będący przedmiotem postępowania oraz jego kwalifikację prawną.</p>
+                    
+                    <p><b>Art. 304. k.p.k.</b><br>
+                    <b>§ 1.</b> Każdy, dowiedziawszy się o popełnieniu przestępstwa ściganego z urzędu, ma społeczny obowiązek zawiadomić o tym prokuratora lub Policję. Przepisy art. 148a oraz art. 156a stosuje się odpowiednio.<br>
+                    <b>§ 2.</b> Instytucje państwowe i samorządowe, które w związku ze swą działalnością dowiedziały się o popełnieniu przestępstwa ściganego z urzędu, są obowiązane niezwłocznie zawiadomić o tym prokuratora lub Policję oraz przedsięwziąć niezbędne czynności do czasu przybycia organu powołanego do ścigania przestępstw lub do czasu wydania przez ten organ stosownego zarządzenia, aby nie dopuścić do zatarcia śladów i dowodów przestępstwa.<br>
+                    <b>§ 3.</b> Zawiadomienie o przestępstwie lub własne dane świadczące o popełnieniu takiego przestępstwa, co do którego obowiązkowe jest prowadzenie śledztwa przez prokuratora, Policja przekazuje wraz z zebranym materiałem niezwłocznie prokuratorowi.</p>
+                </div>
+                
+                <div class="legal-card">
+                    <h4><span style="font-size: 16px; margin-right: 5px;">📝</span> Wymogi formalne (Protokoły)</h4>
+                    <p><b>Art. 143. k.p.k.</b><br>
+                    <b>§ 1.</b> Spisania protokołu wymagają:<br>
+                    1) przyjęcie ustnego zawiadomienia o przestępstwie, wniosku o ściganie i jego cofnięcie;<br>
+                    2) przesłuchanie oskarżonego, świadka, biegłego i kuratora;<br>
+                    3) dokonanie oględzin;<br>
+                    4) dokonanie otwarcia zwłok oraz wyjęcie zwłok z grobu;<br>
+                    5) przeprowadzenie eksperymentu, konfrontacji oraz okazania;<br>
+                    6) przeszukanie osoby, miejsca, rzeczy i systemu informatycznego oraz zatrzymanie rzeczy i danych informatycznych;<br>
+                    7) otwarcie korespondencji i przesyłki oraz odtworzenie utrwalonych zapisów;<br>
+                    8) zapoznanie się z treścią dowodu przewidzianego w art. 393 § 1 zdanie pierwsze;<br>
+                    9) przyjęcie poręczenia;<br>
+                    10) przebieg posiedzenia, jeżeli przepisy ustawy nie stanowią inaczej;<br>
+                    11) przebieg rozprawy.<br>
+                    <b>§ 2.</b> Z innych czynności spisuje się protokół, jeżeli przepis szczególny tego wymaga albo przeprowadzający czynność uzna to za potrzebne. W innych wypadkach można ograniczyć się do sporządzenia notatki urzędowej.</p>
+
+                    <p><b>Art. 304a. k.p.k.</b><br>Sporządza się wspólny protokół z przyjęcia ustnego zawiadomienia o przestępstwie i przesłuchania w charakterze świadka osoby zawiadamiającej; w protokole tym można również zamieścić wniosek o ściganie.</p>
+                </div>
+            </div>
+
+            <input type="text" id="searchInput" placeholder="Szukaj procedury (np. 190, groźby, kradzież)..." oninput="searchCrime()" onkeydown="if(event.key === 'Enter') searchCrime()">
+            <button class="btn-primary" onclick="searchCrime()">Szukaj procedury</button>
+            <div id="resultsList" style="margin-top: 20px;"></div>
+        </div>
+        
+        <div id="algorithm-view">
+            <h2 id="crimeTitle" class="section-title">Tytuł przestępstwa</h2>
+            
+            <div id="articleQuote" class="article-quote"></div>
+            <div id="stepsContainer"></div>
+            
+            <div class="documents-section">
+                <h3>Niezbędne protokoły i druki:</h3>
+                <div id="documentsContainer"></div>
+            </div>
+            <button class="btn-primary btn-secondary" onclick="goBack()">Zakończ i wróć do wyszukiwarki</button>
+        </div>
+    </div>
+
+    <div id="tab-przepisy" class="tab-content">
+        
+        <h3 class="przepisy-category">Kodeksy</h3>
+        <div class="tiles-grid">
+            <a href="przepisy/kk.pdf" target="_blank" class="tile"><div class="tile-icon">📕</div>Kodeks karny</a>
+            <a href="przepisy/kpk.pdf" target="_blank" class="tile"><div class="tile-icon">📘</div>Kodeks postępowania karnego</a>
+            <a href="przepisy/kw.pdf" target="_blank" class="tile"><div class="tile-icon">📗</div>Kodeks wykroczeń</a>
+            <a href="przepisy/kkw.pdf" target="_blank" class="tile"><div class="tile-icon">📙</div>Kodeks karny wykonawczy</a>
+            <a href="przepisy/kpow.pdf" target="_blank" class="tile tile-full"><div class="tile-icon">📔</div>Kodeks postępowania w sprawach o wykroczenia</a>
+        </div>
+
+        <h3 class="przepisy-category">Ustawy</h3>
+        <div class="tiles-grid">
+            <a href="przepisy/uop.pdf" target="_blank" class="tile"><div class="tile-icon">🛡️</div>Ustawa o Policji</a>
+            <a href="przepisy/uobp.pdf" target="_blank" class="tile"><div class="tile-icon">🔫</div>Ustawa o broni i amunicji</a>
+            <a href="przepisy/uopn.pdf" target="_blank" class="tile"><div class="tile-icon">🌿</div>Ustawa o przeciwdziałaniu narkomanii</a>
+            <a href="przepisy/uobim.pdf" target="_blank" class="tile"><div class="tile-icon">🏟️</div>Ustawa o bezpieczeństwie imprez masowych</a>
+            <a href="przepisy/uoz.pdf" target="_blank" class="tile tile-full"><div class="tile-icon">🐾</div>Ustawa o ochronie zwierząt</a>
+        </div>
+
+        <h3 class="przepisy-category">Wytyczne i Zarządzenia</h3>
+        <div class="tiles-grid">
+            <a href="przepisy/wytyczne_3KGP.pdf" target="_blank" class="tile tile-full">
+                <div class="tile-icon">📋</div>
+                Wytyczne nr 3 KGP w sprawie wykonywania niektórych czynności dochodzeniowo-śledczych przez policjantów
+            </a>
+        </div>
+
+    </div>
+
+    <div class="app-footer">
+        Stworzone przez: Joanna
+    </div>
+</div>
+
+<script>
+    // FUNKCJA LOGOWANIA
+    function sprawdzHaslo() {
+        const haslo = document.getElementById("passwordInput").value;
+        const errorDiv = document.getElementById("login-error");
+        
+        if (haslo === "patrol24") {
+            // Jeśli hasło jest poprawne: ukryj ekran logowania, pokaż aplikację
+            document.getElementById("login-screen").style.display = "none";
+            document.getElementById("main-app").style.display = "flex";
+        } else {
+            // Jeśli błędne: pokaż błąd
+            errorDiv.style.display = "block";
+        }
+    }
+
+    function usunWdowy(tekst) {
+        if (!tekst) return "";
+        let wynik = tekst;
+        const regex = / (w|z|i|o|a|u|do|na|za|ze|od|we|po|nr|lub) /gi;
+        wynik = wynik.replace(regex, ' $1&nbsp;');
+        wynik = wynik.replace(regex, ' $1&nbsp;');
+        wynik = wynik.replace(/>(w|z|i|o|a|u|do|na|za|ze|od|we|po|nr|lub) /gi, '>$1&nbsp;');
+        wynik = wynik.replace(/ (Art\.|art\.|ust\.|poz\.|pkt) /g, ' $1&nbsp;');
+        return wynik;
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const karty = document.querySelectorAll('.legal-card p, .legal-card h4');
+        karty.forEach(p => {
+            p.innerHTML = usunWdowy(p.innerHTML);
+        });
+    });
+
+    function switchTab(tabName) {
+        document.getElementById('tab-algorytmy').classList.remove('active');
+        document.getElementById('tab-przepisy').classList.remove('active');
+        document.getElementById('btn-algorytmy').classList.remove('active');
+        document.getElementById('btn-przepisy').classList.remove('active');
+        
+        document.getElementById('tab-' + tabName).classList.add('active');
+        document.getElementById('btn-' + tabName).classList.add('active');
+    }
+
+    const crimeDatabase = [
+        {
+            id: 1,
+            title: "Art. 190 k.k. - Groźba karalna",
+            keywords: ["190", "groźba", "groźby"],
+            articleText: `<b>Art. 190. k.k.</b><br>§ 1. Kto grozi innej osobie popełnieniem przestępstwa na jej szkodę lub na szkodę osoby dla niej najbliższej, jeżeli groźba wzbudza w osobie, do której została skierowana lub której dotyczy, uzasadnioną obawę, że będzie spełniona, podlega karze pozbawienia wolności do lat 3.<br>§ 2. Ściganie następuje na wniosek pokrzywdzonego.`,
+            steps: [
+                `<b>I. Co się stało? (Istota czynu)</b>- Jakich dokładnie słów użył sprawca lub jakie wykonał gesty? (Jeśli pokrzywdzony pamięta zacytuj jego słowa)<br>- Czym dokładnie groził sprawca? (Czy zapowiadał popełnienie przestępstwa: np. pozbawienie życia, pobicie, podpalenie, zniszczenie mienia, inne?)<br>- Czy i dlaczego wypowiedziane słowa/gesty wzbudziły w pokrzywdzonym obawę, że zostaną spełnione? (Kluczowe dla art. 190 k.k. – należy ustalić "uzasadnioną obawę" na podstawie cech sprawcy, jego wcześniejszego zachowania, agresji).`,
+                `<b>II. Gdzie doszło do zdarzenia? (Miejsca główne i powiązane)</b>- W jakim dokładnie miejscu fizycznym doszło do zdarzenia? (adres fizyczny - miejscowość, ulica, numer bloku, lokalu, wskaż dokładne miejsce - klatka schodowa, parking, ulica, inne)<br>- Gdzie znajdował się sprawca, a gdzie pokrzywdzony? (Ustalenie odległości i warunków widoczności/słyszalności).<br>- Jeśli groźby padły na odległość (np. w internecie) – za pośrednictwem jakiej platformy/aplikacji? (Konkretny komunikator, portal społecznościowy, forum, strona internetowa, adres poczty elektronicznej, numer telefonu).`,
+                `<b>III. Kiedy do tego doszło? (Chronologia)</b>- Kiedy dokładnie padły groźby? (Data i dokładna godzina zdarzenia).<br>- Jeśli groźbę wysłano wiadomością/listem: kiedy sprawca ją wysłał, a kiedy pokrzywdzony ją odczytał? (Obawa powstaje w momencie zapoznania się z groźbą).<br>- Czy był to incydent jednorazowy, czy groźby powtarzały się w czasie? (Ustalenie ram czasowych konfliktu, jeśli więcej razy to ile dokładnie, z jaką częstotliwością).`,
+                `<b>IV. W jaki sposób? (Mechanizm działania sprawcy)</b>- W jakiej formie wyrażono groźbę? (Bezpośrednio ustnie, telefonicznie, w wiadomości tekstowej, listownie, za pomocą gestu – np. przejechanie palcem po szyi).<br>- Czy sprawca działał sam, czy w grupie?<br>- Czy groźba została przekazana bezpośrednio pokrzywdzonemu, czy za pośrednictwem osób trzecich? (Sprawca może kazać komuś przekazać groźbę).<br>- Jakie było zachowanie sprawcy podczas wypowiadania gróźb? (Czy krzyczał, był wulgarny, agresywny, pod wpływem alkoholu/narkotyków?)`,
+                `<b>V. Czym? (Narzędzia i środki dowodowe)</b>- Czy sprawca używał narzędzi potęgujących groźbę? (Czy trzymał w ręku nóż, pałkę, broń, przedmiot przypominający broń?)<br>- Za pomocą jakich środków technicznych przekazano groźbę? (Z jakiego numeru telefonu, z jakiego konta e-mail/IP?)<br>- Jakimi dowodami dysponuje pokrzywdzony na poparcie swoich słów? (Nagrania audio/wideo, zrzuty ekranu, wydruki SMS, e-maili, bilingi).`,
+                `<b>VI. Dlaczego? (Motywacja i cel)</b>- Czy pokrzywdzony zna sprawcę? Jak długo się znają, skąd się znają?<br>- Jaką osobą jest sprawca? Czy takie zachowanie jest normalne i zdarzało się w przeszłości? Czy sprawca nadużywa alkoholu/środków odurzających, psychotropowych/leczy się psychiatrycznie?<br>- Jaki jest powód zachowania sprawcy według pokrzywdzonego?<br>- Na jakim tle doszło do zdarzenia? (Rozliczenia finansowe, zawód miłosny, zazdrość, kłótnia sąsiedzka, incydent w ruchu drogowym).<br>- Jakie relacje łączyły pokrzywdzonego ze sprawcą przed zdarzeniem? (Brak znajomości, relacja rodzinna, byli partnerzy, znajomi z pracy).<br>- Czy pokrzywdzony jest w konflikcie ze sprawcą, jeśli tak to z jakiego powodu?`,
+                `<b>VII. Kto? (Identyfikacja)</b>- Sprawca: Kim jest sprawca? (Dane personalne, adres, pseudonim, dane kontaktowe). Jeśli jest nieznany: Jak wyglądał? (Szczegółowy rysopis: wiek, wzrost, budowa ciała, ubiór, znaki szczególne).<br>- Ofiara: Kogo dotyczyła groźba? (Czy sprawca groził bezpośrednio pokrzywdzonemu, czy zapowiadał zrobienie krzywdy osobie mu najbliższej – np. dziecku, partnerowi? Wskaż dane osobowe, kontaktowe)<br>- Świadkowie: Kto był świadkiem zdarzenia? (Kto widział, kto słyszał? Kto może potwierdzić zachowanie sprawcy i stan emocjonalny (strach) pokrzywdzonego tuż po zdarzeniu? Należy zebrać ich dane kontaktowe).`,
+                `<b>VIII. Wniosek o ściganie!</b>- Czy pokrzywdzony żąda ścigania i ukarania sprawcy? (Groźba karalna jest przestępstwem ściganym na wniosek).<br>- Czy pokrzywdzony składa wniosek do Komendanta Wojewódzkiego Policji/Komendanta Stołecznego Policji o ochronę osobistą uzasadniając wysokie zagrożenie dla życia lub zdrowia?`
+            ],
+            documents: [
+                { name: "Protokół przyjęcia ustnego zawiadomienia o przestępstwie i przesłuchania świadka (PDF)", url: "druki/protokol_zawiadomienie_pdf.pdf" },
+                { name: "Protokół przyjęcia ustnego zawiadomienia o przestępstwie i przesłuchania świadka (WORD)", url: "druki/protokol_zawiadomienie_doc.doc" },
+                { name: "Załącznik adresowy (PDF)", url: "druki/zalacznik_adresowy_pdf.pdf" },
+                { name: "Załącznik adresowy (WORD)", url: "druki/zalacznik_adresowy_doc.doc" },
+                { name: "Pouczenie o uprawnieniach i obowiązkach świadka w postępowaniu karnym", url: "druki/pouczenia_swiadka.pdf" },
+                { name: "Pouczenie o uprawnieniach i obowiązkach pokrzywdzonego w postępowaniu karnym", url: "druki/pouczenia_pokrzywdzonego.pdf" }
+            ]
+        },
+        {
+            id: 2,
+            title: "Art. 278 k.k. - Kradzież",
+            keywords: ["278", "kradzież", "złodziej", "przywłaszczenie"],
+            articleText: `<b>Art. 278. k.k.</b><br>§ 1. Kto zabiera w celu przywłaszczenia cudzą rzecz ruchomą, podlega karze pozbawienia wolności od 3 miesięcy do lat 5.<br>§ 1a. Tej samej karze podlega, kto zabiera w celu przywłaszczenia cudzą kartę uprawniającą do podjęcia pieniędzy z automatu bankowego.<br>§ 2. Tej samej karze podlega, kto bez zgody osoby uprawnionej uzyskuje cudzy program komputerowy w celu osiągnięcia korzyści majątkowej.<br>§ 3. W wypadku mniejszej wagi, sprawca czynu określonego w § 1, 1a lub 2 podlega grzywnie, karze ograniczenia wolności albo pozbawienia wolności do roku.<br>§ 3a. Kto dopuszcza się kradzieży szczególnie zuchwałej, podlega karze pozbawienia wolności od 6 miesięcy do lat 8.<br>§ 4. Jeżeli kradzież popełniono na szkodę osoby najbliższej, ściganie następuje na wniosek pokrzywdzonego.<br>§ 5. Przepisy § 1, 3, 3a i 4 stosuje się odpowiednio do kradzieży energii.`,
+            steps: [
+                `<b>I. Co się stało? (Istota czynu)</b>- Co dokładnie zginęło? (Uzyskaj jak najdokładniejszy opis: marka, model, kolor, cechy szczególne, numery seryjne, numer IMEI w przypadku telefonu, zdjęcia przedmiotu).<br>- Jaka jest wartość skradzionego mienia? (To kluczowe – kradzież rzeczy o wartości do 800 zł to wykroczenie, powyżej tej kwoty to przestępstwo z art. 278 k.k. Wartość podaje pokrzywdzony, interesuje nas kwota brutto).<br>- Czy pokrzywdzony jest właścicielem rzeczy, czy np. tylko ją wypożyczył/użytkował?<br>- Czy posiada dowód zakupu? Kiedy kupił, gdzie, jaka była forma płatności?<br>- Czy skradziono dokumenty, karty płatnicze lub telefon? (Kradzież karty to odrębny paragraf, a w przypadku telefonu należy zapytać o blokady ekranu i możliwość zdalnego namierzenia).`,
+                `<b>II. Gdzie doszło do zdarzenia? (Miejsce)</b>- Skąd dokładnie skradziono rzecz? (Adres, konkretne pomieszczenie, półka w sklepie, kieszeń w kurtce, wnętrze otwartego pojazdu, inne).<br>- Gdzie pokrzywdzony widział lub odłożył tę rzecz i kiedy widział ją po raz ostatni?<br>- Czy w miejscu zdarzenia lub na drogach dojścia/odejścia znajduje się monitoring? (Kamery miejskie, sklepowe, prywatne na posesjach). Jeśli tak to czy pokrzywdzony wie kto jest administratorem, czy ma kontakt do osoby odpowiedzialnej, czy podejmował kroki niezbędne do zabezpieczenia nagrań, czy wie jak długo przechowywany jest monitoring?`,
+                `<b>III. Kiedy do tego doszło? (Chronologia)</b>- Kiedy (data i godzina) pokrzywdzony po raz ostatni miał pewność, że posiada skradzioną rzecz?<br>- Kiedy (data i godzina) pokrzywdzony zorientował się, że rzeczy nie ma? (Określa to tzw. czasokres popełnienia czynu – może to być konkretna minuta, ale też przedział np. "między 14:00 a 18:00").`,
+                `<b>IV. W jaki sposób? (Mechanizm działania sprawcy)</b>- W jakich okolicznościach doszło do utraty mienia? (Nieuwaga pokrzywdzonego, tłum w autobusie, pozostawienie rzeczy bez nadzoru na ławce).<br>- Czy sprawca musiał pokonać jakieś zabezpieczenia? (To pytanie jest krytyczne! Jeśli sprawca wyłamał zamek, zbił szybę albo przeciął kłódkę, to nie jest to już zwykła kradzież, lecz kradzież z włamaniem – art. 279 k.k., która jest surowiej karana).<br>- Czy sprawca użył wobec pokrzywdzonego siły fizycznej lub groził jej użyciem, aby zabrać rzecz? (Jeśli tak, mamy do czynienia z rozbojem – art. 280 k.k.).`,
+                `<b>V. Czym? (Narzędzia i środki przestępstwa)</b>- Czy sprawca pozostawił na miejscu jakiekolwiek przedmioty lub ślady? (Np. odcięty klips zabezpieczający z ubrania, porzucone narzędzie, ślady butów). Jeśli tak to czy pokrzywdzony je zabezpieczył, co i w jaki sposób? (przedmioty lub ślady można zabezpieczyć jako załączniki do protokołu lub na protokół zatrzymania rzeczy).<br>- Czy sprawca oddalił się pieszo, czy użył pojazdu? (Jeśli pojazdu: marka, kolor, numery rejestracyjne, cechy szczególne, kierunek ucieczki).`,
+                `<b>VI. Dlaczego? (Motywacja i cel)</b>W przypadku kradzieży motywem jest najczęściej chęć zysku (tzw. działanie w celu przywłaszczenia), ale warto dopytać:<br>- Czy skradziona rzecz miała jakąś specyficzną wartość dla konkretnej osoby? (Np. kradzież pendrive'a z konkretnymi danymi firmy, kradzież rasowego psa).<br>- Czy ktoś z otoczenia wiedział, że pokrzywdzony ma przy sobie większą gotówkę lub cenną rzecz?`,
+                `<b>VII. Kto? (Identyfikacja sprawcy, ofiar, świadków)</b>- Sprawca: Czy pokrzywdzony widział moment kradzieży i sprawcę? (Jeśli tak: szczegółowy rysopis – płeć, wiek, wzrost, sylwetka, ubranie, tatuaże, blizny, akcent).<br>- Świadkowie: Czy ktoś inny był obecny na miejscu? Kto mógł widzieć zdarzenie? (Należy ustalić dane świadków lub zabezpieczyć informacje pozwalające na ich identyfikację).`,
+                `<b>VIII. Inne</b>- Podejrzenia: Czy pokrzywdzony kogoś podejrzewa? (Kto miał dostęp do miejsca kradzieży, kto zachowywał się podejrzanie, kręcił się w pobliżu). Czy coś zwróciło uwagę pokrzywdzonego?<br>- Relacja: Jeśli sprawcą jest ktoś bliski (np. brat, małżonek), zapytaj o formalny wniosek o ściganie. (Zwykła kradzież jest ścigana z urzędu, ale jeśli sprawcą jest osoba najbliższa, staje się przestępstwem wnioskowym).`
+            ],
+            documents: [
+                { name: "Protokół przyjęcia ustnego zawiadomienia o przestępstwie... (PDF)", url: "druki/protokol_zawiadomienie_pdf.pdf" },
+                { name: "Protokół przyjęcia ustnego zawiadomienia o przestępstwie... (WORD)", url: "druki/protokol_zawiadomienie_doc.doc" }
+            ]
+        }
+    ];
+
+    function searchCrime() {
+        const query = document.getElementById("searchInput").value.toLowerCase();
+        const resultsDiv = document.getElementById("resultsList");
+        resultsDiv.innerHTML = "";
+        
+        if (query.trim() === "") return;
+
+        const results = crimeDatabase.filter(crime => crime.keywords.some(k => k.includes(query)));
+        
+        if (results.length > 0) {
+            results.forEach(crime => {
+                const div = document.createElement("div");
+                div.className = "result-item";
+                div.innerHTML = `<strong>${crime.title}</strong>`;
+                div.onclick = () => showAlgorithm(crime);
+                resultsDiv.appendChild(div);
+            });
+        } else {
+            resultsDiv.innerHTML = "<p>Nie znaleziono procedury dla tego hasła.</p>";
+        }
+    }
+
+    function showAlgorithm(crime) {
+        document.getElementById("search-view").style.display = "none";
+        document.getElementById("algorithm-view").style.display = "block";
+        document.getElementById("crimeTitle").innerText = crime.title;
+
+        const articleQuoteDiv = document.getElementById("articleQuote");
+        if (crime.articleText) {
+            articleQuoteDiv.innerHTML = usunWdowy(crime.articleText);
+            articleQuoteDiv.style.display = "block";
+        } else {
+            articleQuoteDiv.style.display = "none";
+        }
+
+        const stepsContainer = document.getElementById("stepsContainer");
+        stepsContainer.innerHTML = "";
+        
+        crime.steps.forEach(step => {
+            const stepDiv = document.createElement("div");
+            stepDiv.className = "step-item";
+            stepDiv.innerHTML = usunWdowy(step);
+            stepsContainer.appendChild(stepDiv);
+        });
+
+        const documentsContainer = document.getElementById("documentsContainer");
+        documentsContainer.innerHTML = ""; 
+        if (crime.documents && crime.documents.length > 0) {
+            crime.documents.forEach(doc => {
+                const docDiv = document.createElement("div");
+                docDiv.className = "document-item";
+                
+                let icon = "📄";
+                if(doc.url.includes(".doc") || doc.url.includes(".docx")) icon = "📝";
+                else if(doc.url.includes(".pdf")) icon = "📕";
+                
+                docDiv.innerHTML = `<span style="position: absolute; left: 0; top: 1px; font-size: 1.1em;">${icon}</span><a href="${doc.url}" target="_blank" class="document-link">${doc.name}</a>`;
+                documentsContainer.appendChild(docDiv);
+            });
+        }
+    }
+
+    function goBack() {
+        document.getElementById("search-view").style.display = "block";
+        document.getElementById("algorithm-view").style.display = "none";
+        document.getElementById("searchInput").value = "";
+        document.getElementById("resultsList").innerHTML = "";
+    }
+</script>
+</body>
+</html>
