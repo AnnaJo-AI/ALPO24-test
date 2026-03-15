@@ -37,7 +37,7 @@
             color: #666;
             margin-bottom: 25px;
         }
-        #login-screen input[type="password"] {
+        #login-screen input[type="text"] {
             width: 80%;
             max-width: 300px;
             padding: 15px;
@@ -46,6 +46,10 @@
             border-radius: 8px;
             margin-bottom: 15px;
             text-align: center;
+        }
+        #login-screen input[type="text"]:focus {
+            outline: none;
+            border-color: #002d5a;
         }
         #login-screen .btn-primary {
             width: 80%;
@@ -60,7 +64,7 @@
 
         /* GŁÓWNA APLIKACJA (UKRYTA NA START) */
         #main-app {
-            display: none; /* Ukryte dopóki nie podasz hasła */
+            display: none; 
             background-color: white;
             padding: 0 20px 20px 20px; 
             border-radius: 12px;
@@ -359,9 +363,9 @@
     <div class="logo-box" style="margin-bottom: 20px; display: inline-block;">ALPO24</div>
     <h1>Wersja Testowa</h1>
     <p>Podaj hasło dostępu, aby odblokować algorytmy.</p>
-    <input type="password" id="passwordInput" placeholder="Wpisz hasło..." onkeydown="if(event.key === 'Enter') sprawdzHaslo()">
+    <input type="text" id="passwordInput" placeholder="Hasło..." autocapitalize="off" autocorrect="off" onkeydown="if(event.key === 'Enter') sprawdzHaslo()">
     <button class="btn-primary" onclick="sprawdzHaslo()">Odblokuj</button>
-    <div id="login-error">Nieprawidłowe hasło!</div>
+    <div id="login-error">Nieprawidłowe hasło! (Upewnij się, że wpisujesz: patrol24)</div>
 </div>
 
 <div class="container" id="main-app">
@@ -466,17 +470,18 @@
 </div>
 
 <script>
-    // FUNKCJA LOGOWANIA
+    // INTELIGENTNA FUNKCJA LOGOWANIA
     function sprawdzHaslo() {
-        const haslo = document.getElementById("passwordInput").value;
+        // Pobieramy hasło, odcinamy ukryte spacje i od razu zamieniamy duże litery na małe!
+        let haslo = document.getElementById("passwordInput").value;
+        haslo = haslo.trim().toLowerCase(); 
+        
         const errorDiv = document.getElementById("login-error");
         
         if (haslo === "patrol24") {
-            // Jeśli hasło jest poprawne: ukryj ekran logowania, pokaż aplikację
             document.getElementById("login-screen").style.display = "none";
             document.getElementById("main-app").style.display = "flex";
         } else {
-            // Jeśli błędne: pokaż błąd
             errorDiv.style.display = "block";
         }
     }
