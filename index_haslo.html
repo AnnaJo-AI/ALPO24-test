@@ -134,13 +134,17 @@
         .tab-button {
             flex: 1;
             padding: 14px;
-            font-size: 16px;
+            font-size: clamp(12px, 3.5vw, 16px);
             font-weight: bold;
             background-color: transparent;
             color: #002d5a;
             border: none;
+            border-right: 1px solid #dce0e5; 
             cursor: pointer;
             transition: all 0.2s ease;
+        }
+        .tab-button:last-child {
+            border-right: none;
         }
         .tab-button.active {
             background-color: #002d5a;
@@ -252,7 +256,7 @@
             padding: 16px 20px;
             margin-bottom: 12px;
             border-radius: 4px;
-            font-size: 16px;
+            font-size: 15px;
             line-height: 1.6;
             text-align: justify; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.04);
@@ -267,12 +271,38 @@
             padding-bottom: 4px;
             border-bottom: 1px dashed #eee;
         }
+        .step-item p {
+            margin: 5px 0;
+        }
+
+        /* Styl dla głównych etapów algorytmu */
+        .etap-title {
+            background-color: #002d5a;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .etap-subtitle {
+            font-size: 0.9em;
+            font-weight: normal;
+            color: #fecb00;
+            display: block;
+            margin-top: 2px;
+            text-transform: none;
+        }
 
         .documents-section {
             margin-top: 35px;
             padding: 20px;
-            background-color: #fff8e1; 
-            border: 1px solid #fecb00;
+            background-color: #f4f7f6; 
+            border: 1px solid #dce0e5;
             border-radius: 8px;
         }
         .documents-section h3 {
@@ -280,15 +310,20 @@
             color: #002d5a;
             font-size: 1.1em;
             margin-bottom: 15px;
+            border-bottom: 2px solid #fecb00;
+            padding-bottom: 5px;
         }
-        .document-item { margin: 12px 0; padding-left: 28px; position: relative; }
-        
-        .document-link { color: #002d5a; text-decoration: none; font-weight: 600; transition: color 0.2s; display: inline-block; }
-        .document-link:hover { color: #004494; text-decoration: underline; }
+        .document-item { 
+            margin: 10px 0; 
+            padding-left: 25px; 
+            position: relative; 
+            color: #002d5a; 
+            font-weight: 600; 
+        }
         
         #algorithm-view { display: none; }
         
-        /* ZAKŁADKA PRZEPISY (KARTY) */
+        /* KARTY W ZAKŁADKACH (PRZEPISY / DRUKI) */
         .przepisy-category {
             font-size: 16px;
             color: #666;
@@ -362,10 +397,10 @@
 <div id="login-screen">
     <div class="logo-box" style="margin-bottom: 20px; display: inline-block;">ALPO24</div>
     <h1>Wersja Testowa</h1>
-    <p>Podaj hasło dostępu, aby odblokować algorytmy.</p>
+    <p>Podaj hasło dostępu, aby odblokować aplikację.</p>
     <input type="text" id="passwordInput" placeholder="Hasło..." autocapitalize="off" autocorrect="off" onkeydown="if(event.key === 'Enter') sprawdzHaslo()">
     <button class="btn-primary" onclick="sprawdzHaslo()">Odblokuj</button>
-    <div id="login-error">Nieprawidłowe hasło! (Upewnij się, że wpisujesz: patrol24)</div>
+    <div id="login-error">Nieprawidłowe hasło!</div>
 </div>
 
 <div class="container" id="main-app">
@@ -377,6 +412,7 @@
 
     <div class="tabs-container">
         <button class="tab-button active" id="btn-algorytmy" onclick="switchTab('algorytmy')">Algorytmy</button>
+        <button class="tab-button" id="btn-druki" onclick="switchTab('druki')">Druki procesowe</button>
         <button class="tab-button" id="btn-przepisy" onclick="switchTab('przepisy')">Przepisy</button>
     </div>
 
@@ -415,8 +451,8 @@
                 </div>
             </div>
 
-            <input type="text" id="searchInput" placeholder="Szukaj procedury (np. 190, groźby, kradzież)..." oninput="searchCrime()" onkeydown="if(event.key === 'Enter') searchCrime()">
-            <button class="btn-primary" onclick="searchCrime()">Szukaj procedury</button>
+            <input type="text" id="searchInput" placeholder="Szukaj algorytmu (np. 190, groźby, kradzież)..." oninput="searchCrime()" onkeydown="if(event.key === 'Enter') searchCrime()">
+            <button class="btn-primary" onclick="searchCrime()">Szukaj algorytmu</button>
             <div id="resultsList" style="margin-top: 20px;"></div>
         </div>
         
@@ -427,15 +463,34 @@
             <div id="stepsContainer"></div>
             
             <div class="documents-section">
-                <h3>Niezbędne protokoły i druki:</h3>
+                <h3>Wykaz niezbędnych druków do przygotowania:</h3>
                 <div id="documentsContainer"></div>
             </div>
             <button class="btn-primary btn-secondary" onclick="goBack()">Zakończ i wróć do wyszukiwarki</button>
         </div>
     </div>
 
+    <div id="tab-druki" class="tab-content">
+        <h3 class="przepisy-category">Protokoły</h3>
+        <div class="tiles-grid">
+            <a href="druki/protokol_zawiadomienie_pdf.pdf" target="_blank" class="tile"><div class="tile-icon">📕</div>Protokół zawiadomienia<br><span style="font-size: 11px; font-weight: normal; margin-top: 5px;">(wersja PDF)</span></a>
+            <a href="druki/protokol_zawiadomienie_doc.doc" target="_blank" class="tile"><div class="tile-icon">📝</div>Protokół zawiadomienia<br><span style="font-size: 11px; font-weight: normal; margin-top: 5px;">(wersja WORD)</span></a>
+        </div>
+
+        <h3 class="przepisy-category">Załączniki</h3>
+        <div class="tiles-grid">
+            <a href="druki/zalacznik_adresowy_pdf.pdf" target="_blank" class="tile"><div class="tile-icon">📕</div>Załącznik adresowy<br><span style="font-size: 11px; font-weight: normal; margin-top: 5px;">(wersja PDF)</span></a>
+            <a href="druki/zalacznik_adresowy_doc.doc" target="_blank" class="tile"><div class="tile-icon">📝</div>Załącznik adresowy<br><span style="font-size: 11px; font-weight: normal; margin-top: 5px;">(wersja WORD)</span></a>
+        </div>
+
+        <h3 class="przepisy-category">Pouczenia</h3>
+        <div class="tiles-grid">
+            <a href="druki/pouczenia_swiadka.pdf" target="_blank" class="tile"><div class="tile-icon">📕</div>Pouczenie - Świadek</a>
+            <a href="druki/pouczenia_pokrzywdzonego.pdf" target="_blank" class="tile"><div class="tile-icon">📕</div>Pouczenie - Pokrzywdzony</a>
+        </div>
+    </div>
+
     <div id="tab-przepisy" class="tab-content">
-        
         <h3 class="przepisy-category">Kodeksy</h3>
         <div class="tiles-grid">
             <a href="przepisy/kk.pdf" target="_blank" class="tile"><div class="tile-icon">📕</div>Kodeks karny</a>
@@ -448,6 +503,7 @@
         <h3 class="przepisy-category">Ustawy</h3>
         <div class="tiles-grid">
             <a href="przepisy/uop.pdf" target="_blank" class="tile"><div class="tile-icon">🛡️</div>Ustawa o Policji</a>
+            <a href="przepisy/uoc.pdf" target="_blank" class="tile"><div class="tile-icon">🛂</div>Ustawa o cudzoziemcach</a>
             <a href="przepisy/uobp.pdf" target="_blank" class="tile"><div class="tile-icon">🔫</div>Ustawa o broni i amunicji</a>
             <a href="przepisy/uopn.pdf" target="_blank" class="tile"><div class="tile-icon">🌿</div>Ustawa o przeciwdziałaniu narkomanii</a>
             <a href="przepisy/uobim.pdf" target="_blank" class="tile"><div class="tile-icon">🏟️</div>Ustawa o bezpieczeństwie imprez masowych</a>
@@ -461,7 +517,6 @@
                 Wytyczne nr 3 KGP w sprawie wykonywania niektórych czynności dochodzeniowo-śledczych przez policjantów
             </a>
         </div>
-
     </div>
 
     <div class="app-footer">
@@ -470,15 +525,13 @@
 </div>
 
 <script>
-    // INTELIGENTNA FUNKCJA LOGOWANIA
     function sprawdzHaslo() {
-        // Pobieramy hasło, odcinamy ukryte spacje i od razu zamieniamy duże litery na małe!
         let haslo = document.getElementById("passwordInput").value;
         haslo = haslo.trim().toLowerCase(); 
         
         const errorDiv = document.getElementById("login-error");
         
-        if (haslo === "patrol24") {
+        if (haslo === "patrol25") {
             document.getElementById("login-screen").style.display = "none";
             document.getElementById("main-app").style.display = "flex";
         } else {
@@ -507,8 +560,11 @@
     function switchTab(tabName) {
         document.getElementById('tab-algorytmy').classList.remove('active');
         document.getElementById('tab-przepisy').classList.remove('active');
+        document.getElementById('tab-druki').classList.remove('active');
+        
         document.getElementById('btn-algorytmy').classList.remove('active');
         document.getElementById('btn-przepisy').classList.remove('active');
+        document.getElementById('btn-druki').classList.remove('active');
         
         document.getElementById('tab-' + tabName).classList.add('active');
         document.getElementById('btn-' + tabName).classList.add('active');
@@ -521,22 +577,39 @@
             keywords: ["190", "groźba", "groźby"],
             articleText: `<b>Art. 190. k.k.</b><br>§ 1. Kto grozi innej osobie popełnieniem przestępstwa na jej szkodę lub na szkodę osoby dla niej najbliższej, jeżeli groźba wzbudza w osobie, do której została skierowana lub której dotyczy, uzasadnioną obawę, że będzie spełniona, podlega karze pozbawienia wolności do lat 3.<br>§ 2. Ściganie następuje na wniosek pokrzywdzonego.`,
             steps: [
-                `<b>I. Co się stało? (Istota czynu)</b>- Jakich dokładnie słów użył sprawca lub jakie wykonał gesty? (Jeśli pokrzywdzony pamięta zacytuj jego słowa)<br>- Czym dokładnie groził sprawca? (Czy zapowiadał popełnienie przestępstwa: np. pozbawienie życia, pobicie, podpalenie, zniszczenie mienia, inne?)<br>- Czy i dlaczego wypowiedziane słowa/gesty wzbudziły w pokrzywdzonym obawę, że zostaną spełnione? (Kluczowe dla art. 190 k.k. – należy ustalić "uzasadnioną obawę" na podstawie cech sprawcy, jego wcześniejszego zachowania, agresji).`,
-                `<b>II. Gdzie doszło do zdarzenia? (Miejsca główne i powiązane)</b>- W jakim dokładnie miejscu fizycznym doszło do zdarzenia? (adres fizyczny - miejscowość, ulica, numer bloku, lokalu, wskaż dokładne miejsce - klatka schodowa, parking, ulica, inne)<br>- Gdzie znajdował się sprawca, a gdzie pokrzywdzony? (Ustalenie odległości i warunków widoczności/słyszalności).<br>- Jeśli groźby padły na odległość (np. w internecie) – za pośrednictwem jakiej platformy/aplikacji? (Konkretny komunikator, portal społecznościowy, forum, strona internetowa, adres poczty elektronicznej, numer telefonu).`,
-                `<b>III. Kiedy do tego doszło? (Chronologia)</b>- Kiedy dokładnie padły groźby? (Data i dokładna godzina zdarzenia).<br>- Jeśli groźbę wysłano wiadomością/listem: kiedy sprawca ją wysłał, a kiedy pokrzywdzony ją odczytał? (Obawa powstaje w momencie zapoznania się z groźbą).<br>- Czy był to incydent jednorazowy, czy groźby powtarzały się w czasie? (Ustalenie ram czasowych konfliktu, jeśli więcej razy to ile dokładnie, z jaką częstotliwością).`,
-                `<b>IV. W jaki sposób? (Mechanizm działania sprawcy)</b>- W jakiej formie wyrażono groźbę? (Bezpośrednio ustnie, telefonicznie, w wiadomości tekstowej, listownie, za pomocą gestu – np. przejechanie palcem po szyi).<br>- Czy sprawca działał sam, czy w grupie?<br>- Czy groźba została przekazana bezpośrednio pokrzywdzonemu, czy za pośrednictwem osób trzecich? (Sprawca może kazać komuś przekazać groźbę).<br>- Jakie było zachowanie sprawcy podczas wypowiadania gróźb? (Czy krzyczał, był wulgarny, agresywny, pod wpływem alkoholu/narkotyków?)`,
-                `<b>V. Czym? (Narzędzia i środki dowodowe)</b>- Czy sprawca używał narzędzi potęgujących groźbę? (Czy trzymał w ręku nóż, pałkę, broń, przedmiot przypominający broń?)<br>- Za pomocą jakich środków technicznych przekazano groźbę? (Z jakiego numeru telefonu, z jakiego konta e-mail/IP?)<br>- Jakimi dowodami dysponuje pokrzywdzony na poparcie swoich słów? (Nagrania audio/wideo, zrzuty ekranu, wydruki SMS, e-maili, bilingi).`,
-                `<b>VI. Dlaczego? (Motywacja i cel)</b>- Czy pokrzywdzony zna sprawcę? Jak długo się znają, skąd się znają?<br>- Jaką osobą jest sprawca? Czy takie zachowanie jest normalne i zdarzało się w przeszłości? Czy sprawca nadużywa alkoholu/środków odurzających, psychotropowych/leczy się psychiatrycznie?<br>- Jaki jest powód zachowania sprawcy według pokrzywdzonego?<br>- Na jakim tle doszło do zdarzenia? (Rozliczenia finansowe, zawód miłosny, zazdrość, kłótnia sąsiedzka, incydent w ruchu drogowym).<br>- Jakie relacje łączyły pokrzywdzonego ze sprawcą przed zdarzeniem? (Brak znajomości, relacja rodzinna, byli partnerzy, znajomi z pracy).<br>- Czy pokrzywdzony jest w konflikcie ze sprawcą, jeśli tak to z jakiego powodu?`,
-                `<b>VII. Kto? (Identyfikacja)</b>- Sprawca: Kim jest sprawca? (Dane personalne, adres, pseudonim, dane kontaktowe). Jeśli jest nieznany: Jak wyglądał? (Szczegółowy rysopis: wiek, wzrost, budowa ciała, ubiór, znaki szczególne).<br>- Ofiara: Kogo dotyczyła groźba? (Czy sprawca groził bezpośrednio pokrzywdzonemu, czy zapowiadał zrobienie krzywdy osobie mu najbliższej – np. dziecku, partnerowi? Wskaż dane osobowe, kontaktowe)<br>- Świadkowie: Kto był świadkiem zdarzenia? (Kto widział, kto słyszał? Kto może potwierdzić zachowanie sprawcy i stan emocjonalny (strach) pokrzywdzonego tuż po zdarzeniu? Należy zebrać ich dane kontaktowe).`,
-                `<b>VIII. Wniosek o ściganie!</b>- Czy pokrzywdzony żąda ścigania i ukarania sprawcy? (Groźba karalna jest przestępstwem ściganym na wniosek).<br>- Czy pokrzywdzony składa wniosek do Komendanta Wojewódzkiego Policji/Komendanta Stołecznego Policji o ochronę osobistą uzasadniając wysokie zagrożenie dla życia lub zdrowia?`
+                `<div class="etap-title">ETAP 1: FAZA WSTĘPNA <span class="etap-subtitle">(nawiązanie kontaktu i ocena sytuacji)</span></div>`,
+                `<p><b>Ocena bezpieczeństwa:</b> czy sprawca nadal stanowi bezpośrednie zagrożenie? Jeśli tak, priorytetem jest interwencja/zatrzymanie, a nie protokołowanie. Dopytaj o szczegóły i okoliczności, powiadom bezpośredniego przełożonego/dyżurnego.</p>`,
+                `<p><b>Uspokojenie pokrzywdzonego:</b> zapewnij poczucie bezpieczeństwa. Przestępstwo gróźb wiąże się z silnym stresem i emocjami.</p>`,
+                `<p><b>Swobodna relacja:</b> pozwól pokrzywdzonemu opowiedzieć swoimi słowami, co się stało, bez przerywania. Dopiero potem przejdź do pytań ukierunkowanych (faza 2).</p>`,
+                
+                `<div class="etap-title">ETAP 2: FAZA GŁÓWNA <span class="etap-subtitle">(procesowe przyjęcie ustnego zawiadomienia)</span></div>Pytania zadawaj w sposób logiczny, dążąc do wyczerpania każdego z wątków.`,
+                
+                `<b>I. CO się stało? (istota czynu i znamię obawy)</b><p><b>Cytat dosłowny:</b> jakich dokładnie słów użył sprawca lub jakie wykonał gesty? (zapisz w protokole w cudzysłowie, nawet jeśli są to wulgaryzmy).</p><p><b>Przedmiot groźby:</b> czym dokładnie groził sprawca? (np. pozbawienie życia, pobicie, podpalenie, zniszczenie mienia, zgwałcenie).</p><p><b>Znamiona ustawowe (kluczowe dla art. 190 k.k.):</b> Czy wypowiedziane słowa/gesty wzbudziły w Panu/Pani obawę, że zostaną spełnione? Jeżeli tak, to na jakiej podstawie uważa Pan/Pani, że sprawca jest zdolny to zrobić? (ustal "uzasadnioną obawę" – oceń subiektywny strach ofiary, ale i obiektywne przesłanki: przeszłość kryminalna sprawcy, jego agresja, różnica w budowie ciała, posiadanie niebezpiecznych narzędzi).</p>`,
+                
+                `<b>II. GDZIE doszło do zdarzenia? (miejsce)</b><p><b>Miejsce fizyczne:</b> gdzie dokładnie to nastąpiło? (adres, ulica, konkretne miejsce np. klatka schodowa, parking, przesyłki pocztowe).</p><p><b>Topografia:</b> gdzie znajdował się sprawca, a gdzie pokrzywdzony? Jaka była odległość, czy były przeszkody fizyczne, jak wyglądała widoczność i oświetlenie?</p><p><b>Przestrzeń wirtualna (cyberprzestrzeń):</b> Jeśli groźby padły na odległość – za pośrednictwem jakiego medium? (Wskazać dokładną nazwę aplikacji, komunikatora, portalu społecznościowego, adres URL, adres e-mail, numer telefonu).</p>`,
+                
+                `<b>III. KIEDY do tego doszło? (czas i chronologia)</b><p><b>Czas czynu:</b> Kiedy dokładnie padły groźby? (Data i godzina).</p><p><b>Moment zapoznania (przy groźbach pośrednich):</b> Kiedy sprawca wysłał wiadomość/list, a kiedy pokrzywdzony się z nią zapoznał? (To moment zapoznania się generuje obawę i określa czas popełnienia przestępstwa).</p><p><b>Skala zjawiska:</b> Czy był to incydent jednorazowy, czy zachowanie ciągłe/powtarzające się? (Jeśli wielokrotnie – od kiedy do kiedy trwa ten proceder, z jaką częstotliwością? Uwaga: przy dużej powtarzalności i nękaniu rozważ zmianę kwalifikacji na art. 190a k.k. – stalking).</p>`,
+                
+                `<b>IV. W JAKI SPOSÓB? (Modus Operandi)</b><p><b>Forma przekazu:</b> Bezpośrednio ustnie, telefonicznie, SMS, komunikator, listownie, przez gesty (np. przejechanie palcem po szyi, uderzanie pięścią w dłoń)?</p><p><b>Współsprawstwo:</b> Czy sprawca działał sam, czy w grupie? (Jeśli w grupie – jakie były role poszczególnych osób?).</p><p><b>Pośrednictwo:</b> Czy groźba została wypowiedziana bezpośrednio do Pana/Pani, czy przekazana przez osoby trzecie? (Jeśli przez osoby trzecie – ustalić ich dane).</p><p><b>Stan psychofizyczny:</b> Jak zachowywał się sprawca? (Krzyczał, był spokojny i wyrachowany, wulgarny, wyglądał na nietrzeźwego lub pod wpływem narkotyków?).</p>`,
+                
+                `<b>V. CZYM? (Narzędzia i dowody)</b><p><b>Narzędzia:</b> Czy sprawca używał lub okazywał przedmioty potęgujące groźbę? (Nóż, pałka, broń palna, przedmiot przypominający broń, pies rasy niebezpiecznej).</p><p><b>Środki techniczne:</b> Z jakiego urządzenia/numeru/konta IP korzystał sprawca?</p><p><b>Zabezpieczenie dowodów:</b> Jakimi dowodami Pan/Pani dysponuje? (Zażądaj wydania/zgrania: nagrań audio/wideo, zrzutów ekranu wiadomości, SMS-ów, e-maili, billingów, pism).</p>`,
+                
+                `<b>VI. DLACZEGO? (motyw – niezbędny dla oceny wiarygodności)</b><p><b>Tło konfliktu:</b> Dlaczego sprawca się tak zachował? Na jakim tle doszło do zdarzenia? (zawód miłosny, długi, spór sąsiedzki, agresja drogowa).</p><p><b>Relacja:</b> Kim jest sprawca dla pokrzywdzonego? (osoba obca, były partner, sąsiad, szef).</p><p><b>Charakterystyka sprawcy (z perspektywy ofiary):</b> Czy sprawca zachowywał się tak w przeszłości? Czy leczył się psychiatryczni (jeśli tak to z jakiego powodu, gdzie i jak długo), czy nadużywa substancji psychoaktywnych? Czy spożywa nadmiernie alkohol?</p>`,
+                
+                `<b>VII. KTO? (Identyfikacja uczestników)</b><p><b>Sprawca:</b> Dane personalne, pseudonim, adres, numer telefonu. (Jeśli sprawca nieznany: opisz szczegółowo wygląd: wiek, wzrost, sylwetka, kształt twarzy, ubiór, znaki szczególne np. tatuaże, blizny).</p><p><b>Pokrzywdzony:</b> Kogo bezpośrednio dotyczyła groźba? (groźba popełnienia przestępstwa może być skierowana na szkodę ofiary lub osoby jej najbliższej).</p><p><b>Świadkowie:</b> Kto to widział lub słyszał? (dane z dowodów tożsamości, numery telefonów). Kto widział Pana/Panią bezpośrednio po zdarzeniu i może poświadczyć silny stan wzburzenia i strachu? (tzw. świadkowie ze słyszenia / świadkowie stanu emocjonalnego).</p>`,
+                
+                `<div class="etap-title">ETAP 3: FAZA KOŃCOWA I FORMALNO-PRAWNA</div>Przestępstwo z art. 190 § 1 k.k. jest wnioskowe. Bez wyraźnego żądania pokrzywdzonego, policja nie może prowadzić postępowania (chyba że zachodzą inne szczególne okoliczności).`,
+                
+                `<p><b>Zabezpieczenie materiału:</b> Odebranie od pokrzywdzonego telefonu w celu wykonania oględzin wiadomości SMS/komunikatorów i sporządzenie protokołu oględzin (lub zgranie danych).</p>`,
+                `<p><b>Kluczowe pytanie do protokołu:</b> "Pouczony o przysługujących mi prawach oświadczam, że składam wniosek o ściganie i ukaranie sprawcy kierowania wobec mnie gróźb karalnych w dniu..." (musi znaleźć się na końcu protokołu).</p>`,
+                `<p><b>Odczytanie i podpisy:</b> Przekazanie protokołu do przeczytania pokrzywdzonemu, naniesienie ewentualnych poprawek i złożenie podpisów na każdej stronie.</p>`,
+                `<p><b>Pouczenie:</b> Wydanie pokrzywdzonemu pisemnego pouczenia o jego prawach i obowiązkach w postępowaniu karnym.</p>`
             ],
             documents: [
-                { name: "Protokół przyjęcia ustnego zawiadomienia o przestępstwie i przesłuchania świadka (PDF)", url: "druki/protokol_zawiadomienie_pdf.pdf" },
-                { name: "Protokół przyjęcia ustnego zawiadomienia o przestępstwie i przesłuchania świadka (WORD)", url: "druki/protokol_zawiadomienie_doc.doc" },
-                { name: "Załącznik adresowy (PDF)", url: "druki/zalacznik_adresowy_pdf.pdf" },
-                { name: "Załącznik adresowy (WORD)", url: "druki/zalacznik_adresowy_doc.doc" },
-                { name: "Pouczenie o uprawnieniach i obowiązkach świadka w postępowaniu karnym", url: "druki/pouczenia_swiadka.pdf" },
-                { name: "Pouczenie o uprawnieniach i obowiązkach pokrzywdzonego w postępowaniu karnym", url: "druki/pouczenia_pokrzywdzonego.pdf" }
+                "Protokół przyjęcia ustnego zawiadomienia o przestępstwie i przesłuchania świadka",
+                "Załącznik adresowy",
+                "Pouczenie o uprawnieniach i obowiązkach świadka w postępowaniu karnym",
+                "Pouczenie o uprawnieniach i obowiązkach pokrzywdzonego w postępowaniu karnym"
             ]
         },
         {
@@ -555,8 +628,29 @@
                 `<b>VIII. Inne</b>- Podejrzenia: Czy pokrzywdzony kogoś podejrzewa? (Kto miał dostęp do miejsca kradzieży, kto zachowywał się podejrzanie, kręcił się w pobliżu). Czy coś zwróciło uwagę pokrzywdzonego?<br>- Relacja: Jeśli sprawcą jest ktoś bliski (np. brat, małżonek), zapytaj o formalny wniosek o ściganie. (Zwykła kradzież jest ścigana z urzędu, ale jeśli sprawcą jest osoba najbliższa, staje się przestępstwem wnioskowym).`
             ],
             documents: [
-                { name: "Protokół przyjęcia ustnego zawiadomienia o przestępstwie... (PDF)", url: "druki/protokol_zawiadomienie_pdf.pdf" },
-                { name: "Protokół przyjęcia ustnego zawiadomienia o przestępstwie... (WORD)", url: "druki/protokol_zawiadomienie_doc.doc" }
+                "Protokół przyjęcia ustnego zawiadomienia o przestępstwie",
+                "Załącznik adresowy"
+            ]
+        },
+        {
+            id: 3,
+            title: "Art. 286 k.k. - Oszustwo (m.in. internetowe, BLIK)",
+            keywords: ["286", "oszustwo", "wyłudzenie", "blik", "olx", "vinted", "scam", "internet", "na wnuczka", "na policjanta"],
+            articleText: `<b>Art. 286. k.k.</b><br>§ 1. Kto, w celu osiągnięcia korzyści majątkowej, doprowadza inną osobę do niekorzystnego rozporządzenia własnym lub cudzym mieniem za pomocą wprowadzenia jej w błąd albo wyzyskania błędu lub niezdolności do należytego pojmowania przedsiębranego działania, podlega karze pozbawienia wolności od 6 miesięcy do lat 8.<br>§ 2. Tej samej karze podlega, kto żąda korzyści majątkowej w zamian za zwrot bezprawnie zabranej rzeczy.<br>§ 3. W wypadku mniejszej wagi, sprawca podlega grzywnie, karze ograniczenia wolności albo pozbawienia wolności do lat 2.<br>§ 4. Jeżeli czyn określony w § 1-3 popełniono na szkodę osoby najbliższej, ściganie następuje na wniosek pokrzywdzonego.`,
+            steps: [
+                `<b>I. Co się stało? (Istota czynu)</b>- Na czym dokładnie polegało oszustwo? (np. zakup towaru, którego nie przysłano; fałszywy link do płatności BLIK; oszustwo "na policjanta" / "na wnuczka"; rzekome inwestycje w kryptowaluty).<br>- Jaka jest dokładna kwota poniesionej straty? (W jakiej walucie?)`,
+                `<b>II. Gdzie i jak doszło do kontaktu?</b>- Przez jaką platformę/stronę sprawca nawiązał kontakt z pokrzywdzonym? (np. portal OLX, Vinted, Facebook, WhatsApp, połączenie telefoniczne, e-mail).<br>- Jakie były dokładne dane kontaktowe sprawcy? (Należy spisać wszystkie nr telefonów, adresy e-mail, nazwy profili, linki do kont).`,
+                `<b>III. Kiedy do tego doszło? (Chronologia)</b>- Kiedy (data i dokładna godzina) sprawca nawiązał pierwszy kontakt?<br>- Kiedy dokładnie pokrzywdzony dokonał przelewu lub przekazał gotówkę?<br>- Kiedy pokrzywdzony zorientował się, że padł ofiarą oszustwa?`,
+                `<b>IV. Mechanizm działania (Wprowadzenie w błąd)</b>- Jakich argumentów, tzw. "legendy", użył sprawca, by przekonać ofiarę do oddania pieniędzy? (np. "konto jest zagrożone", "córka miała wypadek", "konieczność opłacenia kuriera").<br>- Pod kogo podszywał się sprawca? (Pracownik banku, policjant, członek rodziny, pracownik poczty).<br>- Czy pokrzywdzony sam podał kody autoryzacyjne (np. BLIK), czy zalogował się przez fałszywy link?`,
+                `<b>V. Przekazanie środków (Ślady finansowe - KLUCZOWE!)</b>- Z jakiego banku i z jakiego numeru konta (IBAN) pokrzywdzony wysłał środki?<br>- Na jakie dokładnie konto (IBAN sprawcy) lub na jaki numer telefonu (przelew na telefon/BLIK) trafiły pieniądze?<br>- Jeśli ofiara wypłaciła gotówkę w bankomacie (np. przy oszustwie na BLIK), to w jakim dokładnie bankomacie i o której godzinie? (Konieczne do zabezpieczenia monitoringu).`,
+                `<b>VI. Narzędzia i dowody zabezpieczone od pokrzywdzonego</b>- Czy sprawca polecił zainstalować na telefonie/komputerze program do zdalnej obsługi? (np. AnyDesk, TeamViewer, QuickSupport).<br>- Jakie dowody posiada pokrzywdzony? (Obowiązkowo należy zabezpieczyć zrzuty ekranu korespondencji ze sprawcą, fałszywe linki, SMS-y oraz <b>potwierdzenia przelewów w formacie PDF wygenerowane z aplikacji bankowej</b>).`,
+                `<b>VII. Kto? (Identyfikacja sprawcy i pokrzywdzonego)</b>- Dane pokrzywdzonego (oraz ew. dane banku pokrzywdzonego).<br>- Jeśli doszło do osobistego przekazania gotówki (tzw. "odbierak"): Jak wyglądała osoba odbierająca pieniądze? (Szczegółowy rysopis: wiek, wzrost, sylwetka, ubiór, znaki szczególne, pojazd, którym przyjechała, kierunek oddalenia się).`,
+                `<b>VIII. Inne (Wniosek o ściganie)</b>- Oszustwo (art. 286 § 1 k.k.) ścigane jest z urzędu, jednak jeśli sprawcą jest osoba najbliższa, staje się przestępstwem wnioskowym (art. 286 § 4 k.k.). Warto zabezpieczyć w protokole oświadczenie woli ścigania.`
+            ],
+            documents: [
+                "Protokół przyjęcia ustnego zawiadomienia o przestępstwie",
+                "Załącznik adresowy",
+                "Pouczenie o uprawnieniach i obowiązkach pokrzywdzonego w postępowaniu karnym"
             ]
         }
     ];
@@ -579,7 +673,7 @@
                 resultsDiv.appendChild(div);
             });
         } else {
-            resultsDiv.innerHTML = "<p>Nie znaleziono procedury dla tego hasła.</p>";
+            resultsDiv.innerHTML = "<p>Nie znaleziono algorytmu dla tego hasła.</p>";
         }
     }
 
@@ -601,7 +695,15 @@
         
         crime.steps.forEach(step => {
             const stepDiv = document.createElement("div");
-            stepDiv.className = "step-item";
+            // Jeżeli krok zawiera klasę etap-title (nowy format), usuwamy domyślny biały boks z cieniem
+            if(step.includes("etap-title")) {
+                stepDiv.style.backgroundColor = "transparent";
+                stepDiv.style.boxShadow = "none";
+                stepDiv.style.border = "none";
+                stepDiv.style.padding = "0";
+            } else {
+                stepDiv.className = "step-item";
+            }
             stepDiv.innerHTML = usunWdowy(step);
             stepsContainer.appendChild(stepDiv);
         });
@@ -609,15 +711,10 @@
         const documentsContainer = document.getElementById("documentsContainer");
         documentsContainer.innerHTML = ""; 
         if (crime.documents && crime.documents.length > 0) {
-            crime.documents.forEach(doc => {
+            crime.documents.forEach(docName => {
                 const docDiv = document.createElement("div");
                 docDiv.className = "document-item";
-                
-                let icon = "📄";
-                if(doc.url.includes(".doc") || doc.url.includes(".docx")) icon = "📝";
-                else if(doc.url.includes(".pdf")) icon = "📕";
-                
-                docDiv.innerHTML = `<span style="position: absolute; left: 0; top: 1px; font-size: 1.1em;">${icon}</span><a href="${doc.url}" target="_blank" class="document-link">${doc.name}</a>`;
+                docDiv.innerHTML = `<span style="position: absolute; left: 0; top: 1px; font-size: 1.1em;">🔹</span>${docName}`;
                 documentsContainer.appendChild(docDiv);
             });
         }
