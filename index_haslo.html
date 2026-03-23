@@ -8,394 +8,207 @@
         * { box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            background-color: #f4f7f6;
-            color: #2c3e50; 
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 15px;
+            background-color: #f4f7f6; color: #2c3e50; 
+            max-width: 800px; margin: 0 auto; padding: 6px;
+            scroll-behavior: smooth;
         }
 
         /* EKRAN LOGOWANIA */
         #login-screen {
-            background-color: white;
-            padding: 40px 20px; 
-            border-radius: 12px;
-            min-height: 50vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 16px rgba(0,45,90,0.08); 
-            text-align: center;
-            margin-top: 10vh;
+            background-color: white; padding: 30px 15px; border-radius: 10px;
+            min-height: 40vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,45,90,0.05); text-align: center; margin-top: 5vh;
         }
-        #login-screen h1 {
-            color: #002d5a;
-            margin-bottom: 5px;
-        }
-        #login-screen p {
-            color: #666;
-            margin-bottom: 25px;
-        }
+        #login-screen h1 { color: #002d5a; margin-bottom: 5px; font-size: 22px; }
+        #login-screen p { color: #666; margin-bottom: 15px; font-size: 13px; }
         #login-screen input[type="text"] {
-            width: 80%;
-            max-width: 300px;
-            padding: 15px;
-            font-size: 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            text-align: center;
+            width: 85%; max-width: 280px; padding: 10px; font-size: 15px;
+            border: 2px solid #e0e0e0; border-radius: 6px; margin-bottom: 10px; text-align: center;
         }
-        #login-screen input[type="text"]:focus {
-            outline: none;
-            border-color: #002d5a;
-        }
-        #login-screen .btn-primary {
-            width: 80%;
-            max-width: 300px;
-        }
-        #login-error {
-            color: #d9534f;
-            margin-top: 15px;
-            font-weight: bold;
-            display: none;
-        }
+        #login-screen input[type="text"]:focus { outline: none; border-color: #002d5a; }
+        #login-screen .btn-primary { width: 85%; max-width: 280px; padding: 10px; }
+        #login-error { color: #d9534f; margin-top: 10px; font-weight: bold; display: none; font-size: 13px; }
 
-        /* GŁÓWNA APLIKACJA (UKRYTA NA START) */
+        /* GŁÓWNA APLIKACJA */
         #main-app {
-            display: none; 
-            background-color: white;
-            padding: 0 20px 20px 20px; 
-            border-radius: 12px;
-            min-height: 80vh;
-            flex-direction: column;
-            box-shadow: 0 8px 16px rgba(0,45,90,0.08); 
-            overflow: hidden; 
+            display: none; background-color: white; padding: 0 10px 10px 10px;
+            border-radius: 10px; min-height: 90vh; flex-direction: column;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
         }
         
         /* NAGŁÓWEK ALPO24 */
         .header-alpo {
             background: linear-gradient(135deg, #002d5a 0%, #001a33 100%); 
-            color: white;
-            padding: 22px 20px;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            display: flex;
-            align-items: center;
-            border-bottom: 4px solid #fecb00; 
-            margin: 0 -20px 25px -20px; 
+            color: white; padding: 12px; font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex; align-items: center; border-bottom: 4px solid #fecb00; 
+            margin: 0 -10px 10px -10px; 
         }
-
         .logo-box {
-            background: white;
-            color: #002d5a;
-            padding: 6px 12px;
-            font-weight: 900;
-            font-size: clamp(16px, 5vw, 22px); 
-            border-radius: 6px;
-            margin-right: 12px;
-            letter-spacing: 1px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            background: white; color: #002d5a; padding: 4px 8px;
+            font-weight: 900; font-size: 16px; border-radius: 4px; margin-right: 8px;
         }
-
         .brand-name {
-            font-size: clamp(12px, 4vw, 20px); 
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            line-height: 1.2;
-            white-space: nowrap; 
+            font-size: 14px; font-weight: 400; text-transform: uppercase;
+            letter-spacing: 0.5px; line-height: 1.1; white-space: nowrap; 
         }
+        .brand-name span { font-weight: 900; color: #fecb00; font-size: 1.1em; }
 
-        .brand-name span {
-            font-weight: 900;
-            color: #fecb00;
-            font-size: 1.1em; 
-        }
-
-        .section-title {
-            color: #002d5a;
-            border-bottom: 2px solid #fecb00; 
-            padding-bottom: 8px;
-            margin-top: 25px;
-            margin-bottom: 20px;
-            font-size: 1.4em;
-        }
-        
-        /* ZAKŁADKI */
+        /* ZAKŁADKI GŁÓWNE */
         .tabs-container {
-            display: flex;
-            margin-bottom: 25px;
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: #f8f9fa;
-            border: 2px solid #002d5a;
+            display: flex; margin-bottom: 10px; border-radius: 6px;
+            overflow: hidden; background-color: #f8f9fa; border: 1px solid #002d5a;
         }
         .tab-button {
-            flex: 1;
-            padding: 14px;
-            font-size: clamp(12px, 3.5vw, 16px);
-            font-weight: bold;
-            background-color: transparent;
-            color: #002d5a;
-            border: none;
-            border-right: 1px solid #dce0e5; 
-            cursor: pointer;
-            transition: all 0.2s ease;
+            flex: 1; padding: 8px 4px; font-size: 12px; font-weight: bold;
+            background-color: transparent; color: #002d5a; border: none;
+            border-right: 1px solid #dce0e5; cursor: pointer; transition: all 0.2s ease;
         }
-        .tab-button:last-child {
-            border-right: none;
-        }
-        .tab-button.active {
-            background-color: #002d5a;
-            color: white;
-            border-bottom: 4px solid #fecb00; 
-        }
+        .tab-button:last-child { border-right: none; }
+        .tab-button.active { background-color: #002d5a; color: white; border-bottom: 3px solid #fecb00; }
         .tab-content { display: none; flex-grow: 1; }
-        .tab-content.active { display: block; }
 
-        /* WYSZUKIWARKA */
+        /* WYSZUKIWARKA I PRZYCISKI */
         input[type="text"] {
-            width: 100%;
-            padding: 16px;
-            font-size: 16px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            -webkit-appearance: none;
-            transition: border-color 0.3s ease;
+            width: 100%; padding: 12px; font-size: 14px; border: 2px solid #e0e0e0;
+            border-radius: 6px; margin-bottom: 8px; -webkit-appearance: none;
         }
-        input[type="text"]:focus {
-            outline: none;
-            border-color: #002d5a;
-        }
-        
+        input[type="text"]:focus { outline: none; border-color: #002d5a; }
         .btn-primary {
-            width: 100%;
-            padding: 16px;
-            font-size: 16px;
-            font-weight: bold;
-            background-color: #002d5a; 
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            width: 100%; padding: 12px; font-size: 13px; font-weight: bold;
+            background-color: #002d5a; color: white; border: none; border-radius: 6px;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;
+            transition: all 0.2s;
         }
-        .btn-primary:active { background-color: #001a33; }
-        .btn-secondary { background-color: #6c757d; margin-top: 25px; }
+        .btn-primary:active { background-color: #001a33; transform: scale(0.98); }
         
+        .btn-secondary { background-color: #6c757d; }
+        .btn-secondary:active { background-color: #5a6268; }
+
+        /* NAWIGACJA W ŚRODKU ALGORYTMU */
+        .algorithm-nav { display: flex; gap: 6px; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px; }
+        .nav-btn {
+            flex: 1; padding: 10px 8px; background-color: #f1f4f8; border: 1px solid #dce0e5;
+            border-radius: 6px; color: #002d5a; font-weight: bold; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-size: 12px;
+            text-transform: uppercase; transition: background-color 0.2s;
+        }
+        .nav-btn:hover { background-color: #e2e8f0; }
+
+        /* ROZWIJANIE PODSTAW PRAWNYCH */
+        .toggle-legal-btn {
+            width: 100%; background-color: #fff8e1; border: 1px dashed #fecb00; color: #002d5a;
+            padding: 10px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer;
+            margin: 10px 0; transition: background-color 0.2s;
+        }
+        .hidden { display: none !important; }
+
+        /* AKORDEONY PODSTAW PRAWNYCH I DOKUMENTÓW */
+        .accordion-btn {
+            width: 100%; text-align: left; padding: 10px 12px; background: #f1f4f8; 
+            border: 1px solid #dce0e5; border-radius: 6px; font-weight: bold; font-size: 13px;
+            color: #002d5a; margin-bottom: 4px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+        }
+        .accordion-btn span.desc { font-size: 11px; font-weight: normal; color: #666; margin-left: 8px; flex-grow: 1; }
+        .accordion-content {
+            padding: 10px 12px; background: #fdfdfd; border-left: 3px solid #fecb00; 
+            margin-bottom: 8px; font-size: 12px; line-height: 1.5; color: #333; text-align: justify;
+            border-bottom: 1px solid #eee; border-right: 1px solid #eee;
+        }
+
+        /* LISTA WYNIKÓW */
         .result-item {
-            padding: 16px;
-            border-bottom: 1px solid #eee;
-            cursor: pointer;
-            font-size: 16px;
-            color: #002d5a;
-            transition: background-color 0.2s ease;
+            padding: 12px; border-bottom: 1px solid #eee; cursor: pointer; font-size: 14px;
+            color: #002d5a; font-weight: 600; transition: background-color 0.2s;
         }
         .result-item:hover { background-color: #f1f4f8; }
 
-        /* PODSTAWY PRAWNE (WIDOK STARTOWY) */
-        .legal-basis-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 25px;
+        /* WNĘTRZE ALGORYTMU */
+        .section-title {
+            color: #002d5a; border-bottom: 2px solid #fecb00; padding-bottom: 4px;
+            margin: 5px 0 10px 0; font-size: 1.1em; text-align: center;
         }
-        .legal-card {
-            background-color: #fdfdfd;
-            border: 1px solid #eee;
-            border-left: 4px solid #fecb00;
-            padding: 18px;
-            border-radius: 0 8px 8px 0;
-            font-size: 14px; 
-            color: #333;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
-        }
-        .legal-card h4 {
-            color: #002d5a;
-            margin-top: 0;
-            margin-bottom: 12px;
-            font-size: 15px;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 8px;
-            display: flex;
-            align-items: center;
-        }
-        .legal-card p {
-            margin: 8px 0;
-            line-height: 1.6;
-            text-align: justify;
-            hyphens: auto;
-        }
-        .legal-card b { color: #002d5a; }
-
-        @media (max-width: 600px) {
-            .legal-basis-container { grid-template-columns: 1fr; }
-        }
-
-        /* WNĘTRZE ALGORYTMU (CYTATY I KROKI) */
         .article-quote {
-            background-color: #fcfcfc;
-            border: 1px solid #eee;
-            border-left: 4px solid #fecb00; 
-            padding: 18px;
-            margin-bottom: 25px;
-            font-style: italic;
-            color: #444;
-            border-radius: 0 8px 8px 0;
-            font-size: 15px;
-            line-height: 1.6;
-            text-align: justify; 
-        }
-        
-        .step-item {
-            background-color: #ffffff;
-            padding: 16px 20px;
-            margin-bottom: 12px;
-            border-radius: 4px;
-            font-size: 15px;
-            line-height: 1.6;
-            text-align: justify; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
-            border: 1px solid #f0f0f0;
-            border-left: 4px solid #002d5a;
-        }
-        .step-item b {
-            color: #002d5a;
-            font-size: 1.1em;
-            display: block; 
-            margin-bottom: 8px;
-            padding-bottom: 4px;
-            border-bottom: 1px dashed #eee;
-        }
-        .step-item p {
-            margin: 5px 0;
+            background-color: #fcfcfc; border: 1px solid #eee; border-left: 3px solid #fecb00; 
+            padding: 10px; margin-bottom: 12px; font-style: italic; color: #444; font-size: 12px; line-height: 1.4; text-align: justify; 
         }
 
-        /* Styl dla głównych etapów algorytmu */
+        /* STYLE INTERAKTYWNYCH KROKÓW */
+        .algorithm-phase { animation: fadeIn 0.2s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
         .etap-title {
-            background-color: #002d5a;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 4px;
-            margin-top: 25px;
-            margin-bottom: 10px;
-            font-weight: bold;
-            font-size: 1.1em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            background: linear-gradient(135deg, #002d5a 0%, #004494 100%);
+            color: white; padding: 10px 12px; border-radius: 4px;
+            margin: 0 0 10px 0; font-weight: bold; font-size: 13px; 
+            text-transform: uppercase; display: flex; flex-direction: column;
         }
-        
-        .etap-subtitle {
-            font-size: 0.9em;
-            font-weight: normal;
-            color: #fecb00;
-            display: block;
-            margin-top: 2px;
-            text-transform: none;
+        .etap-subtitle { font-size: 11px; font-weight: normal; color: #fecb00; margin-top: 2px; text-transform: none; }
+
+        .step-item {
+            background-color: #ffffff; padding: 12px 14px; margin-bottom: 10px; border-radius: 6px;
+            border: 1px solid #f0f0f0; border-left: 3px solid #fecb00; box-shadow: 0 1px 3px rgba(0,0,0,0.03);
         }
 
-        .documents-section {
-            margin-top: 35px;
-            padding: 20px;
-            background-color: #f4f7f6; 
-            border: 1px solid #dce0e5;
-            border-radius: 8px;
-        }
-        .documents-section h3 {
-            margin-top: 0;
-            color: #002d5a;
-            font-size: 1.1em;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #fecb00;
-            padding-bottom: 5px;
-        }
-        .document-item { 
-            margin: 10px 0; 
-            padding-left: 25px; 
-            position: relative; 
-            color: #002d5a; 
-            font-weight: 600; 
+        /* FORMATOWANIE ZMIEJSZAJĄCE ODSTĘPY - DOKŁADNIE WEDŁUG WYTYCZNYCH */
+        .section-heading { font-size: 13px; font-weight: bold; color: #002d5a; margin-bottom: 8px; border-bottom: 1px solid #eee; padding-bottom: 4px; text-transform: uppercase; }
+        .sub-section { margin-bottom: 12px; }
+        .sub-section:last-child { margin-bottom: 0; }
+        .sub-section b { display: block; margin-bottom: 2px; color: #002d5a; font-size: 13px; }
+        .sub-section div { margin-top: 0; font-size: 13px; line-height: 1.4; color: #333; text-align: justify; }
+        
+        .druk { color: #d4a000; font-weight: 800; } 
+        .cytat { font-style: italic; background-color: #f8f9fa; padding: 2px 4px; border-radius: 4px; color: #444; }
+
+        .uwaga-link {
+            display: inline-block; background-color: #fecb00; color: #002d5a; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 11px; border: none; cursor: pointer; margin-left: 5px; vertical-align: middle;
         }
         
-        #algorithm-view { display: none; }
-        
+        /* UWAGI DODATKOWE (WYRÓŻNIONE) */
+        .uwagi-box {
+            background-color: #fff4f4; border: 1px solid #f5c6cb; border-left: 4px solid #d9534f;
+            padding: 12px; margin-top: 5px; margin-bottom: 10px; border-radius: 4px; font-size: 13px; color: #333; line-height: 1.5;
+        }
+        .uwagi-title { color: #d9534f; font-weight: bold; text-transform: uppercase; font-size: 13px; margin-bottom: 4px; display: flex; align-items: center; }
+
         /* KARTY W ZAKŁADKACH (PRZEPISY / DRUKI) */
         .przepisy-category {
-            font-size: 16px;
-            color: #666;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-weight: bold;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 13px; color: #666; margin: 15px 0 10px 0; font-weight: bold;
+            border-bottom: 1px solid #eee; padding-bottom: 4px; text-transform: uppercase;
         }
-
-        .tiles-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 15px;
+        .tiles-grid { 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; 
         }
-
         .tile {
-            background-color: white;
-            color: #002d5a;
-            padding: 20px 10px;
-            border-radius: 10px;
-            border: 1px solid #eaeaea;
-            border-bottom: 4px solid #002d5a; 
-            text-align: center;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 14px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.04);
-            transition: all 0.2s ease;
+            background-color: #ffffff; color: #002d5a; padding: 12px 8px; border-radius: 10px;
+            border: 1px solid #e2e8f0; border-bottom: 4px solid #002d5a; text-align: center; text-decoration: none;
+            display: flex; flex-direction: column; align-items: center; justify-content: flex-start; 
+            font-weight: 700; font-size: 11px; box-shadow: 0 4px 6px rgba(0,0,0,0.03); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            line-height: 1.3;
         }
-
-        .tile:active, .tile:hover {
-            transform: translateY(-3px); 
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-            border-bottom-color: #fecb00; 
+        .tile:active, .tile:hover { 
+            transform: translateY(-4px); box-shadow: 0 8px 15px rgba(0,45,90,0.1); border-bottom-color: #fecb00; 
         }
-
         .tile-icon {
-            font-size: 28px;
-            margin-bottom: 12px;
-            background-color: #f4f7f6; 
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 26px; margin-bottom: 8px; 
+            background: linear-gradient(135deg, #f8f9fa 0%, #e2e8f0 100%);
+            width: 44px; height: 44px; border-radius: 12px; 
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.05);
         }
-
+        .tile-subtitle {
+            font-size: 9px; font-weight: normal; color: #6c757d; margin-top: 6px;
+            background: #f1f4f8; padding: 3px 6px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase;
+        }
         .tile-full { grid-column: 1 / -1; }
 
-        .app-footer {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            text-align: center;
-            color: #aaa;
-            font-size: 13px;
-        }
+        .app-footer { margin-top: 15px; padding-top: 10px; border-top: 1px solid #eee; text-align: center; color: #999; font-size: 11px; line-height: 1.4; }
     </style>
 </head>
 <body>
 
 <div id="login-screen">
-    <div class="logo-box" style="margin-bottom: 20px; display: inline-block;">ALPO24</div>
+    <div class="logo-box" style="margin-bottom: 15px; display: inline-block;">ALPO24</div>
     <h1>Wersja Testowa</h1>
     <p>Podaj hasło dostępu, aby odblokować aplikację.</p>
     <input type="text" id="passwordInput" placeholder="Hasło..." autocapitalize="off" autocorrect="off" onkeydown="if(event.key === 'Enter') sprawdzHaslo()">
@@ -417,22 +230,19 @@
     </div>
 
     <div id="tab-algorytmy" class="tab-content active">
+        
         <div id="search-view">
-            
-            <div class="legal-basis-container">
-                <div class="legal-card">
-                    <h4><span style="font-size: 16px; margin-right: 5px;">🚨</span> Wszczęcie i zawiadomienie</h4>
-                    <p><b>Art. 303. k.p.k.</b><br>Jeżeli zachodzi uzasadnione podejrzenie popełnienia przestępstwa, wydaje się z urzędu lub na skutek zawiadomienia o przestępstwie postanowienie o wszczęciu śledztwa, w którym określa się czyn będący przedmiotem postępowania oraz jego kwalifikację prawną.</p>
-                    
-                    <p><b>Art. 304. k.p.k.</b><br>
-                    <b>§ 1.</b> Każdy, dowiedziawszy się o popełnieniu przestępstwa ściganego z urzędu, ma społeczny obowiązek zawiadomić o tym prokuratora lub Policję. Przepisy art. 148a oraz art. 156a stosuje się odpowiednio.<br>
-                    <b>§ 2.</b> Instytucje państwowe i samorządowe, które w związku ze swą działalnością dowiedziały się o popełnieniu przestępstwa ściganego z urzędu, są obowiązane niezwłocznie zawiadomić o tym prokuratora lub Policję oraz przedsięwziąć niezbędne czynności do czasu przybycia organu powołanego do ścigania przestępstw lub do czasu wydania przez ten organ stosownego zarządzenia, aby nie dopuścić do zatarcia śladów i dowodów przestępstwa.<br>
-                    <b>§ 3.</b> Zawiadomienie o przestępstwie lub własne dane świadczące o popełnieniu takiego przestępstwa, co do którego obowiązkowe jest prowadzenie śledztwa przez prokuratora, Policja przekazuje wraz z zebranym materiałem niezwłocznie prokuratorowi.</p>
-                </div>
-                
-                <div class="legal-card">
-                    <h4><span style="font-size: 16px; margin-right: 5px;">📝</span> Wymogi formalne (Protokoły)</h4>
-                    <p><b>Art. 143. k.p.k.</b><br>
+            <input type="text" id="searchInput" placeholder="Szukaj algorytmu (np. 190, kradzież)..." oninput="searchCrime()" onkeydown="if(event.key === 'Enter') searchCrime()">
+            <button class="btn-primary" onclick="searchCrime()">Szukaj</button>
+            <div id="resultsList"></div>
+
+            <button class="toggle-legal-btn" onclick="toggleLegalBasis()">📜 Podstawy prawne przyjęcia zawiadomienia o przestępstwie</button>
+
+            <div id="legalBasisContainer" class="hidden">
+                <button class="accordion-btn" onclick="toggleAccordion('art143')">
+                    <div>Art. 143 k.p.k. <span class="desc">(Wymóg spisania protokołu)</span></div><span>▼</span>
+                </button>
+                <div id="art143" class="accordion-content hidden">
                     <b>§ 1.</b> Spisania protokołu wymagają:<br>
                     1) przyjęcie ustnego zawiadomienia o przestępstwie, wniosku o ściganie i jego cofnięcie;<br>
                     2) przesłuchanie oskarżonego, świadka, biegłego i kuratora;<br>
@@ -444,49 +254,166 @@
                     8) zapoznanie się z treścią dowodu przewidzianego w art. 393 § 1 zdanie pierwsze;<br>
                     9) przyjęcie poręczenia;<br>
                     10) przebieg posiedzenia, jeżeli przepisy ustawy nie stanowią inaczej;<br>
-                    11) przebieg rozprawy.<br>
-                    <b>§ 2.</b> Z innych czynności spisuje się protokół, jeżeli przepis szczególny tego wymaga albo przeprowadzający czynność uzna to za potrzebne. W innych wypadkach można ograniczyć się do sporządzenia notatki urzędowej.</p>
+                    11) przebieg rozprawy.<br><br>
+                    <b>§ 2.</b> Z innych czynności spisuje się protokół, jeżeli przepis szczególny tego wymaga albo przeprowadzający czynność uzna to za potrzebne. W innych wypadkach można ograniczyć się do sporządzenia notatki urzędowej.
+                </div>
 
-                    <p><b>Art. 304a. k.p.k.</b><br>Sporządza się wspólny protokół z przyjęcia ustnego zawiadomienia o przestępstwie i przesłuchania w charakterze świadka osoby zawiadamiającej; w protokole tym można również zamieścić wniosek o ściganie.</p>
+                <button class="accordion-btn" onclick="toggleAccordion('art147')">
+                    <div>Art. 147 k.p.k. <span class="desc">(Rejestracja obrazu i dźwięku)</span></div><span>▼</span>
+                </button>
+                <div id="art147" class="accordion-content hidden">
+                    <b>§ 1.</b> Przebieg czynności protokołowanych może być utrwalony za pomocą urządzenia rejestrującego obraz lub dźwięk, o czym należy przed uruchomieniem urządzenia uprzedzić osoby uczestniczące w czynności.<br><br>
+                    <b>§ 3.</b> Jeżeli czynność protokołowaną utrwala się za pomocą urządzenia rejestrującego obraz lub dźwięk, protokół można ograniczyć do zapisu najbardziej istotnych oświadczeń osób biorących w niej udział. Zapis obrazu lub dźwięku, a także przekład zapisu dźwięku stanowią załącznik do protokołu.
+                </div>
+
+                <button class="accordion-btn" onclick="toggleAccordion('art148')">
+                    <div>Art. 148 k.p.k. <span class="desc">(Treść protokołu)</span></div><span>▼</span>
+                </button>
+                <div id="art148" class="accordion-content hidden">
+                    <b>§ 1.</b> Protokół powinien zawierać:<br>
+                    1) oznaczenie czynności, jej czasu i miejsca oraz osób w niej uczestniczących;<br>
+                    2) przebieg czynności oraz oświadczenia i wnioski jej uczestników;<br>
+                    3) wydane w toku czynności zarządzenia, a jeżeli sporządzenie osobnego postanowienia nie jest wymagane - również postanowienia.<br><br>
+                    <b>§ 2.</b> W protokole należy ponadto zamieścić stwierdzenie co do odczytania jego treści i podpisania przez osoby w nim wymienione.
+                </div>
+
+                <button class="accordion-btn" onclick="toggleAccordion('art148a')">
+                    <div>Art. 148a k.p.k. <span class="desc">(Ochrona danych adresowych)</span></div><span>▼</span>
+                </button>
+                <div id="art148a" class="accordion-content hidden">
+                    <b>§ 1.</b> W protokole nie zamieszcza się danych dotyczących miejsca zamieszkania i miejsca pracy pokrzywdzonego i świadków uczestniczących w czynności. Dane te zamieszcza się w osobnym załączniku do protokołu, który przechowuje się w załącznikach adresowych do akt sprawy.
+                </div>
+
+                <button class="accordion-btn" onclick="toggleAccordion('art151')">
+                    <div>Art. 151 k.p.k. <span class="desc">(Skreślenia i poprawki)</span></div><span>▼</span>
+                </button>
+                <div id="art151" class="accordion-content hidden">
+                    <b>§ 1.</b> Skreślenia i poprawki powinny być omówione w protokole i podpisane przez osoby podpisujące protokół.
+                </div>
+
+                <button class="accordion-btn" onclick="toggleAccordion('art303')">
+                    <div>Art. 303 k.p.k. <span class="desc">(Wszczęcie śledztwa)</span></div><span>▼</span>
+                </button>
+                <div id="art303" class="accordion-content hidden">
+                    Jeżeli zachodzi uzasadnione podejrzenie popełnienia przestępstwa, wydaje się z urzędu lub na skutek zawiadomienia o przestępstwie postanowienie o wszczęciu śledztwa, w którym określa się czyn będący przedmiotem postępowania oraz jego kwalifikację prawną.
+                </div>
+
+                <button class="accordion-btn" onclick="toggleAccordion('art304')">
+                    <div>Art. 304 k.p.k. <span class="desc">(Zawiadomienie o przestępstwie)</span></div><span>▼</span>
+                </button>
+                <div id="art304" class="accordion-content hidden">
+                    <b>§ 1.</b> Każdy, dowiedziawszy się o popełnieniu przestępstwa ściganego z urzędu, ma społeczny obowiązek zawiadomić o tym prokuratora lub Policję. Przepisy art. 148a oraz art. 156a stosuje się odpowiednio.<br><br>
+                    <b>§ 2.</b> Instytucje państwowe i samorządowe, które w związku ze swą działalnością dowiedziały się o popełnieniu przestępstwa ściganego z urzędu, są obowiązane niezwłocznie zawiadomić o tym prokuratora lub Policję oraz przedsięwziąć niezbędne czynności do czasu przybycia organu powołanego do ścigania przestępstw lub do czasu wydania przez ten organ stosownego zarządzenia, aby nie dopuścić do zatarcia śladów i dowodów przestępstwa.<br><br>
+                    <b>§ 3.</b> Zawiadomienie o przestępstwie lub własne dane świadczące o popełnieniu takiego przestępstwa, co do którego obowiązkowe jest prowadzenie śledztwa przez prokuratora, Policja przekazuje wraz z zebranym materiałem niezwłocznie prokuratorowi.
+                </div>
+
+                <button class="accordion-btn" onclick="toggleAccordion('art304a')">
+                    <div>Art. 304a k.p.k. <span class="desc">(Wspólny protokół)</span></div><span>▼</span>
+                </button>
+                <div id="art304a" class="accordion-content hidden">
+                    Sporządza się wspólny protokół z przyjęcia ustnego zawiadomienia o przestępstwie i przesłuchania w charakterze świadka osoby zawiadamiającej; w protokole tym można również zamieścić wniosek o ściganie.
+                </div>
+
+                <button class="accordion-btn" onclick="toggleAccordion('art304b')">
+                    <div>Art. 304b k.p.k. <span class="desc">(Potwierdzenie zawiadomienia)</span></div><span>▼</span>
+                </button>
+                <div id="art304b" class="accordion-content hidden">
+                    Na żądanie pokrzywdzonego składającego zawiadomienie o przestępstwie wydaje się potwierdzenie złożenia zawiadomienia, zawierające datę oraz miejsce jego przyjęcia, wskazanie organu przyjmującego zawiadomienie, dane zawiadamiającego, skrótowy opis czynu i załączonych dowodów, a także sygnaturę sprawy. O prawie tym należy pouczyć zawiadamiającego pokrzywdzonego.
+                </div>
+
+                <button class="accordion-btn" onclick="toggleAccordion('art308')">
+                    <div>Art. 308 k.p.k. <span class="desc">(Zabezpieczenie śladów i dowodów)</span></div><span>▼</span>
+                </button>
+                <div id="art308" class="accordion-content hidden">
+                    <b>§ 1.</b> W granicach koniecznych dla zabezpieczenia śladów i dowodów przestępstwa przed ich utratą, zniekształceniem lub zniszczeniem prokurator albo Policja może w każdej sprawie, w wypadkach niecierpiących zwłoki, jeszcze przed wydaniem postanowienia o wszczęciu śledztwa lub dochodzenia, przeprowadzić w niezbędnym zakresie czynności procesowe, a zwłaszcza dokonać oględzin, w razie potrzeby z udziałem biegłego, przeszukania lub czynności wymienionych w art. 74 § 2 pkt 1 w stosunku do osoby podejrzanej, a także przedsięwziąć wobec niej inne niezbędne czynności, nie wyłączając pobrania krwi, włosów i wydzielin organizmu. Po dokonaniu tych czynności, w sprawach, w których prowadzenie śledztwa przez prokuratora jest obowiązkowe, prowadzący czynność przekazuje sprawę niezwłocznie prokuratorowi.<br><br>
+                    <b>§ 2.</b> W wypadkach przewidzianych w § 1 można, a w razie potrzeby należy, w charakterze świadka przesłuchać osobę podejrzaną o popełnienie przestępstwa.
                 </div>
             </div>
-
-            <input type="text" id="searchInput" placeholder="Szukaj algorytmu (np. 190, groźby, kradzież)..." oninput="searchCrime()" onkeydown="if(event.key === 'Enter') searchCrime()">
-            <button class="btn-primary" onclick="searchCrime()">Szukaj algorytmu</button>
-            <div id="resultsList" style="margin-top: 20px;"></div>
         </div>
         
-        <div id="algorithm-view">
-            <h2 id="crimeTitle" class="section-title">Tytuł przestępstwa</h2>
-            
+        <div id="algorithm-view" style="display: none;">
+            <h2 id="crimeTitle" class="section-title">Tytuł</h2>
             <div id="articleQuote" class="article-quote"></div>
-            <div id="stepsContainer"></div>
             
-            <div class="documents-section">
-                <h3>Wykaz niezbędnych druków do przygotowania:</h3>
-                <div id="documentsContainer"></div>
+            <div id="algorithm-menu"></div>
+            <div id="algorithm-phase-content" style="display:none;"></div>
+
+            <div class="algorithm-nav">
+                <button class="nav-btn" onclick="handleBackBtn()">⬅ Cofnij</button>
+                <button class="nav-btn" onclick="resetToSearch()">🏠 Wyszukiwarka</button>
             </div>
-            <button class="btn-primary btn-secondary" onclick="goBack()">Zakończ i wróć do wyszukiwarki</button>
         </div>
     </div>
 
     <div id="tab-druki" class="tab-content">
         <h3 class="przepisy-category">Protokoły</h3>
         <div class="tiles-grid">
-            <a href="druki/protokol_zawiadomienie_pdf.pdf" target="_blank" class="tile"><div class="tile-icon">📕</div>Protokół zawiadomienia<br><span style="font-size: 11px; font-weight: normal; margin-top: 5px;">(wersja PDF)</span></a>
-            <a href="druki/protokol_zawiadomienie_doc.doc" target="_blank" class="tile"><div class="tile-icon">📝</div>Protokół zawiadomienia<br><span style="font-size: 11px; font-weight: normal; margin-top: 5px;">(wersja WORD)</span></a>
-        </div>
+            <a href="druki/protokol_zawiadomienie_pdf.pdf" target="_blank" class="tile">
+                <div class="tile-icon">📕</div>Protokół przyjęcia ustnego zawiadomienia o przestępstwie i przesłuchania w charakterze świadka<br><span class="tile-subtitle">wersja PDF</span>
+            </a>
+            <a href="druki/protokol_zawiadomienie_doc.doc" target="_blank" class="tile">
+                <div class="tile-icon">📝</div>Protokół przyjęcia ustnego zawiadomienia o przestępstwie i przesłuchania w charakterze świadka<br><span class="tile-subtitle">wersja WORD</span>
+            </a>
+            
+            <a href="druki/protokol_ogledzin_pdf.pdf" target="_blank" class="tile">
+                <div class="tile-icon">📕</div>Protokół oględzin<br><span class="tile-subtitle">wersja PDF</span>
+            </a>
+            <a href="druki/protokol_ogledzin_doc.doc" target="_blank" class="tile">
+                <div class="tile-icon">📝</div>Protokół oględzin<br><span class="tile-subtitle">wersja WORD</span>
+            </a>
+            
+            <a href="druki/protokol_zatrzymania_rzeczy_pdf.pdf" target="_blank" class="tile">
+                <div class="tile-icon">📕</div>Protokół zatrzymania rzeczy<br><span class="tile-subtitle">wersja PDF</span>
+            </a>
+            <a href="druki/protokol_zatrzymania_rzeczy_doc.doc" target="_blank" class="tile">
+                <div class="tile-icon">📝</div>Protokół zatrzymania rzeczy<br><span class="tile-subtitle">wersja WORD</span>
+            </a>
+            
+            <a href="druki/protokol_przeszukania_urzadzenia__systemu__nosnika_informatycznego_pdf.pdf" target="_blank" class="tile">
+                <div class="tile-icon">📕</div>Protokół przeszukania urządzenia, systemu i nośnika informatycznego<br><span class="tile-subtitle">wersja PDF</span>
+            </a>
+            <a href="druki/protokol_przeszukania_urzadzenia__systemu__nosnika_informatycznego_doc.doc" target="_blank" class="tile">
+                <div class="tile-icon">📝</div>Protokół przeszukania urządzenia, systemu i nośnika informatycznego<br><span class="tile-subtitle">wersja WORD</span>
+            </a>
 
-        <h3 class="przepisy-category">Załączniki</h3>
+            <a href="druki/protokol_eksperymentu_procesowego_pdf.pdf" target="_blank" class="tile">
+                <div class="tile-icon">📕</div>Protokół eksperymentu procesowego<br><span class="tile-subtitle">wersja PDF</span>
+            </a>
+            <a href="druki/protokol_eksperymentu_procesowego_doc.doc" target="_blank" class="tile">
+                <div class="tile-icon">📝</div>Protokół eksperymentu procesowego<br><span class="tile-subtitle">wersja WORD</span>
+            </a>
+        </div>
+        
+        <h3 class="przepisy-category">Załączniki i inne</h3>
         <div class="tiles-grid">
-            <a href="druki/zalacznik_adresowy_pdf.pdf" target="_blank" class="tile"><div class="tile-icon">📕</div>Załącznik adresowy<br><span style="font-size: 11px; font-weight: normal; margin-top: 5px;">(wersja PDF)</span></a>
-            <a href="druki/zalacznik_adresowy_doc.doc" target="_blank" class="tile"><div class="tile-icon">📝</div>Załącznik adresowy<br><span style="font-size: 11px; font-weight: normal; margin-top: 5px;">(wersja WORD)</span></a>
+            <a href="druki/zalacznik_adresowy_pdf.pdf" target="_blank" class="tile">
+                <div class="tile-icon">📕</div>Załącznik adresowy<br><span class="tile-subtitle">wersja PDF</span>
+            </a>
+            <a href="druki/zalacznik_adresowy_doc.doc" target="_blank" class="tile">
+                <div class="tile-icon">📝</div>Załącznik adresowy<br><span class="tile-subtitle">wersja WORD</span>
+            </a>
+            <a href="druki/metryczka_dowodu_rzeczowego_pdf.pdf" target="_blank" class="tile">
+                <div class="tile-icon">🏷️</div>Metryczka dowodu rzeczowego<br><span class="tile-subtitle">wersja PDF</span>
+            </a>
+            <a href="druki/metryczka_dowodu_rzeczowego_doc.doc" target="_blank" class="tile">
+                <div class="tile-icon">📝</div>Metryczka dowodu rzeczowego<br><span class="tile-subtitle">wersja WORD</span>
+            </a>
+            <a href="druki/potwierdzenie_zlozenia_zawiadomienia_pdf.pdf" target="_blank" class="tile">
+                <div class="tile-icon">📕</div>Potwierdzenie złożenia zawiadomienia o przestępstwie<br><span class="tile-subtitle">wersja PDF</span>
+            </a>
+            <a href="druki/potwierdzenie_zlozenia_zawiadomienia_doc.doc" target="_blank" class="tile">
+                <div class="tile-icon">📝</div>Potwierdzenie złożenia zawiadomienia o przestępstwie<br><span class="tile-subtitle">wersja WORD</span>
+            </a>
         </div>
-
+        
         <h3 class="przepisy-category">Pouczenia</h3>
         <div class="tiles-grid">
-            <a href="druki/pouczenia_swiadka.pdf" target="_blank" class="tile"><div class="tile-icon">📕</div>Pouczenie - Świadek</a>
-            <a href="druki/pouczenia_pokrzywdzonego.pdf" target="_blank" class="tile"><div class="tile-icon">📕</div>Pouczenie - Pokrzywdzony</a>
+            <a href="druki/pouczenia_swiadka.pdf" target="_blank" class="tile">
+                <div class="tile-icon">📕</div>Pouczenie o uprawnieniach i obowiązkach świadka (18+)
+            </a>
+            <a href="druki/pouczenia_pokrzywdzonego.pdf" target="_blank" class="tile">
+                <div class="tile-icon">📕</div>Pouczenie o uprawnieniach i obowiązkach pokrzywdzonego (18+)
+            </a>
         </div>
     </div>
 
@@ -499,7 +426,6 @@
             <a href="przepisy/kkw.pdf" target="_blank" class="tile"><div class="tile-icon">📙</div>Kodeks karny wykonawczy</a>
             <a href="przepisy/kpow.pdf" target="_blank" class="tile tile-full"><div class="tile-icon">📔</div>Kodeks postępowania w sprawach o wykroczenia</a>
         </div>
-
         <h3 class="przepisy-category">Ustawy</h3>
         <div class="tiles-grid">
             <a href="przepisy/uop.pdf" target="_blank" class="tile"><div class="tile-icon">🛡️</div>Ustawa o Policji</a>
@@ -507,9 +433,9 @@
             <a href="przepisy/uobp.pdf" target="_blank" class="tile"><div class="tile-icon">🔫</div>Ustawa o broni i amunicji</a>
             <a href="przepisy/uopn.pdf" target="_blank" class="tile"><div class="tile-icon">🌿</div>Ustawa o przeciwdziałaniu narkomanii</a>
             <a href="przepisy/uobim.pdf" target="_blank" class="tile"><div class="tile-icon">🏟️</div>Ustawa o bezpieczeństwie imprez masowych</a>
-            <a href="przepisy/uoz.pdf" target="_blank" class="tile tile-full"><div class="tile-icon">🐾</div>Ustawa o ochronie zwierząt</a>
+            <a href="przepisy/uoz.pdf" target="_blank" class="tile"><div class="tile-icon">🐾</div>Ustawa o ochronie zwierząt</a>
+            <a href="przepisy/ochrona_swiadka.pdf" target="_blank" class="tile tile-full"><div class="tile-icon">🤝</div>Ustawa o ochronie i pomocy dla pokrzywdzonego i świadka</a>
         </div>
-
         <h3 class="przepisy-category">Wytyczne i Zarządzenia</h3>
         <div class="tiles-grid">
             <a href="przepisy/wytyczne_3KGP.pdf" target="_blank" class="tile tile-full">
@@ -520,22 +446,25 @@
     </div>
 
     <div class="app-footer">
-        Stworzone przez: Joanna
+        Autor: Joanna Gorczyca<br>
+        Wydział dw. z Terrorem Kryminalnym i Zabójstw<br>Komendy Stołecznej Policji
     </div>
 </div>
 
 <script>
+    // ZMIENNE STANU
+    let currentAlgorithm = null;
+    let isPhaseViewActive = false;
+
+    // LOGOWANIE
     function sprawdzHaslo() {
-        let haslo = document.getElementById("passwordInput").value;
-        haslo = haslo.trim().toLowerCase(); 
-        
-        const errorDiv = document.getElementById("login-error");
-        
+        let haslo = document.getElementById("passwordInput").value.trim().toLowerCase(); 
         if (haslo === "patrol25") {
             document.getElementById("login-screen").style.display = "none";
             document.getElementById("main-app").style.display = "flex";
+            resetToSearch();
         } else {
-            errorDiv.style.display = "block";
+            document.getElementById("login-error").style.display = "block";
         }
     }
 
@@ -551,65 +480,310 @@
     }
 
     document.addEventListener("DOMContentLoaded", function() {
-        const karty = document.querySelectorAll('.legal-card p, .legal-card h4');
-        karty.forEach(p => {
-            p.innerHTML = usunWdowy(p.innerHTML);
-        });
+        const pTags = document.querySelectorAll('p, h4, .accordion-content');
+        pTags.forEach(p => { p.innerHTML = usunWdowy(p.innerHTML); });
     });
 
+    // ZAKŁADKI GŁÓWNE
     function switchTab(tabName) {
-        document.getElementById('tab-algorytmy').classList.remove('active');
-        document.getElementById('tab-przepisy').classList.remove('active');
-        document.getElementById('tab-druki').classList.remove('active');
+        document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
         
-        document.getElementById('btn-algorytmy').classList.remove('active');
-        document.getElementById('btn-przepisy').classList.remove('active');
-        document.getElementById('btn-druki').classList.remove('active');
-        
-        document.getElementById('tab-' + tabName).classList.add('active');
+        document.getElementById('tab-' + tabName).style.display = 'block';
         document.getElementById('btn-' + tabName).classList.add('active');
+        
+        if (tabName === 'algorytmy' && currentAlgorithm === null) {
+            resetToSearch();
+        }
     }
+
+    // PODSTAWY PRAWNE 
+    function toggleLegalBasis() {
+        document.getElementById("legalBasisContainer").classList.toggle("hidden");
+    }
+    function toggleAccordion(id) {
+        document.getElementById(id).classList.toggle("hidden");
+    }
+    
+    // ROZWIJANIE UWAG W ALGORYTMIE
+    function toggleUwaga(btn) {
+        const uwagaBox = btn.nextElementSibling;
+        if (uwagaBox.classList.contains("hidden")) {
+            uwagaBox.classList.remove("hidden");
+        } else {
+            uwagaBox.classList.add("hidden");
+        }
+    }
+
+    // NAWIGACJA (COFNIANIE O JEDNĄ FAZĘ)
+    function handleBackBtn() {
+        if (isPhaseViewActive) {
+            const currentPhaseDiv = document.querySelector('.algorithm-phase:not([style*="display: none"])');
+            if (currentPhaseDiv && currentPhaseDiv.id.startsWith('faza-')) {
+                let phaseIdx = parseInt(currentPhaseDiv.id.replace('faza-', ''));
+                if (phaseIdx > 0) {
+                    openPhase(phaseIdx - 1);
+                    return;
+                }
+            }
+            // Z fazy 0 wracamy do menu wyboru
+            document.getElementById("algorithm-phase-content").style.display = "none";
+            document.getElementById("algorithm-menu").style.display = "block";
+            isPhaseViewActive = false;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            resetToSearch();
+        }
+    }
+
+    function resetToSearch() {
+        currentAlgorithm = null;
+        isPhaseViewActive = false;
+        document.getElementById("searchInput").value = "";
+        document.getElementById("resultsList").innerHTML = "";
+        
+        document.getElementById("search-view").style.display = "block";
+        document.getElementById("algorithm-view").style.display = "none";
+        
+        document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
+        document.getElementById('btn-algorytmy').classList.add('active');
+        document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+        document.getElementById('tab-algorytmy').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openPhase(index) {
+        isPhaseViewActive = true;
+        document.getElementById("algorithm-menu").style.display = "none";
+        const pCont = document.getElementById("algorithm-phase-content");
+        pCont.style.display = "block";
+        
+        let phaseContent = `<div class="algorithm-phase" id="faza-${index}">${usunWdowy(currentAlgorithm.phases[index])}</div>`;
+        
+        // Przycisk "Przejdź do kolejnego etapu"
+        if (index < currentAlgorithm.phases.length - 1) {
+            phaseContent += `<button class="btn-primary" style="margin-top: 15px; margin-bottom: 10px;" onclick="openPhase(${index + 1})">Przejdź do kolejnego etapu ➔</button>`;
+        } else {
+            phaseContent += `<button class="btn-primary btn-secondary" style="margin-top: 15px; margin-bottom: 10px;" onclick="handleBackBtn()">Zakończ i wróć do menu algorytmu</button>`;
+        }
+        
+        pCont.innerHTML = phaseContent;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openStandardSteps() {
+        isPhaseViewActive = true;
+        document.getElementById("algorithm-menu").style.display = "none";
+        const pCont = document.getElementById("algorithm-phase-content");
+        pCont.style.display = "block";
+        pCont.innerHTML = `<div class="algorithm-phase" id="faza-0"></div>`;
+        
+        const phaseDiv = pCont.querySelector('.algorithm-phase');
+        currentAlgorithm.steps.forEach(s => {
+            phaseDiv.innerHTML += `<div class="step-item">${usunWdowy(s)}</div>`;
+        });
+        
+        pCont.innerHTML += `<button class="btn-primary btn-secondary" style="margin-top: 15px; margin-bottom: 10px;" onclick="handleBackBtn()">Zakończ i wróć do menu algorytmu</button>`;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // BAZA DANYCH 
+    const standardDocumentsList = [
+        "<b>Protokół przyjęcia ustnego zawiadomienia o przestępstwie i przesłuchania w charakterze świadka</b>",
+        "<b>Pouczenie o uprawnieniach i obowiązkach świadka</b>",
+        "<b>Pouczenie o uprawnieniach i obowiązkach pokrzywdzonego</b>",
+        "<b>Załącznik adresowy</b>",
+        "<b>Potwierdzenie złożenia zawiadomienia o przestępstwie</b> (opcjonalnie)",
+        "<b>Protokół oględzin</b> (opcjonalnie)"
+    ];
 
     const crimeDatabase = [
         {
             id: 1,
-            title: "Art. 190 k.k. - Groźba karalna",
-            keywords: ["190", "groźba", "groźby"],
+            title: "Art. 190 k.k. - Groźby karalne",
+            keywords: ["190", "groźba", "groźby", "groźby karalne"],
             articleText: `<b>Art. 190. k.k.</b><br>§ 1. Kto grozi innej osobie popełnieniem przestępstwa na jej szkodę lub na szkodę osoby dla niej najbliższej, jeżeli groźba wzbudza w osobie, do której została skierowana lub której dotyczy, uzasadnioną obawę, że będzie spełniona, podlega karze pozbawienia wolności do lat 3.<br>§ 2. Ściganie następuje na wniosek pokrzywdzonego.`,
-            steps: [
-                `<div class="etap-title">ETAP 1: FAZA WSTĘPNA <span class="etap-subtitle">(nawiązanie kontaktu i ocena sytuacji)</span></div>`,
-                `<p><b>Ocena bezpieczeństwa</b><br>Czy sprawca nadal stanowi bezpośrednie zagrożenie? Jeśli tak, priorytetem jest interwencja/zatrzymanie, a nie protokołowanie. Dopytaj o szczegóły i okoliczności, powiadom bezpośredniego przełożonego/dyżurnego.</p>`,
-                `<p><b>Uspokojenie pokrzywdzonego</b><br>Zapewnij poczucie bezpieczeństwa. Przestępstwo gróźb wiąże się z silnym stresem i emocjami.</p>`,
-                `<p><b>Swobodna relacja</b><br>Pozwól pokrzywdzonemu opowiedzieć swoimi słowami, co się stało, bez przerywania. Dopiero potem przejdź do pytań ukierunkowanych (faza 2).</p>`,
+            isInteractive: true,
+            phases: [
+                // ETAP 1
+                `<div class="etap-title">ETAP 1: Faza wstępna <span class="etap-subtitle">(nawiązanie kontaktu, rozpytanie i ocena sytuacji)</span></div>
+                <div class="step-item">
+                    <div class="sub-section">
+                        <div>Przed przystąpieniem do sporządzenia protokołu i zadawania pytań szczegółowych, pozwól zawiadamiającemu swobodnie opowiedzieć o zdarzeniu.</div>
+                    </div>
+                </div>`,
                 
-                `<div class="etap-title">ETAP 2: FAZA GŁÓWNA <span class="etap-subtitle">(procesowe przyjęcie ustnego zawiadomienia)</span></div><p>Przygotuj protokół ustnego przyjęcia zawiadomienia o przestępstwie. Wypełnij dane zgodnie ze wzorem. Pytania zadawaj w sposób logiczny, dążąc do wyczerpania każdego z wątków.</p>`,
-                
-                `<b>I. CO się stało? (istota czynu i znamię obawy)</b><p><b>Cytat dosłowny:</b> Jakich dokładnie słów użył sprawca lub jakie wykonał gesty? <i>(zapisz w protokole w cudzysłowie, nawet jeśli są to wulgaryzmy)</i>.</p><p><b>Przedmiot groźby:</b> Czym dokładnie groził sprawca? <i>(np. pozbawienie życia, pobicie, podpalenie, zniszczenie mienia, zgwałcenie, inne)</i>.</p><p><b>Znamiona ustawowe (kluczowe dla art. 190 k.k.):</b> Czy wypowiedziane słowa/gesty wzbudziły w Panu/Pani obawę, że zostaną spełnione? Jeżeli tak, to na jakiej podstawie uważa Pan/Pani, że sprawca jest zdolny to zrobić? <i>(ustal "uzasadnioną obawę" – oceń subiektywny strach ofiary, ale i obiektywne przesłanki: przeszłość kryminalna sprawcy, jego agresja, różnica w budowie ciała, posiadanie niebezpiecznych narzędzi)</i>.</p>`,
-                
-                `<b>II. GDZIE doszło do zdarzenia? (miejsce)</b><p><b>Miejsce fizyczne:</b> Gdzie dokładnie to nastąpiło? <i>(adres, ulica, konkretne miejsce np. klatka schodowa, parking, przesyłki pocztowe)</i>.</p><p><b>Topografia:</b> Gdzie znajdował się sprawca, a gdzie pokrzywdzony? <i>(Jaka była odległość, czy były przeszkody fizyczne, jak wyglądała widoczność i oświetlenie?)</i>.</p><p><b>Przestrzeń wirtualna (cyberprzestrzeń):</b> Jeśli groźby padły na odległość – za pośrednictwem jakiego medium? <i>(Ustal dokładną nazwę aplikacji, komunikatora, portalu społecznościowego, adres URL, adres e-mail, numer telefonu)</i>.</p>`,
-                
-                `<b>III. KIEDY do tego doszło? (czas i chronologia)</b><p><b>Czas czynu:</b> Kiedy dokładnie padły groźby? <i>(Data i godzina)</i>.</p><p><b>Moment zapoznania (przy groźbach pośrednich):</b> Kiedy sprawca wysłał wiadomość/list, a kiedy pokrzywdzony się z nią zapoznał? <i>(To moment zapoznania się generuje obawę i określa czas popełnienia przestępstwa)</i>.</p><p><b>Skala zjawiska:</b> Czy był to incydent jednorazowy, czy zachowanie ciągłe/powtarzające się? <i>(Jeśli wielokrotnie – od kiedy do kiedy trwa ten proceder, z jaką częstotliwością? Uwaga: przy dużej powtarzalności i nękaniu rozważ zmianę kwalifikacji na art. 190a k.k. – stalking)</i>.</p>`,
-                
-                `<b>IV. W JAKI SPOSÓB? (Modus Operandi)</b><p><b>Forma przekazu:</b> Bezpośrednio ustnie, telefonicznie, SMS, komunikator, listownie, przez gesty <i>(np. przejechanie palcem po szyi, uderzanie pięścią w dłoń)</i>?</p><p><b>Współsprawstwo:</b> Czy sprawca działał sam, czy w grupie?<br><i>(Jeśli w grupie – jakie były role poszczególnych osób?)</i>.</p><p><b>Pośrednictwo:</b> Czy groźba została wypowiedziana bezpośrednio do Pana/Pani, czy przekazana przez osoby trzecie? <i>(Jeśli przez osoby trzecie – ustalić ich dane)</i>.</p><p><b>Stan psychofizyczny:</b> Jak zachowywał się sprawca? <i>(Krzyczał, był spokojny i wyrachowany, wulgarny, wyglądał na nietrzeźwego lub pod wpływem narkotyków?)</i>.</p>`,
-                
-                `<b>V. CZYM? (Narzędzia i dowody)</b><p><b>Narzędzia:</b> Czy sprawca używał lub okazywał przedmioty potęgujące groźbę? <i>(Nóż, pałka, broń palna, przedmiot przypominający broń, pies rasy niebezpiecznej)</i>.</p><p><b>Środki techniczne:</b> Z jakiego urządzenia/numeru/konta IP korzystał sprawca?</p><p><b>Zabezpieczenie dowodów dowodowe:</b> Jakimi dowodami Pan/Pani dysponuje? <i>(Zażądaj wydania/zgrania: nagrań audio/wideo, zrzutów ekranu wiadomości, SMS-ów, e-maili, billingów, pism)</i>.</p>`,
-                
-                `<b>VI. DLACZEGO? (motyw – niezbędny dla oceny wiarygodności)</b><p><b>Tło konfliktu:</b> Dlaczego sprawca się tak zachował? Na jakim tle doszło do zdarzenia?<br><i>(zawód miłosny, długi, spór sąsiedzki, agresja drogowa)</i>.</p><p><b>Relacja:</b> Kim jest sprawca dla pokrzywdzonego? <i>(osoba obca, były partner, sąsiad, szef)</i>.</p><p><b>Charakterystyka sprawcy (z perspektywy ofiary):</b> Czy sprawca zachowywał się tak w przeszłości? Czy leczył się psychiatrycznie <i>(jeśli tak to z jakiego powodu, gdzie i jak długo)</i>, czy nadużywa substancji psychoaktywnych? Czy spożywa nadmiernie alkohol?</p>`,
-                
-                `<b>VII. KTO? (Identyfikacja uczestników)</b><p><b>Sprawca:</b> Dane personalne, pseudonim, adres, numer telefonu, e-mail, inne.<br><i>(Jeśli sprawca nieznany: opisz szczegółowo wygląd: wiek, wzrost, sylwetka, kształt twarzy, ubiór, znaki szczególne np. tatuaże, blizny)</i>.</p><p><b>Pokrzywdzony:</b> Kogo bezpośrednio dotyczyła groźba? <i>(groźba popełnienia przestępstwa może być skierowana na szkodę ofiary lub osoby jej najbliższej)</i>.</p><p><b>Świadkowie:</b> Kto to widział lub słyszał? <i>(dane z dowodów tożsamości, numery telefonów)</i>. Kto widział Pana/Panią bezpośrednio po zdarzeniu i może poświadczyć silny stan wzburzenia i strachu? <i>(tzw. świadkowie ze słyszenia / świadkowie stanu emocjonalnego)</i>.</p>`,
-                
-                `<div class="etap-title">ETAP 3: FAZA KOŃCOWA I FORMALNO-PRAWNA</div>`,
-                
-                `<p><b>Zabezpieczenie materiału</b><br>Odebranie od pokrzywdzonego telefonu w celu wykonania oględzin wiadomości SMS/komunikatorów i sporządzenie protokołu oględzin (lub zgranie danych).<br>Po zakończeniu protokołu wykonaj oględziny na protokole oględzin.</p>`,
-                `<p><b>Kluczowe pytanie do protokołu</b><br>"Pouczony o przysługujących mi prawach oświadczam, że składam wniosek o ściganie i ukaranie sprawcy kierowania wobec mnie gróźb karalnych w dniu..." <i>(musi znaleźć się na końcu protokołu)</i>.</p>`,
-                `<p><b>Odczytanie i podpisy</b><br>Przekazanie protokołu do przeczytania pokrzywdzonemu, naniesienie ewentualnych poprawek i złożenie podpisów na każdej stronie.</p>`,
-                `<p><b>Pouczenie</b><br>Wydanie pokrzywdzonemu pisemnego pouczenia o jego prawach i obowiązkach w postępowaniu karnym.<br>Wydaj pouczenia świadka i pokrzywdzonego.</p>`
+                // ETAP 2
+                `<div class="etap-title">ETAP 2: Faza główna <span class="etap-subtitle">(procesowe przyjęcie ustnego zawiadomienia o przestępstwie)</span></div>
+                <div class="step-item">
+                    <div class="sub-section">
+                        <div>- Przygotuj dla zawiadamiającego <span class="druk">„Pouczenia o uprawnieniach i obowiązkach pokrzywdzonego”</span> (gdy zgłaszający jest pokrzywdzonym) oraz <span class="druk">„pouczenia o obowiązkach i uprawnieniach świadka”</span>. Na ostatniej stronie pozyskaj podpis zawiadamiającego wraz z datą wykonywanej czynności.</div>
+                    </div>
+                    <div class="sub-section">
+                        <div>- Przygotuj <span class="druk">„Protokół ustnego przyjęcia zawiadomienia o przestępstwie i przesłuchania w charakterze świadka”</span>. Sporządź protokół na podstawie dokumentu tożsamości zawiadamiającego lub oświadczenia ustnego. Treść protokołu rozpocznij od oświadczenia zgłaszającego:<br><span class="cytat">„Zostałem(am) uprzedzony(a) o odpowiedzialności karnej wynikającej z art. 233 § 1 k.k., tj. składanie fałszywych zeznań, art. 233 § 1a k.k., tj. zeznanie nieprawdy lub zatajenie prawdy w obawie przed odpowiedzialnością karną grożącą jemu samemu lub jego najbliższym, art. 234 k.k., tj. składanie fałszywych oskarżeń wobec innej osoby o popełnienie czynów zabronionych lub przewinienia dyscyplinarnego i art. 238 k.k., tj. fałszywe zawiadomienie o przestępstwie. Treść pouczeń zrozumiałem(am), zeznaję co następuje:”</span>.</div>
+                    </div>
+                    <div class="sub-section">
+                        <div>- Pytania zadawaj w sposób logiczny, dążąc do wyczerpania każdego z wątków.</div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="section-heading">I. CO SIĘ STAŁO? (istota czynu i znamię obawy)</div>
+                    <div class="sub-section">
+                        <b>- Jakich dokładnie słów użył sprawca lub jakie wykonał gesty?</b>
+                        <div>Zacytuj słowa sprawcy stosując cudzysłów łącznie z wulgaryzmami.</div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Czym dokładnie groził sprawca?</b>
+                        <div>Ustal przedmiot groźby, tj. czym sprawca groził - pozbawieniem życia, pobiciem, podpaleniem, uszkodzeniem ciała, zniszczeniem mienia, zgwałceniem itd.</div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Czy wypowiedziane słowa lub gesty wzbudziły obawę, że zostaną spełnione? Jeśli tak to na jakiej obiektywnej podstawie zgłaszający uważa obawę za uzasadnioną?</b>
+                        <div>Znamiona przestępstwa. Ustal „uzasadniony strach” zawiadamiającego oraz obiektywne przesłanki np. przeszłość kryminalna sprawcy, jego agresja, różnica w budowie ciała, posiadanie niebezpiecznych narzędzi itd.</div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Czy sprawca nadal stanowi bezpośrednie zagrożenie? Jeśli tak to dlaczego i w jaki sposób?</b>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="section-heading">II. KTO? (Identyfikacja uczestników)</div>
+                    <div class="sub-section">
+                        <b>- Jakie są dane sprawcy?</b>
+                        <div>Zbierz informacje o sprawcy. Ustal dane personalne, pseudonim, adres, numer telefonu, e-mail itd. W przypadku nieznanego sprawcy ustal jego wizerunek - wiek, wzrost, sylwetka, kształt twarzy, ubiór, znaki szczególne np. tatuaże, blizny, aparat ortodontyczny itd.,</div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Kogo bezpośrednio dotyczyła groźba?</b>
+                        <div>Ustal czy dotyczyła ona zgłaszającego czy osoby jej najbliższej, ilu jest pokrzywdzonych. Jeżeli jest więcej pokrzywdzonych ustal ich dane, adresy, numery telefonów, e-mail, inne.</div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Kto to widział lub słyszał zgłaszane groźby? Czy byli to świadkowie bezpośredni czy naoczni?</b>
+                        <div>Ustal dane świadków, adresy, numery telefonów, e-mail, inne.</div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Kto widział zgłaszającego bezpośrednio po zdarzeniu i może opisać jego stan?</b>
+                        <div>Ustal dane świadków, adresy, numery telefonów, e-mail, inne.</div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="section-heading">III. GDZIE DOSZŁO DO ZDARZENIA? (miejsce)</div>
+                    <div class="sub-section">
+                        <b>- Gdzie dokładnie nastąpiło zdarzenie fizyczne?</b>
+                        <div>Miejsce fizyczne dokonania przestępstwa. Ustal adres: ulicę, budynek, mieszkanie, lokal, sklep, konkretne miejsce, np. klatka schodowa, parking itd.</div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Jaka była topografia miejsca zdarzenia?</b>
+                        <div>Topografia miejsca zdarzenia. Ustal gdzie znajdował się sprawca, a gdzie zawiadamiający, jaka była odległość pomiędzy nimi, obecność przeszkód fizycznych, widoczność, oświetlenie miejsca, itd.</div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Jeśli przestępstwa dokonano za pośrednictwem przestrzeni wirtualnej (sieć komórkowa, Internet) – za pośrednictwem jakiego narzędzia?</b>
+                        <div>Ustal dokładną nazwę aplikacji, komunikatora, portalu społecznościowego, adres URL, adresy e-mail sprawcy i zawiadamiającego, z których korzystano, numery telefonów sprawcy i zawiadamiającego, które uczestniczyły w zdarzeniu.</div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="section-heading">IV. KIEDY DO TEGO DOSZŁO? (czas i chronologia)</div>
+                    <div class="sub-section">
+                        <b>- Kiedy dokładnie padły groźby?</b>
+                        <div>Czas czynu. Ustal dokładną datę i godzinę. Jeśli przestępstwa dokonano za pośrednictwem przestrzeni wirtualnej (sieć komórkowa, Internet) ustal kiedy sprawca wysłał wiadomość/wiadomości, a kiedy zawiadamiający się z nią/nimi zapoznał (moment zapoznania określa czas popełnienia przestępstwa i generuje obawę).</div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Czy był to incydent jednorazowy, czy zachowanie ciągłe/powtarzające się?</b>
+                        <div>Skala zjawiska. Ustal czasookres zdarzenia, tj. od kiedy do kiedy trwa proceder, z jaką częstotliwością.<br>Uwaga: przy dużej powtarzalności i uciążliwości rozważ zmianę kwalifikacji na art. 190a § 1 k.k. (uporczywe nękanie).</div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="section-heading">V. W JAKI SPOSÓB? (modus operandi)</div>
+                    <div class="sub-section">
+                        <b>- Jaka była forma przekazu?</b>
+                        <div>Ustal w jaki sposób sprawca kierował groźby – bezpośrednio ustnie, telefonicznie, za pośrednictwem wiadomości SMS, komunikatora, listownie, przez gesty, np. przejechanie palcem po szyi, uderzanie pięścią w dłoń itp.</div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Czy sprawca działał sam, czy w grupie?</b>
+                        <div>Współsprawstwo. Ustal czy sprawca działał sam czy w grupie, jeśli w grupie ile było osób i jakie były ich role.</div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Czy groźba została wypowiedziana bezpośrednio do zawiadamiającego czy za pośrednictwem osób trzecich?</b>
+                        <div>Pośrednictwo. Ustal dane tych osób, pseudonimy, adresy, numery telefonów, adresy e-mail. W przypadku nieznanych osób trzecich ustal ich wizerunek - wiek, wzrost, sylwetka, kształt twarzy, ubiór, znaki szczególne np. tatuaże, blizny itd.</div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Jak zachowywał się sprawca?</b>
+                        <div>Stan psychofizyczny. Ustal czy sprawca krzyczał, był spokojny i wyrachowany, wulgarny, wyglądał czy był nietrzeźwy albo pod wpływem narkotyków (jeśli tak to na podstawie jakich okoliczności zawiadamiający tak myśli) itd.</div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="section-heading">VI. CZYM? (narzędzia)</div>
+                    <div class="sub-section">
+                        <b>- Czy sprawca używał lub okazywał przedmioty potęgujące groźbę?</b>
+                        <div>Jeśli tak, ustal jakie to były przedmioty/narzędzia - nóż, pałka, broń palna, przedmiot przypominający broń, pies rasy niebezpiecznej itd</div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Jeśli przestępstwa dokonano za pośrednictwem przestrzeni wirtualnej (sieć komórkowa, Internet) - z jakiego urządzenia, numeru lub konta IP korzystał sprawca? Jakimi dowodami dysponuje zawiadamiający?</b>
+                        <div>Zabezpieczenie dowodów. Ustal czy są to nagrania audio/wideo, screeny (zrzuty) ekranu wiadomości wysłane za pośrednictwem SMS, komunikatorów, e-mail, bilingi, pisma itd.<br>Ustal czy zawiadamiający ma przy sobie ww. materiały, jeśli tak to w jakiej formie – jeżeli wydrukowane – dołącz je do protokołu jako załącznik, jeżeli na urządzeniu – zabezpiecz materiały <button class="uwaga-link" onclick="toggleUwaga(this)">UWAGA</button>
+                        <div class="uwagi-box hidden" style="margin-top:8px;">
+                            <div class="uwagi-title">UWAGA</div>
+                            <b>- Zabezpieczenie materiału będącego dowodem w postępowaniu</b><br>
+                            Jeśli przestępstwa dokonano za pośrednictwem przestrzeni wirtualnej (sieć komórkowa, Internet), a zawiadamiający posiada materiały na urządzeniu, które ma przy sobie (np. telefon, nośnik danych itd.) wykonaj oględziny (sporządź <span class="druk">„Protokół oględzin - rzeczy”</span>). Za zgodą zawiadamiającego możesz zabezpieczyć urządzenie (sporządź <span class="druk">„Protokół zatrzymania rzeczy”</span> i <span class="druk">„Spis i opis rzeczy”</span>).
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="section-heading">VII. DLACZEGO? (motyw – niezbędny dla oceny wiarygodności)</div>
+                    <div class="sub-section">
+                        <b>- Dlaczego sprawca zachował się w ten sposób i na jakim tle doszło do konfliktu</b>
+                        <div>Ustal tło konfliktu - zawód miłosny, długi, spór sąsiedzki, agresja drogowa itd.</div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Kim jest sprawca dla pokrzywdzonego?</b>
+                        <div>Ustal relacje pomiędzy zawiadamiającym, a sprawcą/sprawcami - osoba obca, były partner, sąsiad, szef itd.</div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Czy sprawca zachowywał się tak w przeszłości? Czy sprawca leczył się psychiatrycznie, jeśli tak, z jakiego powodu, gdzie i jak długo? Czy sprawca nadużywa substancji psychoaktywnych lub alkoholu? Czy sprawca był karany, jeśli tak to za jakie przestępstwa?</b>
+                        <div>Charakterystyka sprawcy z perspektywy ofiary.</div>
+                    </div>
+                </div>`,
+
+                // ETAP 3
+                `<div class="etap-title">ETAP 3: Faza końcowa <span class="etap-subtitle">(formalno-prawna)</span></div>
+                <div class="step-item">
+                    <div class="sub-section">
+                        <b>- Ściganie</b>
+                        <div><b>Tryb wnioskowy - przestępstwo ścigane jest na wniosek pokrzywdzonego.</b> Treść protokołu zakończ oświadczeniem pokrzywdzonego:<br><span class="cytat">Składam wniosek o ściganie i ukaranie sprawcy przestępstwa.</span></div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Zakończ protokół</b>
+                        <div>Możesz użyć stwierdzenia: <span class="cytat">To wszystko co mam do zeznania.</span></div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Odczytanie i podpisy</b>
+                        <div>Przekaż protokół do przeczytania zgłaszającemu, nanieś zgłoszone przez niego poprawki. Po przeczytaniu pozyskaj podpis zawiadamiającego i podpisz dokument (na dole na każdej stronie i w miejscach do tego wyznaczonych).</div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Dane zawiadamiającego/pokrzywdzonego</b>
+                        <div>Sporządź <span class="druk">„Załącznik adresowy”</span>. Pozyskaj podpis zawiadamiającego i podpisz dokument.</div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Potwierdzenie złożenia zawiadomienia o przestępstwie</b>
+                        <div>Na żądanie zawiadamiającego/pokrzywdzonego sporządź <span class="druk">„Potwierdzenie złożenia zawiadomienia o przestępstwie”</span> w dwóch egzemplarzach. Przed wydaniem dokumentu nadaj numer SWD. Uzyskaj pokwitowanie odbioru i podpis zawiadamiającego/pokrzywdzonego na jednym egzemplarzu, wydaj drugi egzemplarz.</div>
+                    </div>
+                    <div class="sub-section">
+                        <b>- Przekaż całą dokumentację przełożonemu/dyżurnemu.</b>
+                    </div>
+                </div>
+
+                <div class="uwagi-box" style="margin-top: 15px;">
+                    <div class="uwagi-title">UWAGA</div>
+                    Jeśli przestępstwa dokonano za pośrednictwem przestrzeni wirtualnej (sieć komórkowa, Internet) - zabezpiecz materiały od zawiadamiającego/ pokrzywdzonego zgodnie z instrukcją opisaną w FAZIE 2 w zakładce UWAGA.
+                </div>`
             ],
             documents: [
-                "Protokół przyjęcia ustnego zawiadomienia o przestępstwie i przesłuchania świadka",
-                "Załącznik adresowy",
-                "Pouczenie o uprawnieniach i obowiązkach świadka w postępowaniu karnym",
-                "Pouczenie o uprawnieniach i obowiązkach pokrzywdzonego w postępowaniu karnym"
+                ...standardDocumentsList,
+                "<b>Protokół zatrzymania rzeczy</b> (opcjonalnie)"
             ]
         },
         {
@@ -617,41 +791,36 @@
             title: "Art. 278 k.k. - Kradzież",
             keywords: ["278", "kradzież", "złodziej", "przywłaszczenie"],
             articleText: `<b>Art. 278. k.k.</b><br>§ 1. Kto zabiera w celu przywłaszczenia cudzą rzecz ruchomą, podlega karze pozbawienia wolności od 3 miesięcy do lat 5.<br>§ 1a. Tej samej karze podlega, kto zabiera w celu przywłaszczenia cudzą kartę uprawniającą do podjęcia pieniędzy z automatu bankowego.<br>§ 2. Tej samej karze podlega, kto bez zgody osoby uprawnionej uzyskuje cudzy program komputerowy w celu osiągnięcia korzyści majątkowej.<br>§ 3. W wypadku mniejszej wagi, sprawca czynu określonego w § 1, 1a lub 2 podlega grzywnie, karze ograniczenia wolności albo pozbawienia wolności do roku.<br>§ 3a. Kto dopuszcza się kradzieży szczególnie zuchwałej, podlega karze pozbawienia wolności od 6 miesięcy do lat 8.<br>§ 4. Jeżeli kradzież popełniono na szkodę osoby najbliższej, ściganie następuje na wniosek pokrzywdzonego.<br>§ 5. Przepisy § 1, 3, 3a i 4 stosuje się odpowiednio do kradzieży energii.`,
+            isInteractive: false,
             steps: [
-                `<b>I. Co się stało? (Istota czynu)</b>- Co dokładnie zginęło? (Uzyskaj jak najdokładniejszy opis: marka, model, kolor, cechy szczególne, numery seryjne, numer IMEI w przypadku telefonu, zdjęcia przedmiotu).<br>- Jaka jest wartość skradzionego mienia? (To kluczowe – kradzież rzeczy o wartości do 800 zł to wykroczenie, powyżej tej kwoty to przestępstwo z art. 278 k.k. Wartość podaje pokrzywdzony, interesuje nas kwota brutto).<br>- Czy pokrzywdzony jest właścicielem rzeczy, czy np. tylko ją wypożyczył/użytkował?<br>- Czy posiada dowód zakupu? Kiedy kupił, gdzie, jaka była forma płatności?<br>- Czy skradziono dokumenty, karty płatnicze lub telefon? (Kradzież karty to odrębny paragraf, a w przypadku telefonu należy zapytać o blokady ekranu i możliwość zdalnego namierzenia).`,
-                `<b>II. Gdzie doszło do zdarzenia? (Miejsce)</b>- Skąd dokładnie skradziono rzecz? (Adres, konkretne pomieszczenie, półka w sklepie, kieszeń w kurtce, wnętrze otwartego pojazdu, inne).<br>- Gdzie pokrzywdzony widział lub odłożył tę rzecz i kiedy widział ją po raz ostatni?<br>- Czy w miejscu zdarzenia lub na drogach dojścia/odejścia znajduje się monitoring? (Kamery miejskie, sklepowe, prywatne na posesjach). Jeśli tak to czy pokrzywdzony wie kto jest administratorem, czy ma kontakt do osoby odpowiedzialnej, czy podejmował kroki niezbędne do zabezpieczenia nagrań, czy wie jak długo przechowywany jest monitoring?`,
-                `<b>III. Kiedy do tego doszło? (Chronologia)</b>- Kiedy (data i godzina) pokrzywdzony po raz ostatni miał pewność, że posiada skradzioną rzecz?<br>- Kiedy (data i godzina) pokrzywdzony zorientował się, że rzeczy nie ma? (Określa to tzw. czasokres popełnienia czynu – może to być konkretna minuta, ale też przedział np. "między 14:00 a 18:00").`,
-                `<b>IV. W jaki sposób? (Mechanizm działania sprawcy)</b>- W jakich okolicznościach doszło do utraty mienia? (Nieuwaga pokrzywdzonego, tłum w autobusie, pozostawienie rzeczy bez nadzoru na ławce).<br>- Czy sprawca musiał pokonać jakieś zabezpieczenia? (To pytanie jest krytyczne! Jeśli sprawca wyłamał zamek, zbił szybę albo przeciął kłódkę, to nie jest to już zwykła kradzież, lecz kradzież z włamaniem – art. 279 k.k., która jest surowiej karana).<br>- Czy sprawca użył wobec pokrzywdzonego siły fizycznej lub groził jej użyciem, aby zabrać rzecz? (Jeśli tak, mamy do czynienia z rozbojem – art. 280 k.k.).`,
-                `<b>V. Czym? (Narzędzia i środki przestępstwa)</b>- Czy sprawca pozostawił na miejscu jakiekolwiek przedmioty lub ślady? (Np. odcięty klips zabezpieczający z ubrania, porzucone narzędzie, ślady butów). Jeśli tak to czy pokrzywdzony je zabezpieczył, co i w jaki sposób? (przedmioty lub ślady można zabezpieczyć jako załączniki do protokołu lub na protokół zatrzymania rzeczy).<br>- Czy sprawca oddalił się pieszo, czy użył pojazdu? (Jeśli pojazdu: marka, kolor, numery rejestracyjne, cechy szczególne, kierunek ucieczki).`,
-                `<b>VI. Dlaczego? (Motywacja i cel)</b>W przypadku kradzieży motywem jest najczęściej chęć zysku (tzw. działanie w celu przywłaszczenia), ale warto dopytać:<br>- Czy skradziona rzecz miała jakąś specyficzną wartość dla konkretnej osoby? (Np. kradzież pendrive'a z konkretnymi danymi firmy, kradzież rasowego psa).<br>- Czy ktoś z otoczenia wiedział, że pokrzywdzony ma przy sobie większą gotówkę lub cenną rzecz?`,
-                `<b>VII. Kto? (Identyfikacja sprawcy, ofiar, świadków)</b>- Sprawca: Czy pokrzywdzony widział moment kradzieży i sprawcę? (Jeśli tak: szczegółowy rysopis – płeć, wiek, wzrost, sylwetka, ubranie, tatuaże, blizny, akcent).<br>- Świadkowie: Czy ktoś inny był obecny na miejscu? Kto mógł widzieć zdarzenie? (Należy ustalić dane świadków lub zabezpieczyć informacje pozwalające na ich identyfikację).`,
-                `<b>VIII. Inne</b>- Podejrzenia: Czy pokrzywdzony kogoś podejrzewa? (Kto miał dostęp do miejsca kradzieży, kto zachowywał się podejrzanie, kręcił się w pobliżu). Czy coś zwróciło uwagę pokrzywdzonego?<br>- Relacja: Jeśli sprawcą jest ktoś bliski (np. brat, małżonek), zapytaj o formalny wniosek o ściganie. (Zwykła kradzież jest ścigana z urzędu, ale jeśli sprawcą jest osoba najbliższa, staje się przestępstwem wnioskowym).`
+                `<div class="section-heading">I. Co się stało? (Istota czynu)</div><div class="sub-section"><div>- Co dokładnie zginęło? (Uzyskaj jak najdokładniejszy opis: marka, model, kolor, cechy szczególne, numery seryjne, numer IMEI).</div></div><div class="sub-section"><div>- Jaka jest wartość skradzionego mienia? (Wartość podaje pokrzywdzony, interesuje nas kwota brutto).</div></div><div class="sub-section"><div>- Czy pokrzywdzony jest właścicielem rzeczy, czy np. tylko ją wypożyczył/użytkował?</div></div><div class="sub-section"><div>- Czy skradziono dokumenty, karty płatnicze lub telefon?</div></div>`,
+                `<div class="section-heading">II. Gdzie doszło do zdarzenia? (Miejsce)</div><div class="sub-section"><div>- Skąd dokładnie skradziono rzecz?</div></div><div class="sub-section"><div>- Gdzie pokrzywdzony widział lub odłożył tę rzecz i kiedy widział ją po raz ostatni?</div></div><div class="sub-section"><div>- Czy w miejscu zdarzenia znajduje się monitoring?</div></div>`,
+                `<div class="section-heading">III. Kiedy do tego doszło? (Chronologia)</div><div class="sub-section"><div>- Kiedy (data i godzina) pokrzywdzony zorientował się, że rzeczy nie ma?</div></div>`,
+                `<div class="section-heading">IV. W jaki sposób? (Mechanizm działania sprawcy)</div><div class="sub-section"><div>- W jakich okolicznościach doszło do utraty mienia?</div></div><div class="sub-section"><div>- Czy sprawca musiał pokonać jakieś zabezpieczenia? (włamanie - art. 279 k.k.)</div></div><div class="sub-section"><div>- Czy sprawca użył wobec pokrzywdzonego siły fizycznej? (rozbój - art. 280 k.k.)</div></div>`,
+                `<div class="section-heading">V. Czym? (Narzędzia i środki przestępstwa)</div><div class="sub-section"><div>- Czy sprawca pozostawił na miejscu jakiekolwiek przedmioty lub ślady?</div></div><div class="sub-section"><div>- Czy sprawca oddalił się pieszo, czy użył pojazdu?</div></div>`,
+                `<div class="section-heading">VI. Dlaczego? (Motywacja i cel)</div><div class="sub-section"><div>- Czy skradziona rzecz miała jakąś specyficzną wartość dla konkretnej osoby?</div></div><div class="sub-section"><div>- Czy ktoś z otoczenia wiedział, że pokrzywdzony ma przy sobie cenną rzecz?</div></div>`,
+                `<div class="section-heading">VII. Kto? (Identyfikacja sprawcy i świadków)</div><div class="sub-section"><div>- Czy pokrzywdzony widział moment kradzieży i sprawcę? (Rysopis)</div></div><div class="sub-section"><div>- Czy ktoś inny był obecny na miejscu?</div></div>`,
+                `<div class="section-heading">VIII. Inne</div><div class="sub-section"><div>- Czy pokrzywdzony kogoś podejrzewa?</div></div><div class="sub-section"><div>- Jeśli sprawcą jest ktoś bliski, zapytaj o formalny wniosek o ściganie.</div></div>`
             ],
-            documents: [
-                "Protokół przyjęcia ustnego zawiadomienia o przestępstwie",
-                "Załącznik adresowy"
-            ]
+            documents: standardDocumentsList
         },
         {
             id: 3,
             title: "Art. 286 k.k. - Oszustwo (m.in. internetowe, BLIK)",
             keywords: ["286", "oszustwo", "wyłudzenie", "blik", "olx", "vinted", "scam", "internet", "na wnuczka", "na policjanta"],
             articleText: `<b>Art. 286. k.k.</b><br>§ 1. Kto, w celu osiągnięcia korzyści majątkowej, doprowadza inną osobę do niekorzystnego rozporządzenia własnym lub cudzym mieniem za pomocą wprowadzenia jej w błąd albo wyzyskania błędu lub niezdolności do należytego pojmowania przedsiębranego działania, podlega karze pozbawienia wolności od 6 miesięcy do lat 8.<br>§ 2. Tej samej karze podlega, kto żąda korzyści majątkowej w zamian za zwrot bezprawnie zabranej rzeczy.<br>§ 3. W wypadku mniejszej wagi, sprawca podlega grzywnie, karze ograniczenia wolności albo pozbawienia wolności do lat 2.<br>§ 4. Jeżeli czyn określony w § 1-3 popełniono na szkodę osoby najbliższej, ściganie następuje na wniosek pokrzywdzonego.`,
+            isInteractive: false,
             steps: [
-                `<b>I. Co się stało? (Istota czynu)</b>- Na czym dokładnie polegało oszustwo? (np. zakup towaru, którego nie przysłano; fałszywy link do płatności BLIK; oszustwo "na policjanta" / "na wnuczka"; rzekome inwestycje w kryptowaluty).<br>- Jaka jest dokładna kwota poniesionej straty? (W jakiej walucie?)`,
-                `<b>II. Gdzie i jak doszło do kontaktu?</b>- Przez jaką platformę/stronę sprawca nawiązał kontakt z pokrzywdzonym? (np. portal OLX, Vinted, Facebook, WhatsApp, połączenie telefoniczne, e-mail).<br>- Jakie były dokładne dane kontaktowe sprawcy? (Należy spisać wszystkie nr telefonów, adresy e-mail, nazwy profili, linki do kont).`,
-                `<b>III. Kiedy do tego doszło? (Chronologia)</b>- Kiedy (data i dokładna godzina) sprawca nawiązał pierwszy kontakt?<br>- Kiedy dokładnie pokrzywdzony dokonał przelewu lub przekazał gotówkę?<br>- Kiedy pokrzywdzony zorientował się, że padł ofiarą oszustwa?`,
-                `<b>IV. Mechanizm działania (Wprowadzenie w błąd)</b>- Jakich argumentów, tzw. "legendy", użył sprawca, by przekonać ofiarę do oddania pieniędzy? (np. "konto jest zagrożone", "córka miała wypadek", "konieczność opłacenia kuriera").<br>- Pod kogo podszywał się sprawca? (Pracownik banku, policjant, członek rodziny, pracownik poczty).<br>- Czy pokrzywdzony sam podał kody autoryzacyjne (np. BLIK), czy zalogował się przez fałszywy link?`,
-                `<b>V. Przekazanie środków (Ślady finansowe - KLUCZOWE!)</b>- Z jakiego banku i z jakiego numeru konta (IBAN) pokrzywdzony wysłał środki?<br>- Na jakie dokładnie konto (IBAN sprawcy) lub na jaki numer telefonu (przelew na telefon/BLIK) trafiły pieniądze?<br>- Jeśli ofiara wypłaciła gotówkę w bankomacie (np. przy oszustwie na BLIK), to w jakim dokładnie bankomacie i o której godzinie? (Konieczne do zabezpieczenia monitoringu).`,
-                `<b>VI. Narzędzia i dowody zabezpieczone od pokrzywdzonego</b>- Czy sprawca polecił zainstalować na telefonie/komputerze program do zdalnej obsługi? (np. AnyDesk, TeamViewer, QuickSupport).<br>- Jakie dowody posiada pokrzywdzony? (Obowiązkowo należy zabezpieczyć zrzuty ekranu korespondencji ze sprawcą, fałszywe linki, SMS-y oraz <b>potwierdzenia przelewów w formacie PDF wygenerowane z aplikacji bankowej</b>).`,
-                `<b>VII. Kto? (Identyfikacja sprawcy i pokrzywdzonego)</b>- Dane pokrzywdzonego (oraz ew. dane banku pokrzywdzonego).<br>- Jeśli doszło do osobistego przekazania gotówki (tzw. "odbierak"): Jak wyglądała osoba odbierająca pieniądze? (Szczegółowy rysopis: wiek, wzrost, sylwetka, ubiór, znaki szczególne, pojazd, którym przyjechała, kierunek oddalenia się).`,
-                `<b>VIII. Inne (Wniosek o ściganie)</b>- Oszustwo (art. 286 § 1 k.k.) ścigane jest z urzędu, jednak jeśli sprawcą jest osoba najbliższa, staje się przestępstwem wnioskowym (art. 286 § 4 k.k.). Warto zabezpieczyć w protokole oświadczenie woli ścigania.`
+                `<div class="section-heading">I. Co się stało? (Istota czynu)</div><div class="sub-section"><div>- Na czym dokładnie polegało oszustwo? (np. zakup towaru, fałszywy link, oszustwo "na policjanta").</div></div><div class="sub-section"><div>- Jaka jest dokładna kwota poniesionej straty?</div></div>`,
+                `<div class="section-heading">II. Gdzie i jak doszło do kontaktu?</div><div class="sub-section"><div>- Przez jaką platformę/stronę sprawca nawiązał kontakt z pokrzywdzonym?</div></div><div class="sub-section"><div>- Jakie były dokładne dane kontaktowe sprawcy?</div></div>`,
+                `<div class="section-heading">III. Kiedy do tego doszło? (Chronologia)</div><div class="sub-section"><div>- Kiedy sprawca nawiązał pierwszy kontakt?</div></div><div class="sub-section"><div>- Kiedy dokładnie pokrzywdzony dokonał przelewu lub przekazał gotówkę?</div></div>`,
+                `<div class="section-heading">IV. Mechanizm działania (Wprowadzenie w błąd)</div><div class="sub-section"><div>- Jakich argumentów, tzw. "legendy", użył sprawca?</div></div><div class="sub-section"><div>- Pod kogo podszywał się sprawca?</div></div><div class="sub-section"><div>- Czy pokrzywdzony sam podał kody autoryzacyjne (np. BLIK), czy zalogował się przez fałszywy link?</div></div>`,
+                `<div class="section-heading">V. Przekazanie środków (Ślady finansowe - KLUCZOWE!)</div><div class="sub-section"><div>- Z jakiego banku i z jakiego numeru konta (IBAN) pokrzywdzony wysłał środki?</div></div><div class="sub-section"><div>- Na jakie dokładnie konto (IBAN) lub telefon trafiły pieniądze?</div></div><div class="sub-section"><div>- Jeśli ofiara wypłaciła gotówkę w bankomacie, to w jakim i o której godzinie?</div></div>`,
+                `<div class="section-heading">VI. Narzędzia i dowody zabezpieczone</div><div class="sub-section"><div>- Czy sprawca polecił zainstalować na telefonie program do zdalnej obsługi? (AnyDesk, itp.).</div></div><div class="sub-section"><div>- Obowiązkowo zabezpieczyć: zrzuty ekranu korespondencji, fałszywe linki, SMS-y oraz <b>potwierdzenia przelewów w formacie PDF</b>.</div></div>`,
+                `<div class="section-heading">VII. Kto? (Identyfikacja)</div><div class="sub-section"><div>- Dane pokrzywdzonego i ew. dane banku.</div></div><div class="sub-section"><div>- Jeśli doszło do osobistego przekazania gotówki (tzw. "odbierak"): Jak wyglądała osoba odbierająca pieniądze?</div></div>`,
+                `<div class="section-heading">VIII. Inne (Wniosek o ściganie)</div><div class="sub-section"><div>- Warto zabezpieczyć w protokole oświadczenie woli ścigania.</div></div>`
             ],
-            documents: [
-                "Protokół przyjęcia ustnego zawiadomienia o przestępstwie",
-                "Załącznik adresowy",
-                "Pouczenie o uprawnieniach i obowiązkach pokrzywdzonego w postępowaniu karnym"
-            ]
+            documents: standardDocumentsList
         }
     ];
 
@@ -659,9 +828,7 @@
         const query = document.getElementById("searchInput").value.toLowerCase();
         const resultsDiv = document.getElementById("resultsList");
         resultsDiv.innerHTML = "";
-        
         if (query.trim() === "") return;
-
         const results = crimeDatabase.filter(crime => crime.keywords.some(k => k.includes(query)));
         
         if (results.length > 0) {
@@ -669,61 +836,72 @@
                 const div = document.createElement("div");
                 div.className = "result-item";
                 div.innerHTML = `<strong>${crime.title}</strong>`;
-                div.onclick = () => showAlgorithm(crime);
+                div.onclick = () => buildAlgorithmView(crime);
                 resultsDiv.appendChild(div);
             });
         } else {
-            resultsDiv.innerHTML = "<p>Nie znaleziono algorytmu dla tego hasła.</p>";
+            resultsDiv.innerHTML = "<p style='padding: 10px; color: #d9534f; font-weight: bold;'>Nie znaleziono algorytmu.</p>";
         }
     }
 
-    function showAlgorithm(crime) {
+    function buildAlgorithmView(crime) {
+        currentAlgorithm = crime;
         document.getElementById("search-view").style.display = "none";
         document.getElementById("algorithm-view").style.display = "block";
         document.getElementById("crimeTitle").innerText = crime.title;
 
-        const articleQuoteDiv = document.getElementById("articleQuote");
+        const quoteDiv = document.getElementById("articleQuote");
         if (crime.articleText) {
-            articleQuoteDiv.innerHTML = usunWdowy(crime.articleText);
-            articleQuoteDiv.style.display = "block";
+            quoteDiv.innerHTML = usunWdowy(crime.articleText);
+            quoteDiv.style.display = "block";
         } else {
-            articleQuoteDiv.style.display = "none";
+            quoteDiv.style.display = "none";
         }
 
-        const stepsContainer = document.getElementById("stepsContainer");
-        stepsContainer.innerHTML = "";
+        const menuContainer = document.getElementById("algorithm-menu");
+        const phaseContainer = document.getElementById("algorithm-phase-content");
         
-        crime.steps.forEach(step => {
-            const stepDiv = document.createElement("div");
-            if(step.includes("etap-title")) {
-                stepDiv.style.backgroundColor = "transparent";
-                stepDiv.style.boxShadow = "none";
-                stepDiv.style.border = "none";
-                stepDiv.style.padding = "0";
-            } else {
-                stepDiv.className = "step-item";
-            }
-            stepDiv.innerHTML = usunWdowy(step);
-            stepsContainer.appendChild(stepDiv);
-        });
+        menuContainer.style.display = "block";
+        phaseContainer.style.display = "none";
+        menuContainer.innerHTML = "";
+        phaseContainer.innerHTML = "";
 
-        const documentsContainer = document.getElementById("documentsContainer");
-        documentsContainer.innerHTML = ""; 
+        // Przycisk dokumentów (rozwijany) w menu głównym algorytmu
         if (crime.documents && crime.documents.length > 0) {
-            crime.documents.forEach(docName => {
-                const docDiv = document.createElement("div");
-                docDiv.className = "document-item";
-                docDiv.innerHTML = `<span style="position: absolute; left: 0; top: 1px; font-size: 1.1em;">🔹</span>${docName}`;
-                documentsContainer.appendChild(docDiv);
-            });
+            let docBtn = document.createElement("button");
+            docBtn.className = "accordion-btn";
+            docBtn.style.backgroundColor = "#fff8e1";
+            docBtn.style.border = "1px solid #fecb00";
+            docBtn.innerHTML = "📄 Wykaz niezbędnych dokumentów procesowych <span>▼</span>";
+            docBtn.onclick = function() { this.nextElementSibling.classList.toggle("hidden"); };
+            menuContainer.appendChild(docBtn);
+            
+            let docContent = document.createElement("div");
+            docContent.className = "accordion-content hidden";
+            crime.documents.forEach(d => { docContent.innerHTML += `<div style="margin: 6px 0;">🔹 ${d}</div>`; });
+            menuContainer.appendChild(docContent);
         }
-    }
 
-    function goBack() {
-        document.getElementById("search-view").style.display = "block";
-        document.getElementById("algorithm-view").style.display = "none";
-        document.getElementById("searchInput").value = "";
-        document.getElementById("resultsList").innerHTML = "";
+        // Przyciski menu (Fazy)
+        if (crime.isInteractive && crime.phases) {
+            crime.phases.forEach((phaseHTML, index) => {
+                let phaseBtn = document.createElement("button");
+                phaseBtn.className = "btn-primary";
+                phaseBtn.style.marginTop = "8px";
+                let title = index === 0 ? "ETAP 1: Faza Wstępna" : (index === 1 ? "ETAP 2: Faza Główna" : "ETAP 3: Faza Końcowa");
+                phaseBtn.innerText = title;
+                phaseBtn.onclick = () => openPhase(index);
+                menuContainer.appendChild(phaseBtn);
+            });
+        } else {
+            let stepBtn = document.createElement("button");
+            stepBtn.className = "btn-primary";
+            stepBtn.style.marginTop = "8px";
+            stepBtn.innerText = "Pokaż algorytm postępowania";
+            stepBtn.onclick = () => openStandardSteps();
+            menuContainer.appendChild(stepBtn);
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
 </body>
