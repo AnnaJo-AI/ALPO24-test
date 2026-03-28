@@ -8,7 +8,7 @@
     <meta name="robots" content="noindex, nofollow, noarchive">
     <meta name="author" content="Joanna Gorczyca">
     <meta name="copyright" content="ALPO24">
-    <meta name="description" content="ALPO24 - wersja testowa. Treść demo przechowywana w postaci zaszyfrowanej.">
+    <meta name="description" content="ALPO24 - wersja testowa. Treść demonstracyjna przechowywana jest w postaci zaszyfrowanej.">
 
     <style>
         * { box-sizing: border-box; }
@@ -23,6 +23,7 @@
             scroll-behavior: smooth;
         }
 
+        /* EKRAN WEJŚCIA */
         #login-screen {
             background-color: white;
             padding: 30px 15px;
@@ -49,51 +50,54 @@
             font-size: 13px;
         }
 
-        #login-screen input[type="password"],
-        #searchInput {
+        #login-screen input[type="password"] {
             width: 85%;
-            max-width: 320px;
+            max-width: 280px;
             padding: 10px;
             font-size: 15px;
             border: 2px solid #e0e0e0;
             border-radius: 6px;
             margin-bottom: 10px;
+            text-align: center;
         }
 
-        #login-screen input[type="password"]:focus,
-        #searchInput:focus {
+        #login-screen input[type="password"]:focus {
             outline: none;
             border-color: #002d5a;
         }
 
-        .btn-primary {
+        #login-screen .btn-primary {
             width: 85%;
-            max-width: 320px;
-            padding: 12px;
-            font-size: 13px;
-            font-weight: bold;
-            background-color: #002d5a;
-            color: white;
-            border: none;
-            border-radius: 6px;
+            max-width: 280px;
+            padding: 10px;
+        }
+
+        .legal-checkbox-container {
+            margin: 10px 0 15px 0;
+            font-size: 12px;
+            color: #444;
+            text-align: left;
+            width: 85%;
+            max-width: 280px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .legal-checkbox-container input {
+            margin-right: 8px;
+            margin-top: 2px;
             cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
         }
 
-        .btn-primary:hover {
-            background-color: #001a33;
+        .legal-checkbox-container a {
+            color: #002d5a;
+            font-weight: bold;
+            text-decoration: underline;
+            cursor: pointer;
         }
 
-        .btn-secondary {
-            background-color: #6c757d;
-            width: auto;
-            padding: 10px 14px;
-            margin-top: 10px;
-        }
-
-        #login-error {
+        #login-error,
+        #legal-error {
             color: #d9534f;
             margin-top: 10px;
             font-weight: bold;
@@ -101,6 +105,16 @@
             font-size: 13px;
         }
 
+        .legal-note {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            max-width: 340px;
+            line-height: 1.5;
+        }
+
+        /* GŁÓWNA APLIKACJA */
         #main-app {
             display: none;
             background-color: white;
@@ -111,6 +125,7 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
+        /* NAGŁÓWEK */
         .header-alpo {
             background: linear-gradient(135deg, #002d5a 0%, #001a33 100%);
             color: white;
@@ -147,6 +162,198 @@
             font-size: 1.1em;
         }
 
+        /* ZAKŁADKI */
+        .tabs-container {
+            display: flex;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            border: 1px solid #002d5a;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 8px 4px;
+            font-size: 12px;
+            font-weight: bold;
+            background-color: transparent;
+            color: #002d5a;
+            border: none;
+            border-right: 1px solid #dce0e5;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-button:last-child { border-right: none; }
+
+        .tab-button.active {
+            background-color: #002d5a;
+            color: white;
+            border-bottom: 3px solid #fecb00;
+        }
+
+        .tab-content {
+            display: none;
+            flex-grow: 1;
+        }
+
+        /* WYSZUKIWARKA I PRZYCISKI */
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            -webkit-appearance: none;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #002d5a;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: bold;
+            background-color: #002d5a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:active {
+            background-color: #001a33;
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:active {
+            background-color: #5a6268;
+        }
+
+        /* NAWIGACJA W ALGORYTMIE */
+        .algorithm-nav {
+            display: flex;
+            gap: 6px;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 10px 8px;
+            background-color: #f1f4f8;
+            border: 1px solid #dce0e5;
+            border-radius: 6px;
+            color: #002d5a;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            text-transform: uppercase;
+            transition: background-color 0.2s;
+        }
+
+        .nav-btn:hover {
+            background-color: #e2e8f0;
+        }
+
+        /* PODSTAWY PRAWNE */
+        .toggle-legal-btn {
+            width: 100%;
+            background-color: #fff8e1;
+            border: 1px dashed #fecb00;
+            color: #002d5a;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: background-color 0.2s;
+        }
+
+        .hidden { display: none !important; }
+
+        .accordion-btn {
+            width: 100%;
+            text-align: left;
+            padding: 10px 12px;
+            background: #f1f4f8;
+            border: 1px solid #dce0e5;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 13px;
+            color: #002d5a;
+            margin-bottom: 4px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-btn span.desc {
+            font-size: 11px;
+            font-weight: normal;
+            color: #666;
+            margin-left: 8px;
+            flex-grow: 1;
+        }
+
+        .accordion-content {
+            padding: 10px 12px;
+            background: #fdfdfd;
+            border-left: 3px solid #fecb00;
+            margin-bottom: 8px;
+            font-size: 12px;
+            line-height: 1.5;
+            color: #333;
+            text-align: justify;
+            border-bottom: 1px solid #eee;
+            border-right: 1px solid #eee;
+        }
+
+        .accordion-content .druk {
+            background-color: transparent;
+            border-bottom: 2px solid #fecb00;
+            padding: 0 2px;
+        }
+
+        .accordion-content .druk:hover {
+            background-color: #fffde7;
+        }
+
+        /* LISTA WYNIKÓW */
+        .result-item {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            font-size: 14px;
+            color: #002d5a;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .result-item:hover {
+            background-color: #f1f4f8;
+        }
+
+        /* WNĘTRZE ALGORYTMU */
         .section-title {
             color: #002d5a;
             border-bottom: 2px solid #fecb00;
@@ -169,18 +376,34 @@
             text-align: justify;
         }
 
-        .result-item {
-            padding: 12px;
-            border-bottom: 1px solid #eee;
-            cursor: pointer;
-            font-size: 14px;
-            color: #002d5a;
-            font-weight: 600;
-            transition: background-color 0.2s;
+        .algorithm-phase {
+            animation: fadeIn 0.2s ease-in-out;
         }
 
-        .result-item:hover {
-            background-color: #f1f4f8;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .etap-title {
+            background: linear-gradient(135deg, #002d5a 0%, #004494 100%);
+            color: white;
+            padding: 10px 12px;
+            border-radius: 4px;
+            margin: 0 0 10px 0;
+            font-weight: bold;
+            font-size: 13px;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .etap-subtitle {
+            font-size: 11px;
+            font-weight: normal;
+            color: #fecb00;
+            margin-top: 2px;
+            text-transform: none;
         }
 
         .step-item {
@@ -207,9 +430,7 @@
             margin-bottom: 12px;
         }
 
-        .sub-section:last-child {
-            margin-bottom: 0;
-        }
+        .sub-section:last-child { margin-bottom: 0; }
 
         .sub-section b {
             display: block;
@@ -226,30 +447,147 @@
             text-align: justify;
         }
 
-        .algorithm-nav {
-            display: flex;
-            gap: 6px;
-            margin-top: 20px;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
+        .druk {
+            color: #b38600;
+            font-weight: 800;
+            background-color: #fffde7;
+            padding: 2px 4px;
+            border-radius: 4px;
+            text-decoration: none;
+            border-bottom: 1px solid #fecb00;
+            transition: all 0.2s;
         }
 
-        .nav-btn {
-            flex: 1;
-            padding: 10px 8px;
-            background-color: #f1f4f8;
-            border: 1px solid #dce0e5;
-            border-radius: 6px;
+        .druk:hover {
+            background-color: #fecb00;
             color: #002d5a;
-            font-weight: bold;
-            cursor: pointer;
+        }
+
+        .cytat {
+            font-style: italic;
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: #444;
+        }
+
+        .uwaga-link {
+            display: inline-block;
+            background-color: #fecb00;
+            color: #002d5a;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 900;
             font-size: 12px;
+            border: none;
+            cursor: pointer;
+            margin-left: 5px;
+            vertical-align: middle;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .uwaga-link:active { transform: translateY(1px); }
+
+        .uwagi-box {
+            background-color: #fff4f4;
+            border: 1px solid #f5c6cb;
+            border-left: 4px solid #d9534f;
+            padding: 12px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .uwagi-title {
+            color: #d9534f;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 13px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+        }
+
+        .uwagi-title::before {
+            content: "⚠️";
+            margin-right: 6px;
+            font-size: 16px;
+        }
+
+        /* KAFELKI */
+        .przepisy-category {
+            font-size: 13px;
+            color: #666;
+            margin: 15px 0 10px 0;
+            font-weight: bold;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 4px;
             text-transform: uppercase;
         }
 
-        .hidden {
-            display: none !important;
+        .tiles-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
         }
+
+        .tile {
+            background-color: #ffffff;
+            color: #002d5a;
+            padding: 12px 8px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            border-bottom: 4px solid #002d5a;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            font-weight: 700;
+            font-size: 11px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            line-height: 1.3;
+        }
+
+        .tile:active,
+        .tile:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 15px rgba(0,45,90,0.1);
+            border-bottom-color: #fecb00;
+        }
+
+        .tile-icon {
+            font-size: 26px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e2e8f0 100%);
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .tile-subtitle {
+            font-size: 9px;
+            font-weight: normal;
+            color: #6c757d;
+            margin-top: 6px;
+            background: #f1f4f8;
+            padding: 3px 6px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .tile-full { grid-column: 1 / -1; }
 
         .app-footer {
             margin-top: 15px;
@@ -261,18 +599,138 @@
             line-height: 1.5;
         }
 
-        .legal-note {
-            margin-top: 10px;
-            font-size: 12px;
-            color: #666;
-            text-align: center;
-            max-width: 340px;
-            line-height: 1.5;
+        /* MODALE */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
         }
+
+        .modal-content {
+            background-color: white;
+            width: 92%;
+            max-width: 600px;
+            max-height: 85vh;
+            border-radius: 10px;
+            padding: 20px;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .modal-close:hover { color: #d9534f; }
+
+        .legal-doc-text {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #333;
+            text-align: justify;
+        }
+
+        .legal-doc-text h2 {
+            color: #002d5a;
+            font-size: 16px;
+            border-bottom: 2px solid #fecb00;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .legal-doc-text h3 {
+            color: #002d5a;
+            font-size: 13px;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .legal-doc-text p { margin-bottom: 8px; }
     </style>
 </head>
 <body>
 
+<!-- REGULAMIN -->
+<div id="modal-regulamin" class="modal-overlay">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal('modal-regulamin')">&times;</button>
+        <div class="legal-doc-text">
+            <h2>Regulamin Korzystania z Aplikacji ALPO24 (Wersja Testowa)</h2>
+
+            <h3>§1. Postanowienia ogólne</h3>
+            <p>1. Niniejszy regulamin określa zasady korzystania z aplikacji internetowej „ALPO24 – Algorytm postępowania 24H”, dalej „Aplikacja”.</p>
+            <p>2. Właścicielem Aplikacji, administratorem technicznym oraz podmiotem uprawnionym do korzystania z autorskich praw majątkowych do Aplikacji jest Joanna Gorczyca, e-mail: alpo24.team@gmail.com, dalej: „Właściciel”.</p>
+            <p>3. Aplikacja stanowi usługę świadczoną drogą elektroniczną w rozumieniu właściwych przepisów prawa.</p>
+            <p>4. Korzystanie z Aplikacji oznacza zapoznanie się z niniejszym regulaminem i akceptację jego postanowień.</p>
+            <p>5. Aplikacja ma charakter informacyjno-użytkowy i służy do korzystania z przygotowanych przez Właściciela materiałów, algorytmów, opracowań, zestawień, odnośników i dokumentów udostępnionych w ramach jej funkcjonalności, wyłącznie do użytku służbowego i edukacyjnego.</p>
+
+            <h3>§2. Prawa autorskie</h3>
+            <p>1. Aplikacja jako program komputerowy oraz jej elementy twórcze podlegają ochronie prawnej.</p>
+            <p>2. Zabronione jest kopiowanie, rozpowszechnianie, zwielokrotnianie lub wykorzystywanie elementów Aplikacji bez zgody Właściciela.</p>
+            <p>3. Dotyczy to w szczególności kodu, układu, treści, algorytmów, opisów oraz sposobu prezentacji materiałów.</p>
+
+            <h3>§3. Licencja</h3>
+            <p>1. Użytkownik uzyskuje ograniczoną, niewyłączną i niezbywalną licencję na korzystanie z Aplikacji wyłącznie na własny użytek wewnętrzny.</p>
+            <p>2. Licencja nie obejmuje prawa do kopiowania ani udostępniania treści osobom trzecim.</p>
+
+            <h3>§4. Odpowiedzialność</h3>
+            <p>1. Aplikacja ma charakter pomocniczy i demonstracyjny.</p>
+            <p>2. Treści nie stanowią wiążącej wykładni prawa ani oficjalnych wytycznych przełożonych.</p>
+
+            <h3>§5. Kontakt</h3>
+            <p>W sprawach związanych z Aplikacją: alpo24.team@gmail.com</p>
+        </div>
+    </div>
+</div>
+
+<!-- POLITYKA -->
+<div id="modal-polityka" class="modal-overlay">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal('modal-polityka')">&times;</button>
+        <div class="legal-doc-text">
+            <h2>Polityka Prywatności ALPO24</h2>
+
+            <h3>1. Informacje ogólne</h3>
+            <p>Administratorem jest Joanna Gorczyca, kontakt: alpo24.team@gmail.com.</p>
+
+            <h3>2. Czy zbieramy dane?</h3>
+            <p>Aplikacja nie zbiera aktywnie danych osobowych przez formularze ani rejestrację.</p>
+            <p>Podczas korzystania mogą być automatycznie przetwarzane podstawowe dane techniczne, np. adres IP, wynikające z działania serwera i Internetu.</p>
+
+            <h3>3. Cel</h3>
+            <p>Dane techniczne służą wyłącznie zapewnieniu działania i bezpieczeństwa strony.</p>
+
+            <h3>4. Odbiorcy danych</h3>
+            <p>Dane mogą być przetwarzane przez dostawcę hostingu oraz inne podmioty techniczne obsługujące stronę.</p>
+
+            <h3>5. Twoje prawa</h3>
+            <p>Masz prawo do dostępu do danych, żądania ich usunięcia, ograniczenia przetwarzania oraz wniesienia skargi do Prezesa UODO.</p>
+
+            <h3>6. Kontakt</h3>
+            <p>W sprawach prywatności: alpo24.team@gmail.com</p>
+        </div>
+    </div>
+</div>
+
+<!-- EKRAN WEJŚCIA -->
 <div id="login-screen">
     <div class="logo-box" style="margin-bottom: 15px; display: inline-block;">ALPO24</div>
     <h1>Wersja Pokazowa</h1>
@@ -286,8 +744,18 @@
         autocorrect="off"
     >
 
+    <div class="legal-checkbox-container">
+        <input type="checkbox" id="acceptLegalTerms">
+        <label for="acceptLegalTerms">
+            Akceptuję <a onclick="openModal('modal-regulamin')">Regulamin</a>
+            oraz <a onclick="openModal('modal-polityka')">Politykę prywatności</a>.
+        </label>
+    </div>
+
     <button class="btn-primary" id="unlockBtn">Odblokuj</button>
+
     <div id="login-error">Nieprawidłowe hasło albo uszkodzony plik demo.</div>
+    <div id="legal-error">Musisz zaakceptować dokumenty, aby wejść.</div>
 
     <div class="legal-note">
         Wersja testowa. Treść demonstracyjna przechowywana jest w postaci zaszyfrowanej.
@@ -295,32 +763,63 @@
     </div>
 </div>
 
+<!-- GŁÓWNA APLIKACJA -->
 <div class="container" id="main-app">
+
     <div class="header-alpo">
         <div class="logo-box">ALPO24</div>
         <div class="brand-name">Algorytm postępowania <span>24H</span></div>
     </div>
 
-    <div id="search-view">
-        <input
-            type="text"
-            id="searchInput"
-            placeholder="Szukaj algorytmu (np. 190, kradzież)..."
-        >
-        <div id="resultsList"></div>
+    <div class="tabs-container">
+        <button class="tab-button active" id="btn-algorytmy" onclick="switchTab('algorytmy')">Algorytmy</button>
+        <button class="tab-button" id="btn-druki" onclick="switchTab('druki')">Druki procesowe</button>
+        <button class="tab-button" id="btn-przepisy" onclick="switchTab('przepisy')">Przepisy</button>
     </div>
 
-    <div id="algorithm-view" style="display:none;">
-        <h2 id="crimeTitle" class="section-title">Tytuł</h2>
-        <div id="articleQuote" class="article-quote"></div>
-        <div id="algorithmContent"></div>
+    <!-- TAB ALGORYTMY -->
+    <div id="tab-algorytmy" class="tab-content" style="display:block;">
+        <div id="search-view">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Szukaj algorytmu (np. 190, kradzież)..."
+            >
+            <button class="btn-primary" onclick="searchCrime()">Szukaj</button>
+            <div id="resultsList"></div>
 
-        <div class="algorithm-nav">
-            <button class="nav-btn" id="backToResultsBtn">⬅ Wróć</button>
+            <button class="toggle-legal-btn" onclick="toggleLegalBasis()">📜 Podstawy prawne przyjęcia zawiadomienia o przestępstwie</button>
+            <div id="legalBasisContainer" class="hidden"></div>
+        </div>
+
+        <div id="algorithm-view" style="display:none;">
+            <h2 id="crimeTitle" class="section-title">Tytuł</h2>
+            <div id="articleQuote" class="article-quote"></div>
+            <div id="algorithm-menu"></div>
+            <div id="algorithm-phase-content" style="display:none;"></div>
+
+            <div class="algorithm-nav">
+                <button class="nav-btn" onclick="handleBackBtn()">⬅ Cofnij</button>
+                <button class="nav-btn" onclick="resetToSearch()">🏠 Wyszukiwarka</button>
+            </div>
         </div>
     </div>
 
+    <!-- TAB DRUKI -->
+    <div id="tab-druki" class="tab-content">
+        <div id="documentsContainer"></div>
+    </div>
+
+    <!-- TAB PRZEPISY -->
+    <div id="tab-przepisy" class="tab-content">
+        <div id="lawsContainer"></div>
+    </div>
+
     <div class="app-footer">
+        <div style="margin-bottom: 15px;">
+            <button class="btn-secondary" style="padding: 6px 12px; font-size: 11px; margin: 2px; border: none; border-radius: 4px; color: white; cursor: pointer;" onclick="openModal('modal-regulamin')">📜 Regulamin</button>
+            <button class="btn-secondary" style="padding: 6px 12px; font-size: 11px; margin: 2px; border: none; border-radius: 4px; color: white; cursor: pointer;" onclick="openModal('modal-polityka')">🔒 Polityka Prywatności</button>
+        </div>
         Wersja testowa - ALPO24<br>
         Joanna Gorczyca, e-mail: alpo24.team@gmail.com<br>
         © 2026 ALPO24. Wszystkie prawa zastrzeżone.
@@ -329,6 +828,16 @@
 
 <script>
     let decryptedData = null;
+    let currentAlgorithm = null;
+    let isPhaseViewActive = false;
+
+    function openModal(id) {
+        document.getElementById(id).style.display = "flex";
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).style.display = "none";
+    }
 
     function base64ToUint8Array(base64) {
         return Uint8Array.from(atob(base64), c => c.charCodeAt(0));
@@ -377,10 +886,7 @@
         const ciphertext = base64ToUint8Array(encryptedPackage.data);
 
         const decryptedBuffer = await crypto.subtle.decrypt(
-            {
-                name: "AES-GCM",
-                iv
-            },
+            { name: "AES-GCM", iv },
             key,
             ciphertext
         );
@@ -388,94 +894,320 @@
         return JSON.parse(new TextDecoder().decode(decryptedBuffer));
     }
 
-    function renderResults(items) {
-        const resultsList = document.getElementById("resultsList");
-        resultsList.innerHTML = "";
+    function usunWdowy(tekst) {
+        if (!tekst) return "";
+        let wynik = tekst;
+        const regex = / (w|z|i|o|a|u|do|na|za|ze|od|we|po|nr|lub) /gi;
+        wynik = wynik.replace(regex, ' $1&nbsp;');
+        wynik = wynik.replace(regex, ' $1&nbsp;');
+        wynik = wynik.replace(/>(w|z|i|o|a|u|do|na|za|ze|od|we|po|nr|lub) /gi, '>$1&nbsp;');
+        wynik = wynik.replace(/ (Art\.|art\.|ust\.|poz\.|pkt) /g, ' $1&nbsp;');
+        return wynik;
+    }
 
-        if (!items.length) {
-            resultsList.innerHTML = "<div class='step-item'>Brak wyników.</div>";
-            return;
-        }
+    function renderLegalBasis() {
+        const container = document.getElementById("legalBasisContainer");
+        container.innerHTML = "";
 
-        items.forEach(item => {
-            const div = document.createElement("div");
-            div.className = "result-item";
-            div.textContent = item.title;
-            div.onclick = () => openAlgorithm(item);
-            resultsList.appendChild(div);
+        const basis = decryptedData.legalBasis || [];
+
+        basis.forEach(item => {
+            const btn = document.createElement("button");
+            btn.className = "accordion-btn";
+            btn.innerHTML = `
+                <div>${item.title} <span class="desc">${item.desc || ""}</span></div>
+                <span>▼</span>
+            `;
+            btn.onclick = function() {
+                this.nextElementSibling.classList.toggle("hidden");
+            };
+
+            const content = document.createElement("div");
+            content.className = "accordion-content hidden";
+            content.innerHTML = item.content || "";
+
+            container.appendChild(btn);
+            container.appendChild(content);
         });
     }
 
-    function openAlgorithm(item) {
-        document.getElementById("search-view").style.display = "none";
-        document.getElementById("algorithm-view").style.display = "block";
-        document.getElementById("crimeTitle").textContent = item.title;
-        document.getElementById("articleQuote").innerHTML = item.articleText || "";
+    function renderDocumentsDemo() {
+        const container = document.getElementById("documentsContainer");
+        const groups = decryptedData.documentsDemo || [];
 
-        const content = document.getElementById("algorithmContent");
-        content.innerHTML = "";
+        if (!groups.length) {
+            container.innerHTML = "<div class='step-item'>Brak danych demo.</div>";
+            return;
+        }
 
-        if (item.isInteractive && Array.isArray(item.phases)) {
-            item.phases.forEach((phase, index) => {
-                const block = document.createElement("div");
-                block.className = "step-item";
-                block.innerHTML = `
-                    <div class="section-heading">ETAP ${index + 1}</div>
-                    <div>${phase}</div>
+        let html = "";
+
+        groups.forEach(group => {
+            html += `<h3 class="przepisy-category">${group.category}</h3>`;
+            html += `<div class="tiles-grid">`;
+
+            (group.items || []).forEach(item => {
+                html += `
+                    <a href="#" class="tile ${item.full ? 'tile-full' : ''}" onclick="alert('${item.alert || 'Opcja wyłączona w wersji testowej.'}'); return false;">
+                        <div class="tile-icon">${item.icon || '📄'}</div>
+                        ${item.title || ''}
+                        ${item.subtitle ? `<span class="tile-subtitle">${item.subtitle}</span>` : ''}
+                    </a>
                 `;
-                content.appendChild(block);
             });
-        } else if (Array.isArray(item.steps)) {
-            item.steps.forEach(step => {
-                const block = document.createElement("div");
-                block.className = "step-item";
-                block.innerHTML = step;
-                content.appendChild(block);
+
+            html += `</div>`;
+        });
+
+        container.innerHTML = html;
+    }
+
+    function renderLawsDemo() {
+        const container = document.getElementById("lawsContainer");
+        const groups = decryptedData.lawsDemo || [];
+
+        if (!groups.length) {
+            container.innerHTML = "<div class='step-item'>Brak danych demo.</div>";
+            return;
+        }
+
+        let html = "";
+
+        groups.forEach(group => {
+            html += `<h3 class="przepisy-category">${group.category}</h3>`;
+            html += `<div class="tiles-grid">`;
+
+            (group.items || []).forEach(item => {
+                html += `
+                    <a href="#" class="tile ${item.full ? 'tile-full' : ''}" onclick="alert('${item.alert || 'Opcja wyłączona w wersji testowej.'}'); return false;">
+                        <div class="tile-icon">${item.icon || '📕'}</div>
+                        ${item.title || ''}
+                    </a>
+                `;
             });
+
+            html += `</div>`;
+        });
+
+        container.innerHTML = html;
+    }
+
+    function switchTab(tabName) {
+        document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
+
+        document.getElementById('tab-' + tabName).style.display = 'block';
+        document.getElementById('btn-' + tabName).classList.add('active');
+
+        if (tabName === 'algorytmy' && currentAlgorithm === null) {
+            resetToSearch();
         }
     }
 
-    function backToResults() {
-        document.getElementById("algorithm-view").style.display = "none";
+    function toggleLegalBasis() {
+        document.getElementById("legalBasisContainer").classList.toggle("hidden");
+    }
+
+    function searchCrime() {
+        const query = document.getElementById("searchInput").value.toLowerCase().trim();
+        const resultsDiv = document.getElementById("resultsList");
+        resultsDiv.innerHTML = "";
+
+        const database = decryptedData.crimeDatabase || [];
+
+        if (query === "") return;
+
+        const results = database.filter(crime =>
+            (crime.keywords || []).some(k => k.toLowerCase().includes(query)) ||
+            (crime.title || "").toLowerCase().includes(query)
+        );
+
+        if (results.length > 0) {
+            results.forEach(crime => {
+                const div = document.createElement("div");
+                div.className = "result-item";
+                div.innerHTML = `<strong>${crime.title}</strong>`;
+                div.onclick = () => buildAlgorithmView(crime);
+                resultsDiv.appendChild(div);
+            });
+        } else {
+            resultsDiv.innerHTML = "<p style='padding: 10px; color: #d9534f; font-weight: bold;'>Nie znaleziono algorytmu.</p>";
+        }
+    }
+
+    function buildAlgorithmView(crime) {
+        currentAlgorithm = crime;
+        isPhaseViewActive = false;
+
+        document.getElementById("search-view").style.display = "none";
+        document.getElementById("algorithm-view").style.display = "block";
+        document.getElementById("crimeTitle").innerText = crime.title;
+
+        const quoteDiv = document.getElementById("articleQuote");
+        if (crime.articleText) {
+            quoteDiv.innerHTML = usunWdowy(crime.articleText);
+            quoteDiv.style.display = "block";
+        } else {
+            quoteDiv.style.display = "none";
+        }
+
+        const menuContainer = document.getElementById("algorithm-menu");
+        const phaseContainer = document.getElementById("algorithm-phase-content");
+
+        menuContainer.style.display = "block";
+        phaseContainer.style.display = "none";
+        menuContainer.innerHTML = "";
+        phaseContainer.innerHTML = "";
+
+        if (crime.documents && crime.documents.length > 0) {
+            let docBtn = document.createElement("button");
+            docBtn.className = "accordion-btn";
+            docBtn.style.backgroundColor = "#fff8e1";
+            docBtn.style.border = "1px solid #fecb00";
+            docBtn.innerHTML = "📄 Wykaz niezbędnych dokumentów procesowych <span>▼</span>";
+            docBtn.onclick = function() {
+                this.nextElementSibling.classList.toggle("hidden");
+            };
+            menuContainer.appendChild(docBtn);
+
+            let docContent = document.createElement("div");
+            docContent.className = "accordion-content hidden";
+            crime.documents.forEach(d => {
+                docContent.innerHTML += `<div style="margin: 6px 0;">🔹 ${d}</div>`;
+            });
+            menuContainer.appendChild(docContent);
+        }
+
+        if (crime.isInteractive && crime.phases) {
+            crime.phases.forEach((phaseHTML, index) => {
+                let phaseBtn = document.createElement("button");
+                phaseBtn.className = "btn-primary";
+                phaseBtn.style.marginTop = "8px";
+                let title = index === 0
+                    ? "ETAP 1: Faza Wstępna"
+                    : (index === 1 ? "ETAP 2: Faza Główna" : "ETAP 3: Faza Końcowa");
+                phaseBtn.innerText = title;
+                phaseBtn.onclick = () => openPhase(index);
+                menuContainer.appendChild(phaseBtn);
+            });
+        } else {
+            let stepBtn = document.createElement("button");
+            stepBtn.className = "btn-primary";
+            stepBtn.style.marginTop = "8px";
+            stepBtn.innerText = "Pokaż algorytm postępowania";
+            stepBtn.onclick = () => openStandardSteps();
+            menuContainer.appendChild(stepBtn);
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openPhase(index) {
+        isPhaseViewActive = true;
+
+        document.getElementById("algorithm-menu").style.display = "none";
+        const pCont = document.getElementById("algorithm-phase-content");
+        pCont.style.display = "block";
+
+        let phaseContent = `<div class="algorithm-phase" id="faza-${index}">${usunWdowy(currentAlgorithm.phases[index])}</div>`;
+
+        if (index < currentAlgorithm.phases.length - 1) {
+            phaseContent += `<button class="btn-primary" style="margin-top: 15px; margin-bottom: 10px;" onclick="openPhase(${index + 1})">Przejdź do kolejnego etapu ➔</button>`;
+        } else {
+            phaseContent += `<button class="btn-primary btn-secondary" style="margin-top: 15px; margin-bottom: 10px;" onclick="handleBackBtn()">Zakończ i wróć do menu algorytmu</button>`;
+        }
+
+        pCont.innerHTML = phaseContent;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openStandardSteps() {
+        isPhaseViewActive = true;
+
+        document.getElementById("algorithm-menu").style.display = "none";
+        const pCont = document.getElementById("algorithm-phase-content");
+        pCont.style.display = "block";
+        pCont.innerHTML = `<div class="algorithm-phase" id="faza-0"></div>`;
+
+        const phaseDiv = pCont.querySelector('.algorithm-phase');
+        currentAlgorithm.steps.forEach(s => {
+            phaseDiv.innerHTML += `<div class="step-item">${usunWdowy(s)}</div>`;
+        });
+
+        pCont.innerHTML += `<button class="btn-primary btn-secondary" style="margin-top: 15px; margin-bottom: 10px;" onclick="handleBackBtn()">Zakończ i wróć do menu algorytmu</button>`;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function handleBackBtn() {
+        if (isPhaseViewActive) {
+            const currentPhaseDiv = document.querySelector('.algorithm-phase:not([style*="display: none"])');
+            if (currentPhaseDiv && currentPhaseDiv.id.startsWith('faza-')) {
+                let phaseIdx = parseInt(currentPhaseDiv.id.replace('faza-', ''));
+                if (phaseIdx > 0) {
+                    openPhase(phaseIdx - 1);
+                    return;
+                }
+            }
+
+            document.getElementById("algorithm-phase-content").style.display = "none";
+            document.getElementById("algorithm-menu").style.display = "block";
+            isPhaseViewActive = false;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            resetToSearch();
+        }
+    }
+
+    function resetToSearch() {
+        currentAlgorithm = null;
+        isPhaseViewActive = false;
+        document.getElementById("searchInput").value = "";
+        document.getElementById("resultsList").innerHTML = "";
+
         document.getElementById("search-view").style.display = "block";
+        document.getElementById("algorithm-view").style.display = "none";
+
+        document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
+        document.getElementById('btn-algorytmy').classList.add('active');
+        document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+        document.getElementById('tab-algorytmy').style.display = 'block';
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function initApp(data) {
         decryptedData = data;
 
         document.getElementById("main-app").style.display = "flex";
-        renderResults(data.crimeDatabase || []);
+        renderLegalBasis();
+        renderDocumentsDemo();
+        renderLawsDemo();
 
-        const searchInput = document.getElementById("searchInput");
-        searchInput.addEventListener("input", () => {
-            const query = searchInput.value.trim().toLowerCase();
-
-            if (!query) {
-                renderResults(decryptedData.crimeDatabase || []);
-                return;
-            }
-
-            const filtered = (decryptedData.crimeDatabase || []).filter(item => {
-                const titleMatch = (item.title || "").toLowerCase().includes(query);
-                const keywordMatch = (item.keywords || []).some(k => k.toLowerCase().includes(query));
-                return titleMatch || keywordMatch;
-            });
-
-            renderResults(filtered);
+        document.getElementById("searchInput").addEventListener("keydown", (e) => {
+            if (e.key === "Enter") searchCrime();
         });
     }
 
     async function unlockApp() {
         const password = document.getElementById("passwordInput").value;
-        const errorBox = document.getElementById("login-error");
-        errorBox.style.display = "none";
+        const isAccepted = document.getElementById("acceptLegalTerms").checked;
+        const loginError = document.getElementById("login-error");
+        const legalError = document.getElementById("legal-error");
+
+        loginError.style.display = "none";
+        legalError.style.display = "none";
+
+        if (!isAccepted) {
+            legalError.style.display = "block";
+            return;
+        }
 
         try {
             const data = await decryptPayload(password);
             document.getElementById("login-screen").style.display = "none";
             initApp(data);
         } catch (error) {
-            errorBox.style.display = "block";
+            loginError.style.display = "block";
             console.error(error);
         }
     }
@@ -484,7 +1216,6 @@
     document.getElementById("passwordInput").addEventListener("keydown", (e) => {
         if (e.key === "Enter") unlockApp();
     });
-    document.getElementById("backToResultsBtn").addEventListener("click", backToResults);
 </script>
 
 </body>
