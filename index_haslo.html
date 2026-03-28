@@ -4,242 +4,680 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ALPO24 - Wersja testowa</title>
+
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="author" content="Joanna Gorczyca">
+    <meta name="copyright" content="ALPO24">
+    <meta name="description" content="ALPO24 - wersja testowa. Materiały, układ aplikacji, algorytmy i treści są chronione prawem autorskim.">
+
     <style>
         * { box-sizing: border-box; }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            background-color: #f4f7f6; color: #2c3e50; 
-            max-width: 800px; margin: 0 auto; padding: 6px;
+            background-color: #f4f7f6;
+            color: #2c3e50;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 6px;
             scroll-behavior: smooth;
+
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
         }
 
         /* EKRAN LOGOWANIA */
         #login-screen {
-            background-color: white; padding: 30px 15px; border-radius: 10px;
-            min-height: 40vh; display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,45,90,0.05); text-align: center; margin-top: 5vh;
+            background-color: white;
+            padding: 30px 15px;
+            border-radius: 10px;
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,45,90,0.05);
+            text-align: center;
+            margin-top: 5vh;
         }
-        #login-screen h1 { color: #002d5a; margin-bottom: 5px; font-size: 22px; }
-        #login-screen p { color: #666; margin-bottom: 15px; font-size: 13px; }
+
+        #login-screen h1 {
+            color: #002d5a;
+            margin-bottom: 5px;
+            font-size: 22px;
+        }
+
+        #login-screen p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+
         #login-screen input[type="text"] {
-            width: 85%; max-width: 280px; padding: 10px; font-size: 15px;
-            border: 2px solid #e0e0e0; border-radius: 6px; margin-bottom: 10px; text-align: center;
+            width: 85%;
+            max-width: 280px;
+            padding: 10px;
+            font-size: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            text-align: center;
         }
-        #login-screen input[type="text"]:focus { outline: none; border-color: #002d5a; }
-        #login-screen .btn-primary { width: 85%; max-width: 280px; padding: 10px; }
-        
+
+        #login-screen input[type="text"]:focus {
+            outline: none;
+            border-color: #002d5a;
+        }
+
+        #login-screen .btn-primary {
+            width: 85%;
+            max-width: 280px;
+            padding: 10px;
+        }
+
         /* CHECKBOX LOGOWANIA */
         .legal-checkbox-container {
-            margin: 10px 0 15px 0; font-size: 12px; color: #444; text-align: left;
-            width: 85%; max-width: 280px; display: flex; align-items: flex-start;
+            margin: 10px 0 15px 0;
+            font-size: 12px;
+            color: #444;
+            text-align: left;
+            width: 85%;
+            max-width: 280px;
+            display: flex;
+            align-items: flex-start;
         }
-        .legal-checkbox-container input { margin-right: 8px; margin-top: 2px; cursor: pointer; }
-        .legal-checkbox-container a { color: #002d5a; font-weight: bold; text-decoration: underline; cursor: pointer; }
-        #login-error, #legal-error { color: #d9534f; margin-top: 10px; font-weight: bold; display: none; font-size: 13px; }
+
+        .legal-checkbox-container input {
+            margin-right: 8px;
+            margin-top: 2px;
+            cursor: pointer;
+        }
+
+        .legal-checkbox-container a {
+            color: #002d5a;
+            font-weight: bold;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        #login-error,
+        #legal-error {
+            color: #d9534f;
+            margin-top: 10px;
+            font-weight: bold;
+            display: none;
+            font-size: 13px;
+        }
 
         /* GŁÓWNA APLIKACJA */
         #main-app {
-            display: none; background-color: white; padding: 0 10px 10px 10px;
-            border-radius: 10px; min-height: 90vh; flex-direction: column;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+            display: none;
+            background-color: white;
+            padding: 0 10px 10px 10px;
+            border-radius: 10px;
+            min-height: 90vh;
+            flex-direction: column;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-        
+
         /* NAGŁÓWEK ALPO24 */
         .header-alpo {
-            background: linear-gradient(135deg, #002d5a 0%, #001a33 100%); 
-            color: white; padding: 12px; font-family: 'Segoe UI', Arial, sans-serif;
-            display: flex; align-items: center; border-bottom: 4px solid #fecb00; 
-            margin: 0 -10px 10px -10px; 
+            background: linear-gradient(135deg, #002d5a 0%, #001a33 100%);
+            color: white;
+            padding: 12px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            border-bottom: 4px solid #fecb00;
+            margin: 0 -10px 10px -10px;
         }
+
         .logo-box {
-            background: white; color: #002d5a; padding: 4px 8px;
-            font-weight: 900; font-size: 16px; border-radius: 4px; margin-right: 8px;
+            background: white;
+            color: #002d5a;
+            padding: 4px 8px;
+            font-weight: 900;
+            font-size: 16px;
+            border-radius: 4px;
+            margin-right: 8px;
         }
+
         .brand-name {
-            font-size: 14px; font-weight: 400; text-transform: uppercase;
-            letter-spacing: 0.5px; line-height: 1.1; white-space: nowrap; 
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.1;
+            white-space: nowrap;
         }
-        .brand-name span { font-weight: 900; color: #fecb00; font-size: 1.1em; }
+
+        .brand-name span {
+            font-weight: 900;
+            color: #fecb00;
+            font-size: 1.1em;
+        }
 
         /* ZAKŁADKI GŁÓWNE */
         .tabs-container {
-            display: flex; margin-bottom: 10px; border-radius: 6px;
-            overflow: hidden; background-color: #f8f9fa; border: 1px solid #002d5a;
+            display: flex;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            border: 1px solid #002d5a;
         }
+
         .tab-button {
-            flex: 1; padding: 8px 4px; font-size: 12px; font-weight: bold;
-            background-color: transparent; color: #002d5a; border: none;
-            border-right: 1px solid #dce0e5; cursor: pointer; transition: all 0.2s ease;
+            flex: 1;
+            padding: 8px 4px;
+            font-size: 12px;
+            font-weight: bold;
+            background-color: transparent;
+            color: #002d5a;
+            border: none;
+            border-right: 1px solid #dce0e5;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
-        .tab-button:last-child { border-right: none; }
-        .tab-button.active { background-color: #002d5a; color: white; border-bottom: 3px solid #fecb00; }
-        .tab-content { display: none; flex-grow: 1; }
+
+        .tab-button:last-child {
+            border-right: none;
+        }
+
+        .tab-button.active {
+            background-color: #002d5a;
+            color: white;
+            border-bottom: 3px solid #fecb00;
+        }
+
+        .tab-content {
+            display: none;
+            flex-grow: 1;
+        }
 
         /* WYSZUKIWARKA I PRZYCISKI */
         input[type="text"] {
-            width: 100%; padding: 12px; font-size: 14px; border: 2px solid #e0e0e0;
-            border-radius: 6px; margin-bottom: 8px; -webkit-appearance: none;
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            -webkit-appearance: none;
         }
-        input[type="text"]:focus { outline: none; border-color: #002d5a; }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #002d5a;
+        }
+
         .btn-primary {
-            width: 100%; padding: 12px; font-size: 13px; font-weight: bold;
-            background-color: #002d5a; color: white; border: none; border-radius: 6px;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;
+            width: 100%;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: bold;
+            background-color: #002d5a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
             transition: all 0.2s;
         }
-        .btn-primary:active { background-color: #001a33; transform: scale(0.98); }
-        
-        .btn-secondary { background-color: #6c757d; }
-        .btn-secondary:active { background-color: #5a6268; }
+
+        .btn-primary:active {
+            background-color: #001a33;
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:active {
+            background-color: #5a6268;
+        }
 
         /* NAWIGACJA W ŚRODKU ALGORYTMU */
-        .algorithm-nav { display: flex; gap: 6px; margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px; }
-        .nav-btn {
-            flex: 1; padding: 10px 8px; background-color: #f1f4f8; border: 1px solid #dce0e5;
-            border-radius: 6px; color: #002d5a; font-weight: bold; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; font-size: 12px;
-            text-transform: uppercase; transition: background-color 0.2s;
+        .algorithm-nav {
+            display: flex;
+            gap: 6px;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
         }
-        .nav-btn:hover { background-color: #e2e8f0; }
+
+        .nav-btn {
+            flex: 1;
+            padding: 10px 8px;
+            background-color: #f1f4f8;
+            border: 1px solid #dce0e5;
+            border-radius: 6px;
+            color: #002d5a;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            text-transform: uppercase;
+            transition: background-color 0.2s;
+        }
+
+        .nav-btn:hover {
+            background-color: #e2e8f0;
+        }
 
         /* ROZWIJANIE PODSTAW PRAWNYCH */
         .toggle-legal-btn {
-            width: 100%; background-color: #fff8e1; border: 1px dashed #fecb00; color: #002d5a;
-            padding: 10px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer;
-            margin: 10px 0; transition: background-color 0.2s;
+            width: 100%;
+            background-color: #fff8e1;
+            border: 1px dashed #fecb00;
+            color: #002d5a;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: background-color 0.2s;
         }
-        .hidden { display: none !important; }
+
+        .hidden {
+            display: none !important;
+        }
 
         /* AKORDEONY PODSTAW PRAWNYCH I DOKUMENTÓW */
         .accordion-btn {
-            width: 100%; text-align: left; padding: 10px 12px; background: #f1f4f8; 
-            border: 1px solid #dce0e5; border-radius: 6px; font-weight: bold; font-size: 13px;
-            color: #002d5a; margin-bottom: 4px; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+            width: 100%;
+            text-align: left;
+            padding: 10px 12px;
+            background: #f1f4f8;
+            border: 1px solid #dce0e5;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 13px;
+            color: #002d5a;
+            margin-bottom: 4px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .accordion-btn span.desc { font-size: 11px; font-weight: normal; color: #666; margin-left: 8px; flex-grow: 1; }
+
+        .accordion-btn span.desc {
+            font-size: 11px;
+            font-weight: normal;
+            color: #666;
+            margin-left: 8px;
+            flex-grow: 1;
+        }
+
         .accordion-content {
-            padding: 10px 12px; background: #fdfdfd; border-left: 3px solid #fecb00; 
-            margin-bottom: 8px; font-size: 12px; line-height: 1.5; color: #333; text-align: justify;
-            border-bottom: 1px solid #eee; border-right: 1px solid #eee;
+            padding: 10px 12px;
+            background: #fdfdfd;
+            border-left: 3px solid #fecb00;
+            margin-bottom: 8px;
+            font-size: 12px;
+            line-height: 1.5;
+            color: #333;
+            text-align: justify;
+            border-bottom: 1px solid #eee;
+            border-right: 1px solid #eee;
         }
-        .accordion-content .druk { background-color: transparent; border-bottom: 2px solid #fecb00; padding: 0 2px; }
-        .accordion-content .druk:hover { background-color: #fffde7; }
+
+        .accordion-content .druk {
+            background-color: transparent;
+            border-bottom: 2px solid #fecb00;
+            padding: 0 2px;
+        }
+
+        .accordion-content .druk:hover {
+            background-color: #fffde7;
+        }
 
         /* LISTA WYNIKÓW */
         .result-item {
-            padding: 12px; border-bottom: 1px solid #eee; cursor: pointer; font-size: 14px;
-            color: #002d5a; font-weight: 600; transition: background-color 0.2s;
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            font-size: 14px;
+            color: #002d5a;
+            font-weight: 600;
+            transition: background-color 0.2s;
         }
-        .result-item:hover { background-color: #f1f4f8; }
+
+        .result-item:hover {
+            background-color: #f1f4f8;
+        }
 
         /* WNĘTRZE ALGORYTMU */
         .section-title {
-            color: #002d5a; border-bottom: 2px solid #fecb00; padding-bottom: 4px;
-            margin: 5px 0 10px 0; font-size: 1.1em; text-align: center;
+            color: #002d5a;
+            border-bottom: 2px solid #fecb00;
+            padding-bottom: 4px;
+            margin: 5px 0 10px 0;
+            font-size: 1.1em;
+            text-align: center;
         }
+
         .article-quote {
-            background-color: #fcfcfc; border: 1px solid #eee; border-left: 3px solid #fecb00; 
-            padding: 10px; margin-bottom: 12px; font-style: italic; color: #444; font-size: 12px; line-height: 1.4; text-align: justify; 
+            background-color: #fcfcfc;
+            border: 1px solid #eee;
+            border-left: 3px solid #fecb00;
+            padding: 10px;
+            margin-bottom: 12px;
+            font-style: italic;
+            color: #444;
+            font-size: 12px;
+            line-height: 1.4;
+            text-align: justify;
         }
 
         /* STYLE INTERAKTYWNYCH KROKÓW */
-        .algorithm-phase { animation: fadeIn 0.2s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .algorithm-phase {
+            animation: fadeIn 0.2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
         .etap-title {
             background: linear-gradient(135deg, #002d5a 0%, #004494 100%);
-            color: white; padding: 10px 12px; border-radius: 4px;
-            margin: 0 0 10px 0; font-weight: bold; font-size: 13px; 
-            text-transform: uppercase; display: flex; flex-direction: column;
+            color: white;
+            padding: 10px 12px;
+            border-radius: 4px;
+            margin: 0 0 10px 0;
+            font-weight: bold;
+            font-size: 13px;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
         }
-        .etap-subtitle { font-size: 11px; font-weight: normal; color: #fecb00; margin-top: 2px; text-transform: none; }
+
+        .etap-subtitle {
+            font-size: 11px;
+            font-weight: normal;
+            color: #fecb00;
+            margin-top: 2px;
+            text-transform: none;
+        }
 
         .step-item {
-            background-color: #ffffff; padding: 12px 14px; margin-bottom: 10px; border-radius: 6px;
-            border: 1px solid #f0f0f0; border-left: 3px solid #fecb00; box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+            background-color: #ffffff;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border: 1px solid #f0f0f0;
+            border-left: 3px solid #fecb00;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
         }
 
-        .section-heading { font-size: 13px; font-weight: bold; color: #002d5a; margin-bottom: 8px; border-bottom: 1px solid #eee; padding-bottom: 4px; text-transform: uppercase; }
-        .sub-section { margin-bottom: 12px; }
-        .sub-section:last-child { margin-bottom: 0; }
-        .sub-section b { display: block; margin-bottom: 2px; color: #002d5a; font-size: 13px; }
-        .sub-section div { margin-top: 0; font-size: 13px; line-height: 1.4; color: #333; text-align: justify; }
-        
-        .druk { 
-            color: #b38600; font-weight: 800; background-color: #fffde7; padding: 2px 4px; 
-            border-radius: 4px; text-decoration: none; border-bottom: 1px solid #fecb00; transition: all 0.2s; 
-        } 
-        .druk:hover { background-color: #fecb00; color: #002d5a; }
+        .section-heading {
+            font-size: 13px;
+            font-weight: bold;
+            color: #002d5a;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 4px;
+            text-transform: uppercase;
+        }
 
-        .cytat { font-style: italic; background-color: #f8f9fa; padding: 2px 4px; border-radius: 4px; color: #444; }
+        .sub-section {
+            margin-bottom: 12px;
+        }
+
+        .sub-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .sub-section b {
+            display: block;
+            margin-bottom: 2px;
+            color: #002d5a;
+            font-size: 13px;
+        }
+
+        .sub-section div {
+            margin-top: 0;
+            font-size: 13px;
+            line-height: 1.4;
+            color: #333;
+            text-align: justify;
+        }
+
+        .druk {
+            color: #b38600;
+            font-weight: 800;
+            background-color: #fffde7;
+            padding: 2px 4px;
+            border-radius: 4px;
+            text-decoration: none;
+            border-bottom: 1px solid #fecb00;
+            transition: all 0.2s;
+        }
+
+        .druk:hover {
+            background-color: #fecb00;
+            color: #002d5a;
+        }
+
+        .cytat {
+            font-style: italic;
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: #444;
+        }
 
         .uwaga-link {
-            display: inline-block; background-color: #fecb00; color: #002d5a; padding: 4px 10px; 
-            border-radius: 4px; font-weight: 900; font-size: 12px; border: none; cursor: pointer; 
-            margin-left: 5px; vertical-align: middle; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: inline-block;
+            background-color: #fecb00;
+            color: #002d5a;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 900;
+            font-size: 12px;
+            border: none;
+            cursor: pointer;
+            margin-left: 5px;
+            vertical-align: middle;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .uwaga-link:active { transform: translateY(1px); }
-        
+
+        .uwaga-link:active {
+            transform: translateY(1px);
+        }
+
         .uwagi-box {
-            background-color: #fff4f4; border: 1px solid #f5c6cb; border-left: 4px solid #d9534f;
-            padding: 12px; margin-top: 5px; margin-bottom: 10px; border-radius: 4px; font-size: 13px; color: #333; line-height: 1.5;
+            background-color: #fff4f4;
+            border: 1px solid #f5c6cb;
+            border-left: 4px solid #d9534f;
+            padding: 12px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #333;
+            line-height: 1.5;
         }
-        .uwagi-title { color: #d9534f; font-weight: 900; text-transform: uppercase; font-size: 13px; margin-bottom: 4px; display: flex; align-items: center; }
-        .uwagi-title::before { content: "⚠️"; margin-right: 6px; font-size: 16px; }
+
+        .uwagi-title {
+            color: #d9534f;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 13px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+        }
+
+        .uwagi-title::before {
+            content: "⚠️";
+            margin-right: 6px;
+            font-size: 16px;
+        }
 
         /* KARTY W ZAKŁADKACH (PRZEPISY / DRUKI) */
         .przepisy-category {
-            font-size: 13px; color: #666; margin: 15px 0 10px 0; font-weight: bold;
-            border-bottom: 1px solid #eee; padding-bottom: 4px; text-transform: uppercase;
+            font-size: 13px;
+            color: #666;
+            margin: 15px 0 10px 0;
+            font-weight: bold;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 4px;
+            text-transform: uppercase;
         }
-        .tiles-grid { 
-            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; 
+
+        .tiles-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
         }
+
         .tile {
-            background-color: #ffffff; color: #002d5a; padding: 12px 8px; border-radius: 10px;
-            border: 1px solid #e2e8f0; border-bottom: 4px solid #002d5a; text-align: center; text-decoration: none;
-            display: flex; flex-direction: column; align-items: center; justify-content: flex-start; 
-            font-weight: 700; font-size: 11px; box-shadow: 0 4px 6px rgba(0,0,0,0.03); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: #ffffff;
+            color: #002d5a;
+            padding: 12px 8px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            border-bottom: 4px solid #002d5a;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            font-weight: 700;
+            font-size: 11px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             line-height: 1.3;
         }
-        .tile:active, .tile:hover { 
-            transform: translateY(-4px); box-shadow: 0 8px 15px rgba(0,45,90,0.1); border-bottom-color: #fecb00; 
+
+        .tile:active,
+        .tile:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 15px rgba(0,45,90,0.1);
+            border-bottom-color: #fecb00;
         }
+
         .tile-icon {
-            font-size: 26px; margin-bottom: 8px; 
+            font-size: 26px;
+            margin-bottom: 8px;
             background: linear-gradient(135deg, #f8f9fa 0%, #e2e8f0 100%);
-            width: 44px; height: 44px; border-radius: 12px; 
-            display: flex; align-items: center; justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             box-shadow: inset 0 2px 4px rgba(255,255,255,0.5), 0 2px 4px rgba(0,0,0,0.05);
         }
-        .tile-subtitle {
-            font-size: 9px; font-weight: normal; color: #6c757d; margin-top: 6px;
-            background: #f1f4f8; padding: 3px 6px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase;
-        }
-        .tile-full { grid-column: 1 / -1; }
 
-        .app-footer { margin-top: 15px; padding-top: 10px; border-top: 1px solid #eee; text-align: center; color: #999; font-size: 11px; line-height: 1.4; }
+        .tile-subtitle {
+            font-size: 9px;
+            font-weight: normal;
+            color: #6c757d;
+            margin-top: 6px;
+            background: #f1f4f8;
+            padding: 3px 6px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .tile-full {
+            grid-column: 1 / -1;
+        }
+
+        .app-footer {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #999;
+            font-size: 11px;
+            line-height: 1.5;
+        }
 
         /* WYSKAKUJĄCE OKNA (MODALE) Z DOKUMENTAMI */
         .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); z-index: 9999; justify-content: center; align-items: center;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
         }
+
         .modal-content {
-            background-color: white; width: 92%; max-width: 600px; max-height: 85vh;
-            border-radius: 10px; padding: 20px; overflow-y: auto; position: relative;
+            background-color: white;
+            width: 92%;
+            max-width: 600px;
+            max-height: 85vh;
+            border-radius: 10px;
+            padding: 20px;
+            overflow-y: auto;
+            position: relative;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
+
         .modal-close {
-            position: absolute; top: 12px; right: 15px; font-size: 24px; font-weight: bold;
-            color: #666; cursor: pointer; background: none; border: none; padding: 0;
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
         }
-        .modal-close:hover { color: #d9534f; }
-        .legal-doc-text { font-size: 12px; line-height: 1.5; color: #333; text-align: justify; }
-        .legal-doc-text h2 { color: #002d5a; font-size: 16px; border-bottom: 2px solid #fecb00; padding-bottom: 5px; margin-bottom: 15px; text-align: center; }
-        .legal-doc-text h3 { color: #002d5a; font-size: 13px; margin-top: 15px; margin-bottom: 5px; }
-        .legal-doc-text p { margin-bottom: 8px; }
+
+        .modal-close:hover {
+            color: #d9534f;
+        }
+
+        .legal-doc-text {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #333;
+            text-align: justify;
+        }
+
+        .legal-doc-text h2 {
+            color: #002d5a;
+            font-size: 16px;
+            border-bottom: 2px solid #fecb00;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .legal-doc-text h3 {
+            color: #002d5a;
+            font-size: 13px;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .legal-doc-text p {
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 <body>
@@ -249,31 +687,31 @@
         <button class="modal-close" onclick="closeModal('modal-regulamin')">&times;</button>
         <div class="legal-doc-text">
             <h2>Regulamin Korzystania z Aplikacji ALPO24 (Wersja Testowa)</h2>
-            
+
             <h3>§1. Postanowienia ogólne</h3>
-            <p>1. Niniejszy regulamin określa zasady korzystania z aplikacji internetowej „APLO 24 – Algorytm postępowania 24H”, dalej „Aplikacja”.</p>
-            <p>2. Właścicielem Aplikacji, administratorem technicznym oraz podmiotem uprawnionym do korzystania z autorskich praw majątkowych do Aplikacji jest Joanna Gorczyca, e-mail alpo24.team@gmail.com, dalej: „Właściciel”.</p>
+            <p>1. Niniejszy regulamin określa zasady korzystania z aplikacji internetowej „ALPO24 – Algorytm postępowania 24H”, dalej „Aplikacja”.</p>
+            <p>2. Właścicielem Aplikacji, administratorem technicznym oraz podmiotem uprawnionym do korzystania z autorskich praw majątkowych do Aplikacji jest Joanna Gorczyca, e-mail: alpo24.team@gmail.com, dalej: „Właściciel”.</p>
             <p>3. Aplikacja stanowi usługę świadczoną drogą elektroniczną w rozumieniu właściwych przepisów prawa.</p>
             <p>4. Korzystanie z Aplikacji oznacza zapoznanie się z niniejszym regulaminem i akceptację jego postanowień.</p>
             <p>5. Aplikacja ma charakter informacyjno-użytkowy i służy do korzystania z przygotowanych przez Właściciela materiałów, algorytmów, opracowań, zestawień, odnośników i dokumentów udostępnionych w ramach jej funkcjonalności, wyłącznie do użytku służbowego i edukacyjnego.</p>
-            
+
             <h3>§2. Wymagania techniczne</h3>
             <p>1. Do korzystania z Aplikacji niezbędne jest urządzenie z dostępem do Internetu oraz aktualna przeglądarka internetowa.</p>
             <p>2. Dla prawidłowego działania niektórych funkcji Aplikacji może być wymagane włączenie obsługi JavaScript oraz możliwości otwierania plików PDF lub DOC/DOCX.</p>
             <p>3. Właściciel nie gwarantuje prawidłowego działania Aplikacji na urządzeniach, systemach lub przeglądarkach niespełniających minimalnych wymagań technicznych.</p>
-            
+
             <h3>§3. Zasady korzystania z Aplikacji</h3>
             <p>1. Użytkownik może korzystać z Aplikacji wyłącznie w zakresie jej zwykłego przeznaczenia i zgodnie z niniejszym regulaminem.</p>
             <p>2. Jeżeli Aplikacja udostępnia ekran wejściowy z polem hasła, ma on wyłącznie charakter organizacyjny lub ograniczający dostęp do treści i nie oznacza utworzenia konta użytkownika ani zawarcia odrębnej umowy o prowadzenie konta.</p>
             <p>3. Użytkownik zobowiązuje się do korzystania z Aplikacji w sposób zgodny z prawem, dobrymi obyczajami oraz z poszanowaniem praw Właściciela.</p>
             <p>4. Zabronione jest podejmowanie działań mogących zakłócić działanie Aplikacji, obciążać jej infrastrukturę lub utrudniać korzystanie z niej innym osobom.</p>
-            
+
             <h3>§4. Prawa Autorskie</h3>
             <p>1. Aplikacja jako program komputerowy oraz jej elementy twórcze podlegają ochronie prawnej, w szczególności na podstawie ustawy o prawie autorskim i prawach pokrewnych. Ochroną objęte są w szczególności kod, struktura, układ, warstwa graficzna, sposób prezentacji treści, autorskie opisy, zestawienia, algorytmy, dobór materiałów oraz autorska logika sekwencji i nawigacji.</p>
             <p>2. Wszelkie prawa do Aplikacji, które nie zostały wyraźnie przyznane użytkownikowi w regulaminie, pozostają zastrzeżone na rzecz Właściciela.</p>
             <p>3. Udostępnienie Aplikacji nie oznacza przeniesienia na użytkownika jakichkolwiek autorskich praw majątkowych ani udzielenia prawa do dalszego wykorzystywania jej elementów poza zakresem dozwolonego korzystania z Aplikacji.</p>
             <p>4. Jeżeli w Aplikacji udostępniane są akty prawne, urzędowe dokumenty, formularze lub inne materiały nieobjęte ochroną prawa autorskiego, ochronie Właściciela podlega w szczególności autorski dobór, układ, zestawienie, opisanie, opracowanie, powiązanie i sposób prezentacji tych materiałów w Aplikacji.</p>
-            
+
             <h3>§5. Licencja</h3>
             <p>1. Właściciel udziela użytkownikowi niewyłącznej, odwołalnej, niezbywalnej i niepodlegającej sublicencjonowaniu licencji na korzystanie z Aplikacji wyłącznie na własny użytek wewnętrzny użytkownika i wyłącznie poprzez korzystanie z jej funkcjonalności.</p>
             <p>2. Użytkownik uzyskuje darmową, niewyłączną, niezbywalną i ograniczoną licencję na korzystanie z Aplikacji wyłącznie na własny użytek w zakresie jej funkcjonalności w związku z wykonywaniem obowiązków służbowych.</p>
@@ -285,7 +723,7 @@
             - dalszego udostępniania Aplikacji lub jej elementów osobom trzecim,<br>
             - wykorzystywania Aplikacji lub jej elementów w działalności konkurencyjnej bez uprzedniej pisemnej zgody Właściciela.</p>
             <p>5. Licencja wygasa automatycznie w razie naruszenia regulaminu.</p>
-            
+
             <h3>§6. Zakazy</h3>
             <p>1. Użytkownikowi zabrania się:<br>
             - kopiowania, zapisywania, utrwalania, powielania lub rozpowszechniania Aplikacji w całości lub w części,<br>
@@ -298,13 +736,13 @@
             - zatajania informacji o autorstwie Aplikacji,<br>
             - udostępniania osobom trzecim haseł, linków technicznych albo innych sposobów uzyskania dostępu, jeżeli zostały one przekazane użytkownikowi w sposób ograniczony.</p>
             <p>2. Zakazane jest także wykorzystywanie robotów, skryptów, scraperów, parserów lub innych narzędzi automatycznych do pobierania, indeksowania lub kopiowania zawartości Aplikacji bez uprzedniej pisemnej zgody Właściciela.</p>
-            
+
             <h3>§7. Dokumenty i materiały udostępnione w Aplikacji</h3>
             <p>1. W Aplikacji mogą być udostępniane pliki, wzory, dokumenty i materiały pomocnicze.</p>
             <p>2. O ile wyraźnie nie wskazano inaczej, materiały udostępnione w Aplikacji mogą być używane wyłącznie na potrzeby własnego korzystania z Aplikacji.</p>
             <p>3. Samo udostępnienie pliku do pobrania albo otwarcia nie oznacza zgody na jego dalsze kopiowanie, publiczne udostępnianie, odsprzedaż, publikację w innych serwisach, repozytoriach, grupach lub systemach.</p>
             <p>4. Użytkownik ponosi odpowiedzialność za wykorzystanie pobranych materiałów niezgodnie z ich przeznaczeniem lub z niniejszym regulaminem.</p>
-            
+
             <h3>§8. Odpowiedzialność</h3>
             <p>1. Aplikacja udostępniana jest w stanie „takim, w jakim jest”.</p>
             <p>2. Właściciel dokłada należytej staranności, aby Aplikacja działała prawidłowo, jednak nie gwarantuje jej stałej dostępności, kompletnej bezbłędności ani przydatności do konkretnego celu użytkownika.</p>
@@ -317,7 +755,7 @@
             - korzystania z Aplikacji w sposób sprzeczny z regulaminem,<br>
             - przerw technicznych, awarii sieci, błędów po stronie urządzenia użytkownika lub oprogramowania zewnętrznego,<br>
             - wykorzystania materiałów z Aplikacji przez użytkownika bez ich samodzielnej weryfikacji pod kątem aktualności i przydatności.</p>
-            
+
             <h3>§9. Naruszenia</h3>
             <p>1. W przypadku naruszenia regulaminu Właściciel może, według własnego uznania:<br>
             - zablokować albo ograniczyć dostęp do Aplikacji,<br>
@@ -325,25 +763,25 @@
             - zażądać usunięcia bezprawnie rozpowszechnianych materiałów lub kopii,<br>
             - dochodzić roszczeń przewidzianych przepisami prawa, w tym z tytułu naruszenia autorskich praw majątkowych, dóbr osobistych, tajemnicy przedsiębiorstwa lub czynów nieuczciwej konkurencji, jeżeli znajdą zastosowanie.</p>
             <p>2. Naruszenie praw autorskich może skutkować odpowiedzialnością cywilną oraz karną.</p>
-            
+
             <h3>§10. Reklamacje</h3>
             <p>1. Użytkownik może zgłaszać reklamacje dotyczące działania Aplikacji na adres: alpo24.team@gmail.com.</p>
             <p>2. Reklamacja powinna zawierać co najmniej dane umożliwiające kontakt zwrotny oraz opis problemu.</p>
             <p>3. Reklamacje będą rozpatrywane w rozsądnym terminie, nie dłuższym niż 30 dni od dnia ich otrzymania, chyba że charakter sprawy wymaga dłuższego czasu.</p>
-            
+
             <h3>§11. Zmiany regulaminu</h3>
             <p>1. Właściciel może zmienić regulamin z ważnych przyczyn, w szczególności w razie zmiany prawa, funkcjonalności Aplikacji, modelu udostępniania lub środków bezpieczeństwa.</p>
             <p>2. Nowa wersja regulaminu obowiązuje od chwili jej opublikowania w Aplikacji lub na stronie, o ile nie wskazano późniejszego terminu wejścia w życie.</p>
-            
+
             <h3>§12. Postanowienia końcowe</h3>
             <p>1. Regulamin podlega prawu polskiemu.</p>
             <p>2. W sprawach nieuregulowanych zastosowanie mają odpowiednie przepisy prawa.</p>
             <p>3. Wszelkie spory będą rozstrzygane przez sąd właściwy dla siedziby Właściciela.</p>
             <p>4. Rozpoczęcie korzystania z Aplikacji, tj. odblokowanie hasłem i zatwierdzenie przyciskiem oznacza akceptację niniejszego regulaminu.</p>
-            <p>5. Wersją wiążącą regulaminy jest język polski.</p>
-            
+            <p>5. Wersją wiążącą regulaminu jest język polski.</p>
+
             <h3>§13. Kontakt</h3>
-            <p>W sprawach związanych z Aplikacją można kontaktować się pod adresem aplo24.team@gmail.com.</p>
+            <p>W sprawach związanych z Aplikacją można kontaktować się pod adresem: alpo24.team@gmail.com.</p>
         </div>
     </div>
 </div>
@@ -353,7 +791,7 @@
         <button class="modal-close" onclick="closeModal('modal-polityka')">&times;</button>
         <div class="legal-doc-text">
             <h2>POLITYKA PRYWATNOŚCI APLIKACJI ALPO24</h2>
-            
+
             <h3>§1. Informacje ogólne</h3>
             <p>1. Niniejsza polityka prywatności określa zasady przetwarzania danych związanych z korzystaniem z aplikacji internetowej ALPO24 („Aplikacja”).</p>
             <p>2. Administratorem strony jest Joanna Gorczyca, kontakt e-mail: alpo24.team@gmail.com, dalej: „Administrator”.</p>
@@ -417,7 +855,7 @@
             <p>2. Nowa wersja polityki obowiązuje od chwili jej opublikowania.</p>
 
             <h3>§11. Kontakt</h3>
-            <p>W sprawach dotyczących prywatności i danych osobowych można kontaktować się z Administratorem pod adresem alpo24.team@gmail.com.</p>
+            <p>W sprawach dotyczących prywatności i danych osobowych można kontaktować się z Administratorem pod adresem: alpo24.team@gmail.com.</p>
         </div>
     </div>
 </div>
@@ -425,24 +863,41 @@
 <div id="login-screen">
     <div class="logo-box" style="margin-bottom: 15px; display: inline-block;">ALPO24</div>
     <h1>Wersja Pokazowa</h1>
-    <p>Podaj hasło dostępu, aby odblokować aplikację.</p>
-    <input type="text" id="passwordInput" placeholder="Hasło..." autocapitalize="off" autocorrect="off" onkeydown="if(event.key === 'Enter') sprawdzHaslo()">
-    
+    <p>Podaj hasło dostępu, aby odblokować aplikację. Wersja testowa przeznaczona wyłącznie do wglądu.</p>
+
+    <input
+        type="text"
+        id="passwordInput"
+        placeholder="Hasło..."
+        autocapitalize="off"
+        autocorrect="off"
+        onkeydown="if(event.key === 'Enter') sprawdzHaslo()"
+    >
+
     <div class="legal-checkbox-container">
         <input type="checkbox" id="acceptLegalTerms">
-        <label for="acceptLegalTerms">Akceptuję <a onclick="openModal('modal-regulamin')">Regulamin</a> oraz <a onclick="openModal('modal-polityka')">Politykę prywatności</a>.</label>
+        <label for="acceptLegalTerms">
+            Akceptuję <a onclick="openModal('modal-regulamin')">Regulamin</a>
+            oraz <a onclick="openModal('modal-polityka')">Politykę prywatności</a>.
+        </label>
     </div>
-    
+
     <button class="btn-primary" onclick="sprawdzHaslo()">Odblokuj</button>
     <div id="login-error">Nieprawidłowe hasło!</div>
     <div id="legal-error">Musisz zaakceptować dokumenty, aby wejść.</div>
+
+    <div style="margin-top:10px; font-size:12px; color:#666; text-align:center; max-width:320px; line-height:1.5;">
+        Wersja testowa. Materiały, układ aplikacji, algorytmy i treści zawarte w aplikacji ALPO24
+        są chronione prawem autorskim. Zakazane jest kopiowanie, rozpowszechnianie i wykorzystywanie
+        bez zgody autora.
+    </div>
 </div>
 
 <div class="container" id="main-app">
-    
+
     <div class="header-alpo">
-      <div class="logo-box">ALPO24</div>
-      <div class="brand-name">Algorytm postępowania <span>24H</span></div>
+        <div class="logo-box">ALPO24</div>
+        <div class="brand-name">Algorytm postępowania <span>24H</span></div>
     </div>
 
     <div class="tabs-container">
@@ -452,9 +907,15 @@
     </div>
 
     <div id="tab-algorytmy" class="tab-content active">
-        
+
         <div id="search-view">
-            <input type="text" id="searchInput" placeholder="Szukaj algorytmu (np. 190, kradzież)..." oninput="searchCrime()" onkeydown="if(event.key === 'Enter') searchCrime()">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Szukaj algorytmu (np. 190, kradzież)..."
+                oninput="searchCrime()"
+                onkeydown="if(event.key === 'Enter') searchCrime()"
+            >
             <button class="btn-primary" onclick="searchCrime()">Szukaj</button>
             <div id="resultsList"></div>
 
@@ -480,17 +941,17 @@
                     1) oznaczenie czynności, jej czasu i miejsca oraz osób w niej uczestniczących;<br>
                     <i>[Treść skrócona na potrzeby wersji testowej]</i>
                 </div>
-                
+
                 <div style="text-align: center; margin-top: 10px; font-size: 12px; color: #999; font-style: italic;">
                     (W pełnej wersji aplikacji dostępna jest pełna lista przepisów k.p.k.)
                 </div>
             </div>
         </div>
-        
+
         <div id="algorithm-view" style="display: none;">
             <h2 id="crimeTitle" class="section-title">Tytuł</h2>
             <div id="articleQuote" class="article-quote"></div>
-            
+
             <div id="algorithm-menu"></div>
             <div id="algorithm-phase-content" style="display:none;"></div>
 
@@ -504,20 +965,20 @@
     <div id="tab-druki" class="tab-content">
         <h3 class="przepisy-category">Przykładowe Protokoły</h3>
         <div class="tiles-grid">
-            <a href="#" class="tile" onclick="alert('Opcja wyłączona w wersji testowej.')">
+            <a href="#" class="tile" onclick="alert('Opcja wyłączona w wersji testowej.'); return false;">
                 <div class="tile-icon">📕</div>Protokół przyjęcia ustnego zawiadomienia o przestępstwie<br><span class="tile-subtitle">wersja PDF</span>
             </a>
-            <a href="#" class="tile" onclick="alert('Opcja wyłączona w wersji testowej.')">
+            <a href="#" class="tile" onclick="alert('Opcja wyłączona w wersji testowej.'); return false;">
                 <div class="tile-icon">📝</div>Protokół przyjęcia ustnego zawiadomienia o przestępstwie<br><span class="tile-subtitle">wersja WORD</span>
             </a>
         </div>
-        
+
         <h3 class="przepisy-category">Inne dokumenty (Demo)</h3>
         <div class="tiles-grid">
-            <a href="#" class="tile" onclick="alert('Opcja wyłączona w wersji testowej.')">
+            <a href="#" class="tile" onclick="alert('Opcja wyłączona w wersji testowej.'); return false;">
                 <div class="tile-icon">📕</div>Pouczenie o uprawnieniach świadka (18+)
             </a>
-            <a href="#" class="tile" onclick="alert('Opcja wyłączona w wersji testowej.')">
+            <a href="#" class="tile" onclick="alert('Opcja wyłączona w wersji testowej.'); return false;">
                 <div class="tile-icon">🏷️</div>Metryczka dowodu rzeczowego
             </a>
         </div>
@@ -526,12 +987,12 @@
     <div id="tab-przepisy" class="tab-content">
         <h3 class="przepisy-category">Przykładowe Kodeksy</h3>
         <div class="tiles-grid">
-            <a href="#" class="tile" onclick="alert('Opcja wyłączona w wersji testowej.')"><div class="tile-icon">📕</div>Kodeks karny</a>
-            <a href="#" class="tile" onclick="alert('Opcja wyłączona w wersji testowej.')"><div class="tile-icon">📘</div>Kodeks postępowania karnego</a>
+            <a href="#" class="tile" onclick="alert('Opcja wyłączona w wersji testowej.'); return false;"><div class="tile-icon">📕</div>Kodeks karny</a>
+            <a href="#" class="tile" onclick="alert('Opcja wyłączona w wersji testowej.'); return false;"><div class="tile-icon">📘</div>Kodeks postępowania karnego</a>
         </div>
         <h3 class="przepisy-category">Przykładowe Ustawy</h3>
         <div class="tiles-grid">
-            <a href="#" class="tile tile-full" onclick="alert('Opcja wyłączona w wersji testowej.')"><div class="tile-icon">🛡️</div>Ustawa o Policji</a>
+            <a href="#" class="tile tile-full" onclick="alert('Opcja wyłączona w wersji testowej.'); return false;"><div class="tile-icon">🛡️</div>Ustawa o Policji</a>
         </div>
     </div>
 
@@ -540,9 +1001,10 @@
             <button class="btn-secondary" style="padding: 6px 12px; font-size: 11px; margin: 2px; border: none; border-radius: 4px; color: white; cursor: pointer;" onclick="openModal('modal-regulamin')">📜 Przeczytaj Regulamin</button>
             <button class="btn-secondary" style="padding: 6px 12px; font-size: 11px; margin: 2px; border: none; border-radius: 4px; color: white; cursor: pointer;" onclick="openModal('modal-polityka')">🔒 Polityka Prywatności</button>
         </div>
-        Wersja testowa - ALPO24
-	Joanna Gorczyca, e-mail: alpo24@gmai.com<br>
-        Pełna zawartość zastrzeżona
+        Wersja testowa - ALPO24<br>
+        Joanna Gorczyca, e-mail: alpo24.team@gmail.com<br>
+        © 2026 ALPO24. Wszystkie prawa zastrzeżone.<br>
+        Zakaz kopiowania, rozpowszechniania i wykorzystywania bez zgody autora.
     </div>
 </div>
 
@@ -552,9 +1014,9 @@
 
     // LOGOWANIE Z WALIDACJĄ REGULAMINU
     function sprawdzHaslo() {
-        let haslo = document.getElementById("passwordInput").value.trim().toLowerCase(); 
+        let haslo = document.getElementById("passwordInput").value.trim().toLowerCase();
         let isAccepted = document.getElementById("acceptLegalTerms").checked;
-        
+
         document.getElementById("login-error").style.display = "none";
         document.getElementById("legal-error").style.display = "none";
 
@@ -593,30 +1055,33 @@
 
     document.addEventListener("DOMContentLoaded", function() {
         const pTags = document.querySelectorAll('p, h4, .accordion-content');
-        pTags.forEach(p => { p.innerHTML = usunWdowy(p.innerHTML); });
+        pTags.forEach(p => {
+            p.innerHTML = usunWdowy(p.innerHTML);
+        });
     });
 
     // ZAKŁADKI GŁÓWNE
     function switchTab(tabName) {
         document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
         document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
-        
+
         document.getElementById('tab-' + tabName).style.display = 'block';
         document.getElementById('btn-' + tabName).classList.add('active');
-        
+
         if (tabName === 'algorytmy' && currentAlgorithm === null) {
             resetToSearch();
         }
     }
 
-    // PODSTAWY PRAWNE 
+    // PODSTAWY PRAWNE
     function toggleLegalBasis() {
         document.getElementById("legalBasisContainer").classList.toggle("hidden");
     }
+
     function toggleAccordion(id) {
         document.getElementById(id).classList.toggle("hidden");
     }
-    
+
     // ROZWIJANIE UWAG W ALGORYTMIE
     function toggleUwaga(btn) {
         const uwagaBox = btn.nextElementSibling;
@@ -652,14 +1117,15 @@
         isPhaseViewActive = false;
         document.getElementById("searchInput").value = "";
         document.getElementById("resultsList").innerHTML = "";
-        
+
         document.getElementById("search-view").style.display = "block";
         document.getElementById("algorithm-view").style.display = "none";
-        
+
         document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
         document.getElementById('btn-algorytmy').classList.add('active');
         document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
         document.getElementById('tab-algorytmy').style.display = 'block';
+
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -668,15 +1134,15 @@
         document.getElementById("algorithm-menu").style.display = "none";
         const pCont = document.getElementById("algorithm-phase-content");
         pCont.style.display = "block";
-        
+
         let phaseContent = `<div class="algorithm-phase" id="faza-${index}">${usunWdowy(currentAlgorithm.phases[index])}</div>`;
-        
+
         if (index < currentAlgorithm.phases.length - 1) {
             phaseContent += `<button class="btn-primary" style="margin-top: 15px; margin-bottom: 10px;" onclick="openPhase(${index + 1})">Przejdź do kolejnego etapu ➔</button>`;
         } else {
             phaseContent += `<button class="btn-primary btn-secondary" style="margin-top: 15px; margin-bottom: 10px;" onclick="handleBackBtn()">Zakończ i wróć do menu algorytmu</button>`;
         }
-        
+
         pCont.innerHTML = phaseContent;
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -687,20 +1153,20 @@
         const pCont = document.getElementById("algorithm-phase-content");
         pCont.style.display = "block";
         pCont.innerHTML = `<div class="algorithm-phase" id="faza-0"></div>`;
-        
+
         const phaseDiv = pCont.querySelector('.algorithm-phase');
         currentAlgorithm.steps.forEach(s => {
             phaseDiv.innerHTML += `<div class="step-item">${usunWdowy(s)}</div>`;
         });
-        
+
         pCont.innerHTML += `<button class="btn-primary btn-secondary" style="margin-top: 15px; margin-bottom: 10px;" onclick="handleBackBtn()">Zakończ i wróć do menu algorytmu</button>`;
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // BAZA DANYCH - WERSJA ZREDUKOWANA DLA DEMA
     const standardDocumentsList = [
-        `<a href="#" class="druk" onclick="alert('Opcja wyłączona w wersji testowej.')">Protokół przyjęcia ustnego zawiadomienia o przestępstwie</a>`,
-        `<a href="#" class="druk" onclick="alert('Opcja wyłączona w wersji testowej.')">Pouczenie o uprawnieniach i obowiązkach świadka</a>`
+        `<a href="#" class="druk" onclick="alert('Opcja wyłączona w wersji testowej.'); return false;">Protokół przyjęcia ustnego zawiadomienia o przestępstwie</a>`,
+        `<a href="#" class="druk" onclick="alert('Opcja wyłączona w wersji testowej.'); return false;">Pouczenie o uprawnieniach i obowiązkach świadka</a>`
     ];
 
     const crimeDatabase = [
@@ -718,7 +1184,7 @@
                         <div style="color:#d9534f; margin-top: 10px; font-weight:bold;">[Treść skrócona na potrzeby wersji testowej]</div>
                     </div>
                 </div>`,
-                
+
                 `<div class="etap-title">ETAP 2: Faza główna <span class="etap-subtitle">(procesowe przyjęcie ustnego zawiadomienia)</span></div>
                 <div class="step-item">
                     <div class="section-heading">I. CO SIĘ STAŁO?</div>
@@ -768,9 +1234,13 @@
         const query = document.getElementById("searchInput").value.toLowerCase();
         const resultsDiv = document.getElementById("resultsList");
         resultsDiv.innerHTML = "";
+
         if (query.trim() === "") return;
-        const results = crimeDatabase.filter(crime => crime.keywords.some(k => k.includes(query)));
-        
+
+        const results = crimeDatabase.filter(crime =>
+            crime.keywords.some(k => k.includes(query))
+        );
+
         if (results.length > 0) {
             results.forEach(crime => {
                 const div = document.createElement("div");
@@ -800,7 +1270,7 @@
 
         const menuContainer = document.getElementById("algorithm-menu");
         const phaseContainer = document.getElementById("algorithm-phase-content");
-        
+
         menuContainer.style.display = "block";
         phaseContainer.style.display = "none";
         menuContainer.innerHTML = "";
@@ -812,12 +1282,16 @@
             docBtn.style.backgroundColor = "#fff8e1";
             docBtn.style.border = "1px solid #fecb00";
             docBtn.innerHTML = "📄 Wykaz niezbędnych dokumentów procesowych <span>▼</span>";
-            docBtn.onclick = function() { this.nextElementSibling.classList.toggle("hidden"); };
+            docBtn.onclick = function() {
+                this.nextElementSibling.classList.toggle("hidden");
+            };
             menuContainer.appendChild(docBtn);
-            
+
             let docContent = document.createElement("div");
             docContent.className = "accordion-content hidden";
-            crime.documents.forEach(d => { docContent.innerHTML += `<div style="margin: 6px 0;">🔹 ${d}</div>`; });
+            crime.documents.forEach(d => {
+                docContent.innerHTML += `<div style="margin: 6px 0;">🔹 ${d}</div>`;
+            });
             menuContainer.appendChild(docContent);
         }
 
@@ -826,7 +1300,9 @@
                 let phaseBtn = document.createElement("button");
                 phaseBtn.className = "btn-primary";
                 phaseBtn.style.marginTop = "8px";
-                let title = index === 0 ? "ETAP 1: Faza Wstępna" : (index === 1 ? "ETAP 2: Faza Główna" : "ETAP 3: Faza Końcowa");
+                let title = index === 0
+                    ? "ETAP 1: Faza Wstępna"
+                    : (index === 1 ? "ETAP 2: Faza Główna" : "ETAP 3: Faza Końcowa");
                 phaseBtn.innerText = title;
                 phaseBtn.onclick = () => openPhase(index);
                 menuContainer.appendChild(phaseBtn);
@@ -839,8 +1315,48 @@
             stepBtn.onclick = () => openStandardSteps();
             menuContainer.appendChild(stepBtn);
         }
+
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
+
+<script>
+    document.addEventListener('keydown', function(event) {
+        const key = event.key.toLowerCase();
+
+        if (
+            event.key === 'F12' ||
+            (event.ctrlKey && key === 'u') ||
+            (event.ctrlKey && key === 's') ||
+            (event.ctrlKey && key === 'c') ||
+            (event.ctrlKey && key === 'x') ||
+            (event.ctrlKey && event.shiftKey && key === 'i') ||
+            (event.ctrlKey && event.shiftKey && key === 'j')
+        ) {
+            event.preventDefault();
+        }
+    });
+
+    document.addEventListener('copy', function(event) {
+        event.preventDefault();
+    });
+
+    document.addEventListener('cut', function(event) {
+        event.preventDefault();
+    });
+
+    document.addEventListener('contextmenu', function(event) {
+        event.preventDefault();
+    });
+
+    document.addEventListener('dragstart', function(event) {
+        event.preventDefault();
+    });
+
+    document.addEventListener('selectstart', function(event) {
+        event.preventDefault();
+    });
+</script>
+
 </body>
 </html>
